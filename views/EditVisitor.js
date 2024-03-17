@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { useState } from "react"
+import { useState, Pressable } from "react"
 import { StatusBar } from 'expo-status-bar';
 import SearchFilter from './components/SearchFilter';
-
-
+import styles from './components/styles';
+import { collection, doc, setDoc, getDocs, query, where, getDoc } from "firebase/firestore";
+import { db } from './components/config';
+import { Button } from '@rneui/base';
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -11,10 +13,17 @@ const Separator = () => <View style={styles.separator} />;
 
 export default function EditVisitor({ navigation }) {
 
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
+    const [data, setData] = useState("")
 
-    function Search() {
-      names = Firebase.db.collection("Membresìa").get()
+    //Getting just ONE document... The one with document: LGi2w2OG8d7XCZHnuCqW
+    const fetchingData = async () =>  {
+      
+      const querySnapshot = await getDocs(collection(db, "Membresía"))
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data())
+      })
+
     }
 
     return (
@@ -29,52 +38,20 @@ export default function EditVisitor({ navigation }) {
                   placeholder="Nombre del visitante"
                   onChangeText ={(value) => setSearch(value)}
                   value={search}
-              />
+              >
+          </TextInput>
 
-          <SearchFilter input={search} setInput={setSearch}/>
           
+          <Button title="Boton" onPress={()=>{fetchingData()}}></Button>
+          <Separator />
+
+          <Text>
+          {
+            
+          }
+          </Text>
+
       </View>
     )  
   }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: "center",
-      justifyContent: 'flex-start',
-    },
-    text:{
-      fontSize:35,
-      marginBottom:10
-    },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-      backgroundColor: '#3a87cc',
-    },
-    buttonText: {
-      fontSize: 18,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'white',
-    },
-    separator: {
-      marginVertical: 15,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-    input: {
-      borderColor: "gray",
-      width: "75%",
-      borderWidth: 1,
-      margin:10,
-      borderRadius: 10,
-      padding: 10,
-    },
-  });

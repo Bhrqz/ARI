@@ -1,20 +1,80 @@
 import React, { useState } from 'react';
-import {View, StyleSheet, Text, TextInput, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Text, TextInput, Pressable, Image, Alert} from 'react-native';
 import { db } from './components/config';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import styles from './components/styles';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { useNavigation } from '@react-navigation/core';
+
 
 const Separator = () => <View style={styles.separator} />;
 
 
-const Login = ({ navigation }) => {
+const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
     
     const Cleanfields = () =>{
         setEmail("")
         setPassword("")
     }
+    
+    
+    /**
+     Here, I used the solution presented here for the navigation between 
+     the Login page and the Home page for the authenticated users
+     https://stackoverflow.com/questions/71562840/typeerror-cannot-read-property-navigate-of-undefined-react-native
+     
+     I did use the UseNavigation Hook directly
+     */
+
+    const navigation = useNavigation()
+
+    async function onLoginPress(){
+
+        /**const checkName = () =>{
+            if(user){
+                console.log(e)
+            }
+        }*/
+
+        setLoading(true)
+        const auth = getAuth()
+        await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                
+                setLoading(false)
+                Alert.alert(
+                    "Autenticado", 
+                    "Te doy la bienvenida",
+                    [
+                        // un invento para verificar si tiene nombre y aja
+                           { text: 'OK',
+                            //onPress: () => checkName(),
+                            style: 'cancel',}
+                        
+                        ],
+                        {
+                          cancelable: false,
+                          
+                        } 
+                    );
+                navigation.navigate("Home")
+                console.log("de la linea 41",user.displayName)
+                // ...
+            })
+            .catch((error) => {
+                setLoading(false)
+                Alert.alert("Oops","Ha habido un error, \npor favor, revisa tu información\ne intenta nuevamente")
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });    
+        }
+
 
     return (
         <KeyboardAwareScrollView>
@@ -22,17 +82,17 @@ const Login = ({ navigation }) => {
                 <View style={styles.container}>
 
                     <Separator />
-                    <Text style={styles.text}>Identificación</Text>
+                    <Text style={styles.textLogin}>Identificación</Text>
                     <Image source={require('../assets/LOGO PASTOR JULIO.png')} style={{width: 300, height: 200}} />
                     <Separator />
-                    <Text style={styles.label} >Email de usuario</Text>
+                    
                     <TextInput
                         style={styles.input}
                         placeholder="Correo electrónico"
                         onChangeText ={(value) => setEmail(value)}
                         value={email}
                     />
-                    <Text style={styles.label}>Contraseña</Text>
+                    
                     <TextInput
                         style={styles.input}
                         secureTextEntry={true}
@@ -40,10 +100,11 @@ const Login = ({ navigation }) => {
                         onChangeText ={(value) => setPassword(value)}
                         value={password}
                     />
-                    <Separator /><Separator />
+                    <Text>{loading? "¡Verificando!":""}</Text>
+                    
                     <Pressable
                         style={styles.button}
-                        onPress={() => Alert.alert()}>
+                        onPress={() => onLoginPress()}>
                         <Text style={styles.buttonText}>Entrar</Text>
                     </Pressable>
                     <Separator />
@@ -60,51 +121,6 @@ const Login = ({ navigation }) => {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: "center",
-      },
-    input: {
-        borderColor: "gray",
-        width: "75%",
-        borderWidth: 1,
-        margin:10,
-        borderRadius: 10,
-        padding: 10,
-    },
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 4,
-        elevation: 3,
-        backgroundColor: '#3a87cc',
-      },
-    buttonText: {
-        fontSize: 18,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-      },
-    label:{
 
-    },
-    text:{
-        fontSize:35,
-  
-        
-        
-      },
-    separator: {
-        marginVertical: 10,
-        borderBottomColor: '#737373',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-      }
-})
 
 export default Login;

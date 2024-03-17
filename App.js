@@ -6,12 +6,17 @@ import Home from './views/Home';
 import NewVisitor from './views/NewVisitor';
 import EditVisitor from './views/EditVisitor';
 import Login from './views/Login';
+import { useState } from 'react';
 
 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [user, setUser] = useState(false)
+
+
   return (
     <NavigationContainer>
       <Stack.Navigator> 
