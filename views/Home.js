@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import styles from './components/styles';
 
 
 const Separator = () => <View style={styles.separator} />;
@@ -7,7 +8,7 @@ const Separator = () => <View style={styles.separator} />;
 export default function Home({ navigation }) {
     return (
       <View style={styles.container}>
-          <Text style={styles.text}> 
+          <Text style={styles.textLogin}> 
             {'\n'}  
             Bienvenido 
           </Text>
@@ -32,38 +33,3 @@ export default function Home({ navigation }) {
     )  
   }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: "center",
-      justifyContent: 'flex-start',
-    },
-    text:{
-      fontSize:35,
-
-      
-      
-    },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-      backgroundColor: '#3a87cc',
-    },
-    buttonText: {
-      fontSize: 18,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'white',
-    },
-    separator: {
-      marginVertical: 15,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    }
-  });

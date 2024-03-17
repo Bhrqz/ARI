@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-
+import styles from './components/styles';
 
 
 const Separator = () => <View style={styles.separator} />;
@@ -52,6 +52,7 @@ export default function NewVisitor() {
       setName("")
       setAdress("")
       onChangeNumber("")
+      setInviter("")
       setSwitchEnabled(false)
     }
 
@@ -145,61 +146,11 @@ export default function NewVisitor() {
                 <Text style={styles.buttonText}>Guardar visitante nuevo</Text>
            
               </Pressable>
-<Separator />
-<Separator />
+            <Separator />
+            <Separator />
             <StatusBar style="auto" />
         </View>
       </KeyboardAwareScrollView>
     )  
   }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: "flex-start",
-    },
-    input: {
-        borderColor: "gray",
-        width: "75%",
-        borderWidth: 1,
-        margin:10,
-        borderRadius: 10,
-        padding: 10,
-      },
-    label: {
-        alignItems:"flex-end",
-        padding:10,
-        fontSize:23
-    },
-    separator: {
-      marginVertical: 15,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
-      backgroundColor: '#3a87cc',
-    },
-    buttonText: {
-      fontSize: 18,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'white',
-    },
-    text:{
-      fontSize:16,
-      textAlign :"center",
-    },
-    buttonAlert:{
-      borderWidth:10
-    }
-    }
-  )
