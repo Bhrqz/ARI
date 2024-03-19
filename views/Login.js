@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {View, StyleSheet, Text, TextInput, Pressable, Image, Alert} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import {View, Text, TextInput, Pressable, Image, Alert} from 'react-native';
 import { db } from './components/config';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './components/styles';
@@ -78,7 +79,8 @@ const Login = () => {
 
     return (
         <KeyboardAwareScrollView>
-            
+                
+                <StatusBar style="auto" />
                 <View style={styles.container}>
 
                     <Separator />
