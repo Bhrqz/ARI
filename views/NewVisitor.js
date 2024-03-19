@@ -25,35 +25,37 @@ export default function NewVisitor() {
     }
 
     //Function for sending info
-    function SendingInfo(){
+    async function SendingInfo(){
       
       //Code for sending the info to Firebase
       //This code updates the "prueba de la app2" document
 
       //change "setDoc" and "doc" to "addDoc" and "collection" to
       //  create a new collection every time SendingInfo is called
-      setDoc(doc(db, "Membresía", "Prueba de la app2 "), {
-          Nombres: name,
-          Apellidos: lastname,
-          Contacto:  number,
-          Dirección: address,
-          Invitado:inviter,
-          Fecha_registro: serverTimestamp()
+      await setDoc(doc(db, "Membresía", "Prueba de la app2 "), {
+              Nombres: name,
+              Apellidos: lastname,
+              Contacto:  number,
+              Dirección: address,
+              Invitado:inviter,
+              Fecha_registro: serverTimestamp()
           }).then(() => {
-          console.log("Data submitted")
+              Alert.alert('Información Guardada')
+              console.log("Data submitted")
+              setLastname("")
+              setName("")
+              setAdress("")
+              onChangeNumber("")
+              setInviter("")
+              setSwitchEnabled(false)
           }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)
           })
       
-      //Saved. Cleaning the fields       
-      Alert.alert('Información Guardada')
-      setLastname("")
-      setName("")
-      setAdress("")
-      onChangeNumber("")
-      setInviter("")
-      setSwitchEnabled(false)
+           
+      
+      
     }
 
     return (
