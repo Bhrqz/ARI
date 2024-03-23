@@ -15,20 +15,25 @@ export default function Home({ navigation }) {
           
           <StatusBar style="auto" />
           <Separator />
-
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Nuevo Visitante')}>
               <Text style={styles.buttonText}>Nuevo visitante</Text>
-           
           </Pressable>
           <Separator />
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Editar Visitante')}>
               <Text style={styles.buttonText}>Editar visitante</Text>
-           
           </Pressable>
+          <Separator />
+          <Separator />
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Creación de Reporte')}>
+              <Text style={styles.buttonText}>Crear un Reporte</Text>
+          </Pressable>
+
       </View>
     )  
   }
