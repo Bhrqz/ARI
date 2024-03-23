@@ -51,5 +51,10 @@ export default StyleSheet.create({
     textLogin:{
         fontSize:35
     },
+    lists:{
+      alignItems:"flex-start",
+      
+
+    }
     }
   )
