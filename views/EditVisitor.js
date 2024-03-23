@@ -5,7 +5,7 @@ import SearchFilter from './components/SearchFilter';
 import styles from './components/styles';
 import { collection, doc, setDoc, getDocs, query, where, getDoc, QuerySnapshot } from "firebase/firestore";
 import { db } from './components/config';
-import { Button, ListItem } from '@rneui/base';
+import { Button, Icon } from '@rneui/base';
 import { useEffect } from 'react';
 
 const Separator = () => <View style={styles.separator} />;
@@ -16,7 +16,6 @@ export default function EditVisitor({ navigation }) {
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const [visitorName, setVisitorName] = useState("");
-  const [sortedMember, setSortedMembers] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -31,34 +30,57 @@ export default function EditVisitor({ navigation }) {
       setMembers(docs);
     }
     fetchData();
-    setSortedMembers(members.sort((a,b) =>a.Nombres.localeCompare(b.Nombres)))
+
   }, []);
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <Separator />
-        <Text style={styles.text}>Editar un visitante</Text>
+        <Text style={styles.text}>Buscar un visitante</Text>
 
         <TextInput
           style={styles.input}
-          placeholder="Nombre del visitante"
+          placeholder="Filtro por nombre"
           value={visitorName}
           onChangeText={(value) => setVisitorName(value)}
         />
 
-        
+        <Text>{visitorName}</Text>
         <Separator />
 
         <View>
           {loadingMembers?
-            <Text>Cargando miembros</Text>:
-            sortedMember.map((member, index) => (
-              <TouchableOpacity style={styles.lists} index={member.id}>
-                <Text style={styles.textTitleList}>{member && member.Nombres}</Text>
-                <Text style={styles.textNoTitleList}>{member && member.Apellidos}</Text>
-                <Separator/>
-              </TouchableOpacity>
+            <View>
+              <Text>Cargando miembros...</Text>
+              <Button title="Cargando Miembros" type="solid" loading/>
+            </View>
+            :
+            members
+              .sort((a,b) =>a.Nombres.localeCompare(b.Nombres))
+              .filter(member => {
+                // STILL can make this filter works.  Later
+                  if (visitorName.trim() === '') {
+                    return true; // Devolver true para mostrar todos los miembros
+                  } else if (member) {
+                    // Si el campo de entrada no está vacío, filtrar según el nombre
+                    return member.Nombres.toLowerCase() == visitorName.toLowerCase();
+                  }
+                })        
+              .map((member) => (
+                <TouchableOpacity 
+                  style={styles.lists} 
+                  index={member.id} 
+                  key={member.id}
+                  onPress={() => {navigation.navigate("Detalles Visitante", { memberDetails: member })}}
+                  >
+                  <View>
+                    <Text style={styles.textTitleList}>{member && member.Nombres}</Text>
+                    <Text style={styles.textNoTitleList}>{member && member.Apellidos}</Text>
+                    
+                  </View>
+                  <Separator/>
+                </TouchableOpacity>
           ))}
         </View>
 
