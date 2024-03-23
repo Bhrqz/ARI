@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { useState, Pressable } from "react"
 import { StatusBar } from 'expo-status-bar';
 import SearchFilter from './components/SearchFilter';
 import styles from './components/styles';
 import { collection, doc, setDoc, getDocs, query, where, getDoc, QuerySnapshot } from "firebase/firestore";
 import { db } from './components/config';
-import { Button } from '@rneui/base';
+import { Button, ListItem } from '@rneui/base';
 import { useEffect } from 'react';
 
 const Separator = () => <View style={styles.separator} />;
@@ -13,51 +13,54 @@ const Separator = () => <View style={styles.separator} />;
 
 
 export default function EditVisitor({ navigation }) {
+  const [members, setMembers] = useState([]);
+  const [loadingMembers, setLoadingMembers] = useState(true);
+  const [visitorName, setVisitorName] = useState("");
 
-    const [members, setMembers] = useState([]);
-
-    
-    const fetchingData = async () =>  {
-      const querySnapshot = await getDocs(collection(db, "Membresía"))
+  useEffect(() => {
+    async function fetchData() {
+      const docs = [];
+      const querySnapshot = await getDocs(collection(db, "Membresía"));
+      setLoadingMembers(false);
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data())
+        console.log(doc.id, " => ", doc.data());
+        const object = doc.data();
+        docs.push(object);
+      });
+      setMembers(docs);
+    }
+    fetchData();
+  }, []);
 
-        const object = doc.data()
-
-        members.push(object)
-        
-    })}
- 
-      /**
-       * It works. After calling fetchinData, I got the whole data in an JSON
-       * called members. ITS Working
-       * now, we need to render the info already gathered
-       */
-    console.log(members[0])
-
-    
-    return (
+  return (
+    <ScrollView>
       <View style={styles.container}>
-          <Separator />
-          <Text style={styles.text}> 
-            Editar un visitante 
-          </Text>
-          
-          <TextInput
-                  style={styles.input}
-                  placeholder="Nombre del visitante"
-                  onChangeText ={(value) => setMembers(value)}
-                  value={members}
-              >
-          </TextInput>
+        <Separator />
+        <Text style={styles.text}>Editar un visitante</Text>
 
-          
-          <Button title="Boton" onPress={()=>{fetchingData()}}></Button>
-          <Separator />
-          <Button title="Borrar" onPress={()=>{setMembers([])}}></Button>
-          {members.map((person)=>{<Text>{person.Apellidos}</Text>})}       
-   
+        <TextInput
+          style={styles.input}
+          placeholder="Nombre del visitante"
+          value={visitorName}
+          onChangeText={(value) => setVisitorName(value)}
+        />
+
+        
+        <Separator />
+
+        <View>
+          {loadingMembers?
+            <Text>Cargando miembros</Text>:
+            members.map((member, index) => (
+              <TouchableOpacity style={styles.lists}>
+                <Text>{member && member.Nombres}</Text>
+                <Separator/>
+              </TouchableOpacity>
+          ))}
+        </View>
+
+        
       </View>
-    )  
-  }
-
+    </ScrollView>
+  );
+}
