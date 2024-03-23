@@ -16,6 +16,7 @@ export default function EditVisitor({ navigation }) {
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const [visitorName, setVisitorName] = useState("");
+  const [sortedMember, setSortedMembers] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +31,7 @@ export default function EditVisitor({ navigation }) {
       setMembers(docs);
     }
     fetchData();
+    setSortedMembers(members.sort((a,b) =>a.Nombres.localeCompare(b.Nombres)))
   }, []);
 
   return (
@@ -51,9 +53,10 @@ export default function EditVisitor({ navigation }) {
         <View>
           {loadingMembers?
             <Text>Cargando miembros</Text>:
-            members.map((member, index) => (
-              <TouchableOpacity style={styles.lists}>
-                <Text>{member && member.Nombres}</Text>
+            sortedMember.map((member, index) => (
+              <TouchableOpacity style={styles.lists} index={member.id}>
+                <Text style={styles.textTitleList}>{member && member.Nombres}</Text>
+                <Text style={styles.textNoTitleList}>{member && member.Apellidos}</Text>
                 <Separator/>
               </TouchableOpacity>
           ))}

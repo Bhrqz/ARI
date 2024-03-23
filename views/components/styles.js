@@ -52,9 +52,16 @@ export default StyleSheet.create({
         fontSize:35
     },
     lists:{
-      alignItems:"flex-start",
-      
-
+      alignItems:"",
+      width:300,
+      borderRadius: 4,
+    },
+    textTitleList:{
+      fontWeight: 'bold',
+      fontSize: 20,
+    },
+    textNoTitleList:{
+      fontSize: 18,
     }
     }
   )
