@@ -4,7 +4,7 @@ import {View, Text, TextInput, Pressable, Image, Alert} from 'react-native';
 import { db } from './components/config';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './components/styles';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, initializeAuth, getReactNativePersistence } from "firebase/auth"
 import { useNavigation } from '@react-navigation/core';
 
 
