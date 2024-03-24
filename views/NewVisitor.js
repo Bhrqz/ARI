@@ -30,8 +30,10 @@ export default function NewVisitor() {
       //Code for sending the info to Firebase
       //This code updates the "prueba de la app2" document
 
-      //change "setDoc" and "doc" to "addDoc" and "collection" to
-      //  create a new collection every time SendingInfo is called
+      //  create a new document every time SendingInfo is called
+      //setDoc => addDoc
+      //doc => collection
+      //erase PruebadelaApp2
       await setDoc(doc(db, "Membresía", "Prueba de la app2 "), {
               Nombres: name,
               Apellidos: lastname,

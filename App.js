@@ -9,6 +9,7 @@ import Login from './views/Login';
 import { useState } from 'react';
 import DetailsVisitor from "./views/DetailsVisitor.js"
 import CreateReport from './views/CreateReports.js';
+import Reports from './views/Reports.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,10 @@ export default function App() {
         <Stack.Screen
           name= "Creación de Reporte"
           component={CreateReport} />
+        
+        <Stack.Screen
+          name= "Reportes"
+          component={Reports} />
         
 
       </Stack.Navigator>

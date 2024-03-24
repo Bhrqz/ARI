@@ -67,11 +67,10 @@ export default function EditVisitor({ navigation }) {
                     return member.Nombres.toLowerCase() == visitorName.toLowerCase();
                   }
                 })        
-              .map((member) => (
+              .map((member, index) => (
                 <TouchableOpacity 
                   style={styles.lists} 
-                  index={member.id} 
-                  key={member.id}
+                  key={index}
                   onPress={() => {navigation.navigate("Detalles Visitante", { memberDetails: member })}}
                   >
                   <View>

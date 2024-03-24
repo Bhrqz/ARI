@@ -33,6 +33,12 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate('Creación de Reporte')}>
               <Text style={styles.buttonText}>Crear un Reporte</Text>
           </Pressable>
+          <Separator />
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Reportes')}>
+              <Text style={styles.buttonText}>Ver Reportes</Text>
+          </Pressable>
 
       </View>
     )  

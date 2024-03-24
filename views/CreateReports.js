@@ -4,7 +4,7 @@ import  React from 'react';
 import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import styles from './components/styles';
 
 
@@ -28,13 +28,18 @@ export default function CreateReport() {
       //This code updates the "prueba de la app2" document
 
       //change "setDoc" and "doc" to "addDoc" and "collection" to
-      //  create a new collection every time SendingInfo is called
-      await setDoc(doc(db, "Reportes", "Prueba de la app2 "), {
+      //  create a new document every time SendingInfo is called
+      //setDoc => addDoc
+      //doc => collection
+      //erase PruebadelaApp2
+
+      await addDoc(collection(db, "Reportes"), {
               Descripcion: description,
               Titulo: titulo,
-              Solucionado: solved
+              Solucionado: solved,
+              Fecha_Reporte: serverTimestamp()
           }).then(() => {
-              Alert.alert('Información Guardada')
+              Alert.alert('Reporte enviado')
               console.log("Data submitted")
               setDescription("")
               setTitulo("")
@@ -82,6 +87,7 @@ export default function CreateReport() {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Revisa la info antes de guardarla ',
+                  "Titulo: "+titulo +"\nDescripcion: "+description,
                   [
                     {
                       text: 'Si, guardar',
