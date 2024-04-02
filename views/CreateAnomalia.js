@@ -10,15 +10,23 @@ import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function CreateReport() {
+export default function CreateAnomalia() {
 
     const [description, setDescription] = useState("")
     const [titulo, setTitulo] = useState("")
     const [solved, setSolved] = useState(false)
-    
+    const [remainingLetters, setRemainingLetters] = useState(150)
+
+    const MaxLettersDescription = 150
+
     function toggleSwitch(){
       setSolved(previousState => !previousState);
 
+    }
+
+    function Describing(value) {
+      setDescription(value)
+      setRemainingLetters(remainingLetters-1)
     }
 
     //Function for sending info
@@ -60,6 +68,7 @@ export default function CreateReport() {
               <Text style={styles.label} >Titulo</Text>
               <TextInput
                   style={styles.input}
+                  maxLength={30}
                   placeholder="Titulo del report"
                   onChangeText ={(value) => setTitulo(value)}
                   value={titulo}
@@ -67,12 +76,21 @@ export default function CreateReport() {
               
               <Text style={styles.label}>Descripcion</Text>
               <TextInput
+                  editable
+                  multiline
+                  numberOfLines={4}
+                  maxLength={MaxLettersDescription}
                   style={styles.input}
                   placeholder="Descripcion de lo sucedido"
-                  onChangeText ={(value) => setDescription(value)}
+                  onChangeText ={(value) => Describing(value)}
                   value={description}
               />
-
+              {
+                description?
+                <Text>Caracteres Faltantes: {remainingLetters}</Text>
+                :
+                <Text>Maximo de letras: {MaxLettersDescription}</Text>
+              }
               <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
                 thumbColor={solved ? '#f4f3f4' : '#f4f3f4'}

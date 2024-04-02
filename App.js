@@ -8,8 +8,9 @@ import EditVisitor from './views/EditVisitor';
 import Login from './views/Login';
 import { useState } from 'react';
 import DetailsVisitor from "./views/DetailsVisitor.js"
-import CreateReport from './views/CreateReports.js';
-import Reports from './views/Reports.js';
+import CreateAnomalia from './views/CreateAnomalia.js';
+import Anomalia from './views/Anomalias.js';
+import CreateCounter from './views/CreateCounter.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -46,13 +47,16 @@ export default function App() {
           component={DetailsVisitor} />
         
         <Stack.Screen
-          name= "Creación de Reporte"
-          component={CreateReport} />
+          name= "Creación de Anomalia"
+          component={CreateAnomalia} />
         
         <Stack.Screen
-          name= "Reportes"
-          component={Reports} />
+          name= "Anomalias"
+          component={Anomalia} />
         
+        <Stack.Screen
+          name= "Creación de Conteo"
+          component={CreateCounter} />
 
       </Stack.Navigator>
     </NavigationContainer>
