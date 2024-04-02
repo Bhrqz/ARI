@@ -30,14 +30,21 @@ export default function Home({ navigation }) {
           <Separator />
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('Creación de Reporte')}>
-              <Text style={styles.buttonText}>Crear un Reporte</Text>
+            onPress={() => navigation.navigate('Creación de Anomalia')}>
+              <Text style={styles.buttonText}>Nueva Anomalía</Text>
           </Pressable>
           <Separator />
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('Reportes')}>
-              <Text style={styles.buttonText}>Ver Reportes</Text>
+            onPress={() => navigation.navigate('Anomalias')}>
+              <Text style={styles.buttonText}>Ver Anomalías</Text>
+          </Pressable>
+          <Separator />
+          <Separator />
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Creación de Conteo')}>
+              <Text style={styles.buttonText}>Registrar Conteo</Text>
           </Pressable>
 
       </View>

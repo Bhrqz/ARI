@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 const Separator = () => <View style={styles.separator} />;
 
 
-function Reports () {
+function Anomalias () {
 
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
@@ -36,13 +36,13 @@ function Reports () {
   return (
     <ScrollView>
       <View style={styles.container}>
-            <Text style={styles.textLogin}>Reportes</Text>
-        <Separator />
+            <Text style={styles.textLogin}>Anomalías</Text>
+        </View>
 
-        <View>
+        <View style={styles.container}>
           {loadingReports?
             <View>
-              <Text>Cargando reportes...</Text>
+              <Text>Cargando anomalías...</Text>
               <Button title="Cargando Miembros" type="solid" loading/>
             </View>
             :
@@ -65,7 +65,7 @@ function Reports () {
                   <Separator/>
                 </TouchableOpacity>
           ))}
-        </View>
+        
 
         
       </View>
@@ -74,4 +74,4 @@ function Reports () {
 }
 
 
-export default Reports
+export default Anomalias

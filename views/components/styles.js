@@ -7,14 +7,6 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: "flex-start",
     },
-    input: {
-        borderColor: "gray",
-        width: "75%",
-        borderWidth: 1,
-        margin:10,
-        borderRadius: 10,
-        padding: 10,
-      },
     label: {
         alignItems:"flex-end",
         padding:10,
@@ -45,6 +37,50 @@ export default StyleSheet.create({
       fontSize:16,
       textAlign :"center",
     },
+    input: {
+        borderColor: "gray",
+        width: "75%",
+        borderWidth: 1,
+        margin:10,
+        borderRadius: 10,
+        padding: 10,
+      },
+
+
+
+
+    viewCounter:{
+      flexDirection:"row"
+    },
+    labelCounter:{
+      fontSize:20,
+      textAlign: "center"
+    },
+    inputCounterM:{
+      borderColor:"blue",
+      width:"90%",
+      borderWidth:2,
+      margin:10,
+      borderRadius:10,
+      padding:5
+    },
+    inputCounterF:{
+      borderColor:"red",
+      width:"90%",
+      borderWidth:2,
+      margin:10,
+      borderRadius:10,
+      padding:5
+    },
+    separatorCounter:{
+      margin: 15,
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+
+
+
+
     buttonAlert:{
       borderWidth:10
     },
