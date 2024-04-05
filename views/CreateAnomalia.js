@@ -15,7 +15,7 @@ export default function CreateAnomalia() {
     const [description, setDescription] = useState("")
     const [titulo, setTitulo] = useState("")
     const [solved, setSolved] = useState(false)
-    const [remainingLetters, setRemainingLetters] = useState(150)
+    const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
 
     const MaxLettersDescription = 150
 
