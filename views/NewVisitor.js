@@ -40,6 +40,7 @@ export default function NewVisitor() {
               Contacto:  number,
               Dirección: address,
               Invitado:inviter,
+              Compromiso:false,
               Fecha_registro: serverTimestamp()
           }).then(() => {
               Alert.alert('Información Guardada')

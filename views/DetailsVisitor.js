@@ -31,13 +31,15 @@ function DetailsVisitor ( { route }) {
     const [ministerio, setMinisterio] = useState(memberDetails.Ministerio)
     const [laboral, setLaboral] = useState(memberDetails["Situacion lab"])
     const [perfil, setPerfil] = useState(memberDetails.Pêrfil)
-    const [compromiso, setCompromiso] = useState(false)
+    const [compromiso, setCompromiso] = useState(memberDetails.Compromiso)
 
-    function toggleSwitch(){
-        setEditable(previousState => !previousState);
-        
+    function toggleEditable(){
+        setEditable(previousState => !previousState);        
       }
-
+    
+      function toggleCompromiso(){
+        setCompromiso(previousState => !previousState);
+      }
 
     return(
         <KeyboardAwareScrollView>
@@ -55,7 +57,7 @@ function DetailsVisitor ( { route }) {
                         trackColor={{false: '#767577', true: '#81b0ff'}}
                         thumbColor={editable ? '#f4f3f4' : '#f4f3f4'}
                         ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
+                        onValueChange={toggleEditable}
                         value={editable}
                         
                     />
@@ -85,6 +87,22 @@ function DetailsVisitor ( { route }) {
                     />
                 </View>
                 
+                
+                <View style={styles.viewCounter}>
+                <Text>Comprometido:</Text>
+                    <Switch
+                        disabled={!editable}
+                        trackColor={{false: '#767577', true: '#81b0ff'}}
+                        thumbColor={editable ? '#f4f3f4' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleCompromiso}
+                        value={compromiso}
+                        
+                    />
+                {compromiso? <Text>Compromiso activo</Text>:<Text>Sin compromiso activo</Text>}
+                </View>
+                
+
                 {/** Need to find a way to show the Date. Maybe not a TextInput
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Fecha de nacimiento:</Text>

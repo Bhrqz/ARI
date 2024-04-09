@@ -11,6 +11,7 @@ import DetailsVisitor from "./views/DetailsVisitor.js"
 import CreateAnomalia from './views/CreateAnomalia.js';
 import Anomalia from './views/Anomalias.js';
 import CreateCounter from './views/CreateCounter.js';
+import DetailsAnomalia from './views/DetailsAnomalia.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -57,6 +58,11 @@ export default function App() {
         <Stack.Screen
           name= "Creación de Conteo"
           component={CreateCounter} />
+        
+        <Stack.Screen
+          name= "Detalle de Anomalía"
+          component={DetailsAnomalia} />
+
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -84,10 +84,11 @@ const Login = () => {
                 <View style={styles.container}>
 
                     <Separator />
-                    <Text style={styles.textLogin}>Identificación</Text>
+                    <Text style={styles.textLogin}>Valle de Bendición</Text>
                     <Image source={require('../assets/LOGO PASTOR JULIO.png')} style={{width: 300, height: 200}} />
-                    <Separator />
                     
+                    <Separator />
+                    <Text style={styles.textLogin}>Identificación</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Correo electrónico"
