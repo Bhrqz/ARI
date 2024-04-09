@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 const Separator = () => <View style={styles.separator} />;
 
 
-function Anomalias () {
+function Anomalias ({navigation}) {
 
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
@@ -52,10 +52,7 @@ function Anomalias () {
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
-                  onPress={() => {
-                    Alert.alert("Si, si,",
-                    "Aun no esta hecha \nla pagina para los \ndetalles del reporte\nRELAX")
-                    }}
+                  onPress={() => {navigation.navigate("Detalle de Anomalía", {AnomaliaDetails: report})}}
                   >
                   <View>
                     <Text style={styles.textTitleList}>{report && report.Titulo}</Text>

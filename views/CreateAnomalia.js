@@ -17,7 +17,7 @@ export default function CreateAnomalia() {
     const [solved, setSolved] = useState(false)
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
 
-    const MaxLettersDescription = 150
+    let MaxLettersDescription = 150
 
     function toggleSwitch(){
       setSolved(previousState => !previousState);
@@ -26,7 +26,9 @@ export default function CreateAnomalia() {
 
     function Describing(value) {
       setDescription(value)
-      setRemainingLetters(remainingLetters-1)
+      
+      const remaining = MaxLettersDescription - value.length
+      setRemainingLetters(remaining)
     }
 
     //Function for sending info
@@ -91,14 +93,10 @@ export default function CreateAnomalia() {
                 :
                 <Text>Maximo de letras: {MaxLettersDescription}</Text>
               }
-              <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={solved ? '#f4f3f4' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={solved}
-                
-              />
+              
+              {
+                //Include a Date Picker HHEYEYEYEYEY!!!!!
+              }
 
               <Separator />
               <Pressable
