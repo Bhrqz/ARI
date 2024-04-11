@@ -68,7 +68,6 @@ const DetailsAnomalia = ( {route} ) => {
             Alert.alert('Anomalía Actualizada')
             console.log("Data submitted")
             setIncidencia("")
-            setResolved(AnomaliaDetails.Solucionado)
             setResuelto("")
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
