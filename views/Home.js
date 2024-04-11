@@ -44,7 +44,7 @@ export default function Home({ navigation }) {
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Creación de Conteo')}>
-              <Text style={styles.buttonText}>Registrar Conteo</Text>
+              <Text style={styles.buttonText}>Registrar Asistencia</Text>
           </Pressable>
 
       </View>
