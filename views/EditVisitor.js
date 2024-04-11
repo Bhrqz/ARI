@@ -24,7 +24,7 @@ export default function EditVisitor({ navigation }) {
       setLoadingMembers(false);
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-        const object = doc.data();
+        const object = {id: doc.id, ...doc.data()};
         docs.push(object);
       });
       setMembers(docs);
@@ -71,7 +71,7 @@ export default function EditVisitor({ navigation }) {
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
-                  onPress={() => {navigation.navigate("Detalles Visitante", { memberDetails: member })}}
+                  onPress={() => {navigation.navigate("Detalles Visitante", { memberDetails: { id: report.id, ...report} })}}
                   >
                   <View>
                     <Text style={styles.textTitleList}>{member && member.Nombres}</Text>

@@ -4,7 +4,7 @@ import  React from 'react';
 import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import styles from './components/styles';
 
 
@@ -13,17 +13,21 @@ const Separator = () => <View style={styles.separator} />;
 const DetailsAnomalia = ( {route} ) => {
 
     const { AnomaliaDetails } = route.params;
-
+    
     const [titulo, setTitulo] = useState(AnomaliaDetails.Titulo);
     const [description, setDescription] = useState(AnomaliaDetails.Descripcion);
     const [incidencia, setIncidencia] = useState("");
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [resolved, setResolved] = useState(AnomaliaDetails.Solucionado)
+    const [resuelto, setResuelto] = useState("")
+    
+   
 
     let MaxLettersDescription = 150
 
     function toggleResolved(){
-        setResolved(previousState => !previousState);        
+        setResolved(previousState => !previousState);
+        resolved?setResuelto("Si, solucionado"):setResuelto("No, aun pendiente")        
       }
     
     function Updating(value) {
@@ -32,30 +36,64 @@ const DetailsAnomalia = ( {route} ) => {
         const remaining = MaxLettersDescription - value.length
         setRemainingLetters(remaining)
       }
+    
+    //With this, we get a readable Date from Firebase
+    const date = AnomaliaDetails.Fecha_Reporte.toDate()
+    const day = date.getDate(); 
+    const month = date.getMonth() + 1; 
+    const year = date.getFullYear(); 
+    
+    //Today date for SOlVED report
+    const TodayDate = () => {
+        new_date=new Date()
+        const day = new_date.getDate(); 
+        const month = new_date.getMonth() + 1; 
+        const year = new_date.getFullYear();
+        
+
+        return(
+            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+        ) 
+    } 
+
+    async function UpdatingInfo(){
+        
+        const docToUpdate = doc(db, "Reportes", AnomaliaDetails.id)
+
+        await updateDoc(docToUpdate, {
+            Incidencia : incidencia,
+            Solucionado : resolved,
+            Fecha_Solucion: serverTimestamp()
+        }).then(() => {
+            Alert.alert('Anomalía Actualizada')
+            console.log("Data submitted")
+            setIncidencia("")
+            setResolved(AnomaliaDetails.Solucionado)
+            setResuelto("")
+        }).catch((error) =>{
+              Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
+              console.log(error)
+          })
+    }
 
     return(
         <KeyboardAwareScrollView>
            <View style={styles.container}>
-            <Text style={styles.label} >Titulo</Text>
-                <TextInput
-                    editable={false}
-                    style={styles.input}
-                    maxLength={30}
-                    value={titulo}
-                />
-                
-                <Text style={styles.label}>Descripcion</Text>
-                <TextInput
-                    editable={false}
-                    multiline
-                    numberOfLines={2}
-                    maxLength={MaxLettersDescription}
-                    style={styles.input}
-                    value={description}
-                />
-                <Separator></Separator>
+            
+                <Text style={styles.labelTitle} >Titulo</Text>
+                <Text style={styles.paragraph}>{AnomaliaDetails.Titulo}</Text>
+                    
+                <Text style={styles.labelTitle}>Descripcion</Text>
+                <Text style={styles.paragraph}> {AnomaliaDetails.Descripcion}</Text>
 
-                <Text style={styles.label}>Marcar como solucionado</Text>
+                <Text style={styles.labelTitle}>Fecha de reporte</Text>
+                <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+            </View>
+
+            <View style={styles.container}>
+            <Separator></Separator>
+
+                <Text style={styles.labelTitle}>Marcar como solucionado</Text>
                 <View style={styles.viewCounter}>
                 <Switch
                     trackColor={{false: '#767577', true: '#81b0ff'}}
@@ -66,32 +104,85 @@ const DetailsAnomalia = ( {route} ) => {
                 />
                 {
                 resolved?
-                <Text>Si, Solucionado</Text>
+                    <View>
+                        <Text>Si, Solucionado</Text>
+                    </View>
                 :
-                <Text>No, aun pendiente</Text>
+                    <View>
+                        <Text>No, aun pendiente</Text>
+                    </View>
                 }
                 </View>
-                <Text style={styles.label}>Incidencias</Text>
-                <TextInput
-                    editable
-                    multiline
-                    numberOfLines={4}
-                    maxLength={MaxLettersDescription}
-                    style={styles.input}
-                    placeholder="¿Alguna novedad durante la resolucion?"
-                    onChangeText ={(value) => Updating(value)}
-                    value={incidencia}
-                />
+                
+                {
+                //I know its better a Date Picker, but... for now, this will do
+                //you can only report today as the day 
+                }
+
+                <Text style={styles.labelTitle}>Fecha de Solución</Text>
+                <Text>
+                    {
+                        resolved?
+                        <View>
+                            {TodayDate()}
+                        </View>
+                    :
+                        <View>
+                            <Text style={styles.paragraph}>Aun sin fecha</Text>
+                        </View>
+                    }
+                </Text>
+
+                    <Text style={styles.labelTitle}>Incidencias</Text>
+                    <TextInput
+                        editable
+                        multiline
+                        numberOfLines={4}
+                        maxLength={MaxLettersDescription}
+                        style={styles.input}
+                        placeholder="¿Alguna novedad durante la resolucion?"
+                        onChangeText ={(value) => Updating(value)}
+                        value={incidencia}
+                    />
                 {
                 incidencia?
                 <Text>Caracteres Faltantes: {remainingLetters}</Text>
                 :
                 <Text>Maximo de letras: {MaxLettersDescription}</Text>
                 }
+
+                <Separator/>
+
+                <Pressable
+                style={styles.button}
+                onPress={() => Alert.alert(
+                  '¿Estás seguro?',
+                  "Revisa la info antes de actualizarla",
+                  [
+                    {
+                      text: 'Si, guardar',
+                      onPress: () => UpdatingInfo(),
+                      style: styles.input,
+                    },
+                    {
+                      text: 'Cancelar',
+                      onPress: () => Alert.alert('Accion Cancelada'),
+                      style: 'cancel',
+                    },
+                  ],
+                  {
+                    cancelable: false,
+                    
+                  },
+                )}>
+                <Text style={styles.buttonText}>Actualizar</Text>
+           
+              </Pressable>
               
-                {
-                //Include a Date Picker HHEYEYEYEYEY!!!!!
-                }
+              <Separator/>
+              <Separator/>
+              <Separator/>
+                
            </View> 
         </KeyboardAwareScrollView>
     )

@@ -24,7 +24,7 @@ function Anomalias ({navigation}) {
       setLoadingReports(false);
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-        const object = doc.data();
+        const object = {id: doc.id, ...doc.data()}
         docs.push(object);
       });
       setReports(docs);
@@ -52,7 +52,7 @@ function Anomalias ({navigation}) {
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
-                  onPress={() => {navigation.navigate("Detalle de Anomalía", {AnomaliaDetails: report})}}
+                  onPress={() => {navigation.navigate("Detalle de Anomalía", {AnomaliaDetails: { id: report.id, ...report}})}}
                   >
                   <View>
                     <Text style={styles.textTitleList}>{report && report.Titulo}</Text>

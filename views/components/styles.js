@@ -7,6 +7,7 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: "flex-start",
     },
+    
     label: {
         alignItems:"flex-end",
         padding:10,
@@ -46,9 +47,6 @@ export default StyleSheet.create({
         padding: 10,
       },
 
-
-
-
     viewCounter:{
       flexDirection:"row"
     },
@@ -78,9 +76,6 @@ export default StyleSheet.create({
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
 
-
-
-
     buttonAlert:{
       borderWidth:10
     },
@@ -98,6 +93,21 @@ export default StyleSheet.create({
     },
     textNoTitleList:{
       fontSize: 18,
+    },
+
+
+    labelTitle:{
+        alignSelf:"flex-start",
+        padding:10,
+        marginLeft:50,
+        fontSize:23,
+        fontWeight:"bold"
+    },
+    paragraph:{
+      fontSize:20,
+      marginBottom:15
     }
+
+
     }
   )
