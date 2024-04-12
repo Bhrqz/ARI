@@ -21,7 +21,16 @@ const DetailsAnomalia = ( {route} ) => {
     const [resolved, setResolved] = useState(AnomaliaDetails.Solucionado)
     const [resuelto, setResuelto] = useState("")
     
-   
+    const alreadySolved = () => {
+        if(AnomaliaDetails.Fecha_Solucion == null){
+            return false
+        }else{
+            return true
+        }
+            
+        
+
+    }
 
     let MaxLettersDescription = 150
 
@@ -151,12 +160,19 @@ const DetailsAnomalia = ( {route} ) => {
                 }
 
                 <Separator/>
+                
+                {
+                //the disabled property in the Pressable needs more
+                //visual feedback sign to let the user know that once solved the issue
+                //no more editting 
+                }
 
                 <Pressable
                 style={styles.button}
+                disabled={alreadySolved()}
                 onPress={() => Alert.alert(
                   '¿Estás seguro?',
-                  "Revisa la info antes de actualizarla",
+                  "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
                   [
                     {
                       text: 'Si, guardar',

@@ -4,7 +4,7 @@ import  React from 'react';
 import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, collection, setDoc, addDoc } from "firebase/firestore";
 import styles from './components/styles';
 
 
@@ -34,7 +34,7 @@ export default function NewVisitor() {
       //setDoc => addDoc
       //doc => collection
       //erase PruebadelaApp2
-      await setDoc(doc(db, "Membresía", "Prueba de la app2 "), {
+      await addDoc(collection(db, "Visitantes"), {
               Nombres: name,
               Apellidos: lastname,
               Contacto:  number,
