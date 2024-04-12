@@ -4,14 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './views/Home';
 import NewVisitor from './views/NewVisitor';
-import EditVisitor from './views/EditVisitor';
+import EditVisitor from './views/Members.js';
 import Login from './views/Login';
 import { useState } from 'react';
-import DetailsVisitor from "./views/DetailsVisitor.js"
+import DetailsVisitor from "./views/DetailsMember.js"
 import CreateAnomalia from './views/CreateAnomalia.js';
 import Anomalia from './views/Anomalias.js';
 import CreateCounter from './views/CreateCounter.js';
 import DetailsAnomalia from './views/DetailsAnomalia.js';
+import DetailsMember from './views/DetailsMember.js';
+import Members from './views/Members.js';
+import Visitors from './views/Visitors.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,24 +31,24 @@ export default function App() {
       <Stack.Screen 
           name="Login" 
           component={Login} 
-          options={{ title: 'Nombre de la Iglesia' }} />
+          options={{ title: 'Valle de Bendición' }} />
 
         <Stack.Screen 
           name="Home" 
           component={Home} 
-          options={{ title: 'Nombre de la Iglesia' }} />
+          options={{ title: 'Valle de Bendición' }} />
 
         <Stack.Screen 
           name="Nuevo Visitante" 
           component={NewVisitor} />
         
         <Stack.Screen
-          name= "Editar Visitante"
-          component={EditVisitor} />
+          name= "Miembros"
+          component={Members} />
         
         <Stack.Screen
-          name= "Detalles Visitante"
-          component={DetailsVisitor} />
+          name= "Detalles Miembro"
+          component={DetailsMember} />
         
         <Stack.Screen
           name= "Creación de Anomalia"
@@ -63,6 +66,9 @@ export default function App() {
           name= "Detalle de Anomalía"
           component={DetailsAnomalia} />
 
+          <Stack.Screen
+          name= "Visitantes"
+          component={Visitors} />
 
       </Stack.Navigator>
     </NavigationContainer>

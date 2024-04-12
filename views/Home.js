@@ -23,8 +23,14 @@ export default function Home({ navigation }) {
           <Separator />
           <Pressable
             style={styles.button}
-            onPress={() => navigation.navigate('Editar Visitante')}>
-              <Text style={styles.buttonText}>Editar visitante</Text>
+            onPress={() => navigation.navigate('Visitantes')}>
+              <Text style={styles.buttonText}>Lista Visitantes</Text>
+          </Pressable>
+          <Separator />
+          <Pressable
+            style={styles.button}
+            onPress={() => navigation.navigate('Miembros')}>
+              <Text style={styles.buttonText}>Lista de miembros</Text>
           </Pressable>
           <Separator />
           <Separator />

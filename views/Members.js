@@ -12,7 +12,7 @@ const Separator = () => <View style={styles.separator} />;
 
 
 
-export default function EditVisitor({ navigation }) {
+export default function Members({ navigation }) {
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const [visitorName, setVisitorName] = useState("");
@@ -37,7 +37,7 @@ export default function EditVisitor({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Separator />
-        <Text style={styles.text}>Buscar un visitante</Text>
+        <Text style={styles.text}>Buscar un miembro</Text>
 
         <TextInput
           style={styles.input}
@@ -71,7 +71,7 @@ export default function EditVisitor({ navigation }) {
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
-                  onPress={() => {navigation.navigate("Detalles Visitante", { memberDetails: { id: report.id, ...report} })}}
+                  onPress={() => {navigation.navigate("Detalles Miembro", { memberDetails: { id: member.id, ...member} })}}
                   >
                   <View>
                     <Text style={styles.textTitleList}>{member && member.Nombres}</Text>

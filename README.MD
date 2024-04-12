@@ -1,6 +1,25 @@
 This is the repository of the ARI project. 
 ARI stands for App para Registro en Iglesias, in spanish. 
 
+LOGS
+
+Apr 11 2024
+Several Changes were done in order to grant more order to the hierarchy of the files:
+the keyword "Visitor" was used to refer the new visitor and the keyword "member" to refer to the actual members of the church
+
+NewVisitor --> Create Visitor
+Visitor--> Renders a list of the visitors
+DetailsVisitor --> page for edit a single visitor. From here, visitors can be sent to the Members list.
+
+Members --> List of the members
+DetailsMember --> page for edit a single member
+
+I think that some tweaks are needed in the Anomalias set of pages. The recent changes made in ther DetailsAnomalia page are not reflected in the Anomalias page when you hit the Back button from DetailsAnomalia. 
+
+
+
+----
+
 Apr 10 2024
 The pages for Reports or anomalias are almost complete. The user can create, see and edit the Reports.
 
