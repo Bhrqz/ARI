@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Switch, Alert, Pressable, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import  React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
 import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
@@ -20,19 +20,46 @@ const DetailsVisitor = ( {route} ) => {
     const [number, setNumber] = useState(VisitorDetails.Contacto)
     const [address, setAdress] = useState(VisitorDetails.Dirección)
     const [inviter, setInviter] = useState(VisitorDetails.Invitado)
-    const [declaracion, setDeclaracion] = useState(false)
-    const [declarado, setDeclarado] = useState("");
+    const [declaracion, setDeclaracion] = useState(VisitorDetails["Declaración de Fe"])
+    const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
+    const [observ, setObserv] = useState("")
     
-       
-       
-      
-    function toggleResolved(){
-        setDeclaracion(previousState => !previousState);
-        declaracion?setDeclarado("Si, solucionado"):setDeclarado("No, aun pendiente")        
-      }
-    
-     
+    let MaxLettersDescription = 200
 
+    //Today date for Deeclaration day
+    const TodayDate = () => {
+        new_date=new Date()
+        const day = new_date.getDate(); 
+        const month = new_date.getMonth() + 1; 
+        const year = new_date.getFullYear();
+        
+        return(
+            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+        ) 
+    }
+
+    //For updating the remaining letters in the Observations TextInput
+    function Observations(value) {
+        setObserv(value)
+        const remaining = MaxLettersDescription - value.length
+        setRemainingLetters(remaining)
+      }
+
+    //Kinda selfexplanatory
+    function toggleDeclaracion(){
+        setDeclaracion(previousState => !previousState)
+        }
+    
+    //This was created in order to not show TRUE or FALSE in the Alert of the Guardar button
+    function Declarado() {
+        if(declaracion==true){
+            return("Si")
+        }else{
+            return("No")
+        }
+    }
+    
+    //Yeah, the firebase stuff
     async function UpdatingInfo(){
         
         const docToUpdate = doc(db, "Visitantes", VisitorDetails.id)
@@ -43,7 +70,9 @@ const DetailsVisitor = ( {route} ) => {
             Contacto: number,
             Direccion: address,
             Invitado: inviter,
-            ["Declaración de Fe"]: declaracion
+            ["Declaración de Fe"]: declaracion,
+            Observaciones: observ,
+                        
         }).then(() => {
             Alert.alert('Información Actualizada')
             console.log("Data submitted")
@@ -58,17 +87,7 @@ const DetailsVisitor = ( {route} ) => {
         <KeyboardAwareScrollView>
             <View style={styles.container}>
             <Separator></Separator>
-                <View style={styles.viewCounter}>
-                    <Text>¿Ha declarado su Fe?:</Text>
-                    <Switch
-                        trackColor={{false: '#767577', true: '#81b0ff'}}
-                        thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleResolved}
-                        value={declaracion}
-                        
-                    />
-                </View>
+                
 
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Nombre:</Text>
@@ -89,6 +108,76 @@ const DetailsVisitor = ( {route} ) => {
                         value={lastname}
                     />
                 </View>
+
+                <View style={styles.viewCounter}>
+                    <Text>¿Ha declarado su Fe?:</Text>
+                    <Switch
+                        trackColor={{false: '#767577', true: '#81b0ff'}}
+                        thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleDeclaracion}
+                        value={declaracion}
+                        
+                    />
+                    <View>
+                        {declaracion?
+                            <Text>
+                                Si, fe declarada
+                            </Text>
+                        :
+                            <Text>
+                                No, aun no
+                            </Text>
+                        }
+                        <Text>
+
+                        </Text>
+                    </View>
+                </View>
+                    
+                {
+                //I know its better a Date Picker, but... for now, this will do
+                //you can only report today as the day 
+                }
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text}>Fecha de Declaración</Text>
+                    <Text>
+                        {
+                            declaracion?
+                            <View>
+                                {TodayDate()}
+                            </View>
+                        :
+                            <View>
+                                <Text style={styles.paragraph}>Aun sin fecha</Text>
+                            </View>
+                        }
+                    </Text>
+                </View>
+                
+                <View style={styles.viewCounter}>
+
+                    <Text style={styles.text}>Observaciones:</Text>
+                    <TextInput
+                        editable
+                        multiline
+                        numberOfLines={4}
+                        maxLength={MaxLettersDescription}
+                        style={styles.input}
+                        placeholder="¿Alguna intención de oración o novedad?"
+                        onChangeText ={(value) => Observations(value)}
+                        value={observ}
+                    />
+
+                </View>
+                
+                {
+                    observ?
+                    <Text>Caracteres Faltantes: {remainingLetters}</Text>
+                    :
+                    <Text>Maximo de letras: {MaxLettersDescription}</Text>
+                }
 
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Contacto:</Text>
@@ -134,8 +223,8 @@ const DetailsVisitor = ( {route} ) => {
                 <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  '¿Estás seguro?',
-                  "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
+                  'Verifica la info',
+                  "Nombre: "+name +"\nApellido: "+lastname +"\nDeclaracion de Fe: "+Declarado()+"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
                   [
                     {
                       text: 'Si, guardar',
