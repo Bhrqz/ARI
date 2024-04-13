@@ -7,7 +7,7 @@ import NewVisitor from './views/NewVisitor';
 import EditVisitor from './views/Members.js';
 import Login from './views/Login';
 import { useState } from 'react';
-import DetailsVisitor from "./views/DetailsMember.js"
+import DetailsVisitor from "./views/DetailsVisitor.js"
 import CreateAnomalia from './views/CreateAnomalia.js';
 import Anomalia from './views/Anomalias.js';
 import CreateCounter from './views/CreateCounter.js';
@@ -66,9 +66,14 @@ export default function App() {
           name= "Detalle de Anomalía"
           component={DetailsAnomalia} />
 
-          <Stack.Screen
+        <Stack.Screen
           name= "Visitantes"
           component={Visitors} />
+
+        <Stack.Screen
+          name= "Detalle de Visitante"
+          component={DetailsVisitor} />
+        
 
       </Stack.Navigator>
     </NavigationContainer>

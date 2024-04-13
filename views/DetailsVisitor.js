@@ -14,75 +14,40 @@ const DetailsVisitor = ( {route} ) => {
 
     const { VisitorDetails } = route.params;
     
-
-    /**
-     * OK just need to transform this, from DetailsAnomalias to
-     * DetailsVisitor from here.
-     */
-
-
-    const [incidencia, setIncidencia] = useState("");
-    const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
-    const [resolved, setResolved] = useState(AnomaliaDetails.Solucionado)
-    const [resuelto, setResuelto] = useState("")
     
-    const alreadySolved = () => {
-        if(AnomaliaDetails.Fecha_Solucion == null){
-            return false
-        }else{
-            return true
-        }
-            
-        
-
-    }
-
-    let MaxLettersDescription = 150
-
+    const [name, setName] = useState(VisitorDetails.Nombres)
+    const [lastname, setLastname] = useState(VisitorDetails.Apellidos)
+    const [number, setNumber] = useState(VisitorDetails.Contacto)
+    const [address, setAdress] = useState(VisitorDetails.Dirección)
+    const [inviter, setInviter] = useState(VisitorDetails.Invitado)
+    const [declaracion, setDeclaracion] = useState(false)
+    const [declarado, setDeclarado] = useState("");
+    
+       
+       
+      
     function toggleResolved(){
-        setResolved(previousState => !previousState);
-        resolved?setResuelto("Si, solucionado"):setResuelto("No, aun pendiente")        
+        setDeclaracion(previousState => !previousState);
+        declaracion?setDeclarado("Si, solucionado"):setDeclarado("No, aun pendiente")        
       }
     
-    function Updating(value) {
-        setIncidencia(value)
-        
-        const remaining = MaxLettersDescription - value.length
-        setRemainingLetters(remaining)
-      }
-    
-    //With this, we get a readable Date from Firebase
-    const date = AnomaliaDetails.Fecha_Reporte.toDate()
-    const day = date.getDate(); 
-    const month = date.getMonth() + 1; 
-    const year = date.getFullYear(); 
-    
-    //Today date for SOlVED report
-    const TodayDate = () => {
-        new_date=new Date()
-        const day = new_date.getDate(); 
-        const month = new_date.getMonth() + 1; 
-        const year = new_date.getFullYear();
-        
-
-        return(
-            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
-        ) 
-    } 
+     
 
     async function UpdatingInfo(){
         
-        const docToUpdate = doc(db, "Reportes", AnomaliaDetails.id)
+        const docToUpdate = doc(db, "Visitantes", VisitorDetails.id)
 
         await updateDoc(docToUpdate, {
-            Incidencia : incidencia,
-            Solucionado : resolved,
-            Fecha_Solucion: serverTimestamp()
+            Nombres:name,
+            Apellidos:lastname,
+            Contacto: number,
+            Direccion: address,
+            Invitado: inviter,
+            ["Declaración de Fe"]: declaracion
         }).then(() => {
-            Alert.alert('Anomalía Actualizada')
+            Alert.alert('Información Actualizada')
             console.log("Data submitted")
-            setIncidencia("")
-            setResuelto("")
+            
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)
@@ -91,90 +56,83 @@ const DetailsVisitor = ( {route} ) => {
 
     return(
         <KeyboardAwareScrollView>
-           <View style={styles.container}>
-            
-                <Text style={styles.labelTitle} >Titulo</Text>
-                <Text style={styles.paragraph}>{AnomaliaDetails.Titulo}</Text>
-                    
-                <Text style={styles.labelTitle}>Descripcion</Text>
-                <Text style={styles.paragraph}> {AnomaliaDetails.Descripcion}</Text>
+            <View style={styles.container}>
+            <Separator></Separator>
+                <View style={styles.viewCounter}>
+                    <Text>¿Ha declarado su Fe?:</Text>
+                    <Switch
+                        trackColor={{false: '#767577', true: '#81b0ff'}}
+                        thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleResolved}
+                        value={declaracion}
+                        
+                    />
+                </View>
 
-                <Text style={styles.labelTitle}>Fecha de reporte</Text>
-                <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Nombre:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nombre del visitante"
+                        onChangeText ={(value) => setName(value)}
+                        value={name}
+                    />
+                </View>
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Apellidos:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Apellido del visitante"
+                        onChangeText ={(value) => setLastname(value)}
+                        value={lastname}
+                    />
+                </View>
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Contacto:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Numero de Telefono"
+                        keyboardType="numeric"
+                        onChangeText ={(value) => setNumber(value)}
+                        value={number}
+                    />
+                </View>
+
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Direccion:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Direccion del visitante"
+                        onChangeText ={(value) => setAdress(value)}
+                        value={address}
+                    />
+                </View>
+
+                
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Invitado por:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nombre del visitante"
+                        onChangeText ={(value) => setInviter(value)}
+                        value={inviter}
+                    />
+                </View>
+                
+
             </View>
 
             <View style={styles.container}>
             <Separator></Separator>
 
-                <Text style={styles.labelTitle}>Marcar como solucionado</Text>
-                <View style={styles.viewCounter}>
-                <Switch
-                    trackColor={{false: '#767577', true: '#81b0ff'}}
-                    thumbColor={resolved ? '#f4f3f4' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleResolved}
-                    value={resolved}
-                />
-                {
-                resolved?
-                    <View>
-                        <Text>Si, Solucionado</Text>
-                    </View>
-                :
-                    <View>
-                        <Text>No, aun pendiente</Text>
-                    </View>
-                }
-                </View>
-                
-                {
-                //I know its better a Date Picker, but... for now, this will do
-                //you can only report today as the day 
-                }
-
-                <Text style={styles.labelTitle}>Fecha de Solución</Text>
-                <Text>
-                    {
-                        resolved?
-                        <View>
-                            {TodayDate()}
-                        </View>
-                    :
-                        <View>
-                            <Text style={styles.paragraph}>Aun sin fecha</Text>
-                        </View>
-                    }
-                </Text>
-
-                    <Text style={styles.labelTitle}>Incidencias</Text>
-                    <TextInput
-                        editable
-                        multiline
-                        numberOfLines={4}
-                        maxLength={MaxLettersDescription}
-                        style={styles.input}
-                        placeholder="¿Alguna novedad durante la resolucion?"
-                        onChangeText ={(value) => Updating(value)}
-                        value={incidencia}
-                    />
-                {
-                incidencia?
-                <Text>Caracteres Faltantes: {remainingLetters}</Text>
-                :
-                <Text>Maximo de letras: {MaxLettersDescription}</Text>
-                }
-
-                <Separator/>
-                
-                {
-                //the disabled property in the Pressable needs more
-                //visual feedback sign to let the user know that once solved the issue
-                //no more editting 
-                }
+            
 
                 <Pressable
                 style={styles.button}
-                disabled={alreadySolved()}
                 onPress={() => Alert.alert(
                   '¿Estás seguro?',
                   "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
@@ -207,7 +165,7 @@ const DetailsVisitor = ( {route} ) => {
         </KeyboardAwareScrollView>
     )
 
-
+ 
 }
 
 export default DetailsVisitor

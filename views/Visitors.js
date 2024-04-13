@@ -51,9 +51,10 @@ function Visitors ({navigation}) {
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
-                  onPress={() => {navigation.navigate("Detalle de Visitante", {VisitorDetails: { id: visitor.id, ...visitor}})}}
+                  onPress={() => {navigation.navigate("Detalle de Visitante", { VisitorDetails: { id: visitor.id, ...visitor}})}}
                   >
                   <View>
+                    {console.log(visitor)}
                     <Text style={styles.textTitleList}>{visitor && visitor.Nombres}</Text>
                     <Text style={styles.textNoTitleList}>{visitor && visitor.Apellidos}</Text>
                     </View>

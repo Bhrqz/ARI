@@ -3,6 +3,12 @@ ARI stands for App para Registro en Iglesias, in spanish.
 
 LOGS
 
+Apr 12 2024
+After a long fight with a simple bug I just created the page for editting the New visitors information.
+Yeah. that is it.
+
+
+
 Apr 11 2024
 Several Changes were done in order to grant more order to the hierarchy of the files:
 the keyword "Visitor" was used to refer the new visitor and the keyword "member" to refer to the actual members of the church
