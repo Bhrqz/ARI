@@ -4,12 +4,12 @@ import  React from 'react';
 import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-function DetailsMember ( { route }) {
+function DetailsMember ( { route, navigation }) {
 
     const { memberDetails } = route.params;
 
@@ -29,17 +29,44 @@ function DetailsMember ( { route }) {
     const [CEFI, setCEFI] = useState(memberDetails.CEFI)
     const [asistencia, setAsistencia] = useState(memberDetails.Asistencia)
     const [ministerio, setMinisterio] = useState(memberDetails.Ministerio)
-    const [laboral, setLaboral] = useState(memberDetails["Situacion lab"])
-    const [perfil, setPerfil] = useState(memberDetails.Pêrfil)
+    const [laboral, setLaboral] = useState(memberDetails["Situación Lab"])
+    const [perfil, setPerfil] = useState(memberDetails.Perfil)
 
     function toggleEditable(){
         setEditable(previousState => !previousState);        
-      }
+    }
     
-      function toggleCompromiso(){
-        setCompromiso(previousState => !previousState);
-      }
+    async function UpdatingInfo(){
+        
+        const docToUpdate = doc(db, "Membresía", memberDetails.id)
 
+        await updateDoc(docToUpdate, {
+            Nombres:nombre?nombre:"",
+            Apellidos:apellido?apellido:"",
+            Dirección:direccion?direccion:"",
+            Barrio:barrio?barrio:"",
+            Comuna:comuna?comuna:"",
+            Contacto:contacto?contacto:"",
+            "Estado Civil":civil?civil:"",
+            "Nivel Estudio":estudio?estudio:"",
+            Profesión:profesion?profesion:"",
+            Ocupación:ocupacion?ocupacion:"",
+            CEFI:CEFI?CEFI:"",
+            Asistencia:asistencia,
+            Ministerio:ministerio,
+            "Situación Lab":laboral,
+            Perfil:perfil
+
+        }).then(() => {
+            Alert.alert('Miembro Actualizado')
+            console.log("Data submitted")
+            navigation.navigate("Miembros")
+        }).catch((error) =>{
+              Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
+              console.log(error)
+          })
+    }
+    
     return(
         <KeyboardAwareScrollView>
             
@@ -242,6 +269,36 @@ function DetailsMember ( { route }) {
                         value={perfil}
                     />
                 </View>
+                <Separator></Separator>
+                <Pressable
+                style={styles.button}
+                onPress={() => Alert.alert(
+                  '¿Estás seguro?',
+                  "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
+                  [
+                    {
+                      text: 'Si, guardar',
+                      onPress: () => UpdatingInfo(),
+                      style: styles.input,
+                    },
+                    {
+                      text: 'Cancelar',
+                      onPress: () => Alert.alert('Accion Cancelada'),
+                      style: 'cancel',
+                    },
+                  ],
+                  {
+                    cancelable: false,
+                    
+                  },
+                )}>
+                <Text style={styles.buttonText}>Actualizar</Text>
+           
+              </Pressable>
+
+              <Separator></Separator>
+              <Separator></Separator>
+              <Separator></Separator>
 
             </View>
         </KeyboardAwareScrollView>
