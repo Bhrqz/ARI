@@ -10,7 +10,7 @@ import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-const DetailsAnomalia = ( {route} ) => {
+const DetailsAnomalia = ( {route, navigation} ) => {
 
     const { AnomaliaDetails } = route.params;
     
@@ -78,6 +78,7 @@ const DetailsAnomalia = ( {route} ) => {
             console.log("Data submitted")
             setIncidencia("")
             setResuelto("")
+            navigation.navigate("Home")
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)
