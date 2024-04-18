@@ -15,6 +15,7 @@ function Anomalias ({navigation}) {
 
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
+  const [reportTitle, setReportTitle] = useState("");
   
 
   useEffect(() => {
@@ -33,10 +34,31 @@ function Anomalias ({navigation}) {
 
   }, []);
 
+  const filteredReports = reports
+  .filter(report => {
+      if(reportTitle.trim()=== ""){
+        return true // to return all the reports
+      } else{
+        const FullReport = `${report.Titulo} ${report.Descripcion}`.toLowerCase()
+        return FullReport.includes(reportTitle.toLowerCase())
+      }
+  })
+
   return (
     <ScrollView>
-      <View style={styles.container}>
-            <Text style={styles.textLogin}>Anomalías</Text>
+        
+        <View style={styles.container}>
+          <Separator />
+            <Text style={styles.text}>Busqueda</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='Filtrar por Titulo'
+              value={reportTitle}
+              onChangeText={(value) => setReportTitle(value)}
+              >
+            </TextInput>
+            <Separator />
+
         </View>
 
         <View style={styles.container}>
@@ -46,7 +68,7 @@ function Anomalias ({navigation}) {
               <Button title="Cargando Miembros" type="solid" loading/>
             </View>
             :
-            reports
+            filteredReports
               .sort((a,b) =>a.Titulo.localeCompare(b.Titulo))
               .map((report, index) => (
                 <TouchableOpacity 
@@ -65,7 +87,7 @@ function Anomalias ({navigation}) {
         
 
         
-      </View>
+        </View>
     </ScrollView>
   );
 }

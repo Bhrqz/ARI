@@ -33,20 +33,33 @@ export default function Members({ navigation }) {
 
   }, []);
 
+  const filteredMembers = members
+  .filter(member => {
+      if (visitorName.trim() === '') {
+        return true; // true, in order to return every member
+      } else{
+          const fullName = `${member.Nombres} ${member.Apellidos}`.toLowerCase();
+          const lastName = member.Apellidos.toLowerCase()
+          return fullName.includes(visitorName.toLowerCase()) || lastName.includes(visitorName.toLocaleLowerCase());
+      }
+    }) 
+
+
+
   return (
     <ScrollView>
       <View style={styles.container}>
+      
         <Separator />
         <Text style={styles.text}>Buscar un miembro</Text>
 
         <TextInput
           style={styles.input}
-          placeholder="Filtro por nombre"
+          placeholder="Filtro por Nombre o Apellido"
           value={visitorName}
           onChangeText={(value) => setVisitorName(value)}
         />
 
-        <Text>{visitorName}</Text>
         <Separator />
 
         <View>
@@ -56,17 +69,8 @@ export default function Members({ navigation }) {
               <Button title="Cargando Miembros" type="solid" loading/>
             </View>
             :
-            members
+            filteredMembers
               .sort((a,b) =>a.Nombres.localeCompare(b.Nombres))
-              .filter(member => {
-                // STILL can make this filter works.  Later
-                  if (visitorName.trim() === '') {
-                    return true; // Devolver true para mostrar todos los miembros
-                  } else if (member) {
-                    // Si el campo de entrada no está vacío, filtrar según el nombre
-                    return member.Nombres.toLowerCase() == visitorName.toLowerCase();
-                  }
-                })        
               .map((member, index) => (
                 <TouchableOpacity 
                   style={styles.lists} 
