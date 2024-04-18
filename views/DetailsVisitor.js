@@ -92,7 +92,7 @@ const DetailsVisitor = ( {route} ) => {
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Nombre:</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
                         onChangeText ={(value) => setName(value)}
                         value={name}
@@ -102,7 +102,7 @@ const DetailsVisitor = ( {route} ) => {
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Apellidos:</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Apellido del visitante"
                         onChangeText ={(value) => setLastname(value)}
                         value={lastname}
@@ -110,7 +110,7 @@ const DetailsVisitor = ( {route} ) => {
                 </View>
 
                 <View style={styles.viewCounter}>
-                    <Text>¿Ha declarado su Fe?:</Text>
+                    <Text style={styles.text}>¿Ha declarado su Fe?:</Text>
                     <Switch
                         trackColor={{false: '#767577', true: '#81b0ff'}}
                         thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
@@ -121,11 +121,11 @@ const DetailsVisitor = ( {route} ) => {
                     />
                     <View>
                         {declaracion?
-                            <Text>
+                            <Text style={styles.text}>
                                 Si, fe declarada
                             </Text>
                         :
-                            <Text>
+                            <Text style={styles.text}>
                                 No, aun no
                             </Text>
                         }
@@ -141,16 +141,16 @@ const DetailsVisitor = ( {route} ) => {
                 }
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}>Fecha de Declaración</Text>
+                    <Text style={styles.text}>Fecha de Declaración: </Text>
                     <Text>
                         {
                             declaracion?
-                            <View>
+                            <View style={styles.text}>
                                 {TodayDate()}
                             </View>
                         :
                             <View>
-                                <Text style={styles.paragraph}>Aun sin fecha</Text>
+                                <Text style={styles.text}>Aun sin fecha</Text>
                             </View>
                         }
                     </Text>
@@ -164,7 +164,7 @@ const DetailsVisitor = ( {route} ) => {
                         multiline
                         numberOfLines={4}
                         maxLength={MaxLettersDescription}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="¿Alguna intención de oración o novedad?"
                         onChangeText ={(value) => Observations(value)}
                         value={observ}
@@ -182,7 +182,7 @@ const DetailsVisitor = ( {route} ) => {
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Contacto:</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Numero de Telefono"
                         keyboardType="numeric"
                         onChangeText ={(value) => setNumber(value)}
@@ -194,7 +194,7 @@ const DetailsVisitor = ( {route} ) => {
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Direccion:</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Direccion del visitante"
                         onChangeText ={(value) => setAdress(value)}
                         value={address}
@@ -205,7 +205,7 @@ const DetailsVisitor = ( {route} ) => {
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Invitado por:</Text>
                     <TextInput
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
                         onChangeText ={(value) => setInviter(value)}
                         value={inviter}
