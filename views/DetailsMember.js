@@ -52,10 +52,10 @@ function DetailsMember ( { route, navigation }) {
             Profesión:profesion?profesion:"",
             Ocupación:ocupacion?ocupacion:"",
             CEFI:CEFI?CEFI:"",
-            Asistencia:asistencia,
-            Ministerio:ministerio,
-            "Situación Lab":laboral,
-            Perfil:perfil
+            Asistencia:asistencia?asistencia:"",
+            Ministerio:ministerio?ministerio:"",
+            "Situación Lab":laboral?laboral:"",
+            Perfil:perfil?perfil:""
 
         }).then(() => {
             Alert.alert('Miembro Actualizado')
@@ -71,14 +71,12 @@ function DetailsMember ( { route, navigation }) {
         <KeyboardAwareScrollView>
             
             <View style={styles.container}>
-                
+            
 
-                <View>
-                    <Text style={styles.textLogin}>Detalles</Text>
-                </View>
                 <Separator />
-                <Text>Toque el Switch para habilitar la edición:</Text>
+                
                 <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Toque el Switch para habilitar la edición:</Text>
                     <Switch
                         trackColor={{false: '#767577', true: '#81b0ff'}}
                         thumbColor={editable ? '#f4f3f4' : '#f4f3f4'}
@@ -91,12 +89,14 @@ function DetailsMember ( { route, navigation }) {
                 {editable? <Text>Edición habilitada</Text>:<Text>Edición No habilitada</Text>}
 
                 <Separator />
-
+                
+                <View style={styles.containerMemberDetails}>    
+                
                 <View style={styles.viewCounter}>
                     <Text style={styles.text} >Nombre:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
                         onChangeText ={(value) => setNombre(value)}
                         value={nombre}
@@ -106,7 +106,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Apellidos:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
                         onChangeText ={(value) => setApellido(value)}
                         value={apellido}
@@ -131,7 +131,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Direccion:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Direccion"
                         onChangeText ={(value) => setDireccion(value)}
                         value={direccion}
@@ -142,7 +142,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Barrio:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Barrio"
                         onChangeText ={(value) => setBarrio(value)}
                         value={barrio}
@@ -153,7 +153,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Comuna:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Comuna"
                         onChangeText ={(value) => setComuna(value)}
                         value={comuna}
@@ -164,7 +164,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Contacto:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Contacto"
                         onChangeText ={(value) => setContacto(value)}
                         value={contacto}
@@ -175,7 +175,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Estado Civil:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Estado Civil"
                         onChangeText ={(value) => setCivil(value)}
                         value={civil}
@@ -186,7 +186,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Nivel de Estudio:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Nivel de Estudio"
                         onChangeText ={(value) => setEstudio(value)}
                         value={estudio}
@@ -197,7 +197,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Profesion:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Profesion"
                         onChangeText ={(value) => setProfesion(value)}
                         value={profesion}
@@ -208,7 +208,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Ocupacion:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Ocupacion"
                         onChangeText ={(value) => setOcupacion(value)}
                         value={ocupacion}
@@ -219,7 +219,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >CEFI:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="CEFI"
                         onChangeText ={(value) => setCEFI(value)}
                         value={CEFI}
@@ -230,7 +230,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Asistencia:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Asistencia"
                         onChangeText ={(value) => setAsistencia(value)}
                         value={asistencia}
@@ -241,7 +241,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Ministerio:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Ministerio"
                         onChangeText ={(value) => setMinisterio(value)}
                         value={ministerio}
@@ -252,7 +252,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Situacion Laboral:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Situacion Laboral"
                         onChangeText ={(value) => setLaboral(value)}
                         value={laboral}
@@ -263,7 +263,7 @@ function DetailsMember ( { route, navigation }) {
                     <Text style={styles.text} >Perfil:</Text>
                     <TextInput
                         editable={editable}
-                        style={styles.input}
+                        style={styles.inputMemberDetail}
                         placeholder="Perfil"
                         onChangeText ={(value) => setPerfil(value)}
                         value={perfil}
@@ -297,9 +297,8 @@ function DetailsMember ( { route, navigation }) {
               </Pressable>
 
               <Separator></Separator>
-              <Separator></Separator>
-              <Separator></Separator>
-
+              
+            </View>
             </View>
         </KeyboardAwareScrollView>
     )

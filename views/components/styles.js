@@ -36,11 +36,12 @@ export default StyleSheet.create({
     },
     text:{
       fontSize:16,
-      textAlign :"center",
+      textAlign :"auto",
+      textAlignVertical:"center"
     },
     input: {
         borderColor: "gray",
-        width: "75%",
+        width: "70%",
         borderWidth: 1,
         margin:10,
         borderRadius: 10,
@@ -54,6 +55,22 @@ export default StyleSheet.create({
       fontSize:20,
       textAlign: "center"
     },
+    inputMemberDetail: {
+      borderColor: "gray",
+      width: "50%",
+      borderWidth: 1,
+      margin:10,
+      borderRadius: 10,
+      padding: 10,
+    },
+    containerMemberDetails: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'start',
+      justifyContent: "flex-start",
+      textAlign:"center"
+    },
+
     inputCounterM:{
       borderColor:"blue",
       width:"90%",
