@@ -6,7 +6,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './components/styles';
 import { getAuth, signInWithEmailAndPassword, initializeAuth, getReactNativePersistence } from "firebase/auth"
 import { useNavigation } from '@react-navigation/core';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
+/** SOMething that NEEDS to be fixed
+ * 
+ * The persistence of the user
+ * 
+  const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
+ */
 
 const Separator = () => <View style={styles.separator} />;
 
