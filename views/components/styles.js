@@ -111,6 +111,19 @@ export default StyleSheet.create({
     textNoTitleList:{
       fontSize: 18,
     },
+    textSelector:{
+      fontSize:16
+    },
+    
+    textSelectorTitle:{
+      fontWeight:"bold",
+      fontSize:18
+    },
+
+    viewSelector:{
+      width:"50%",
+      alignItems:""
+    },
 
 
     labelTitle:{
