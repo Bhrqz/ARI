@@ -121,7 +121,7 @@ export default function CreateAnomalia() {
                     
                   },
                 )}>
-                <Text style={styles.buttonText}>Crear Reporte</Text>
+                <Text style={styles.buttonText}>Reportar Anomalía</Text>
            
               </Pressable>
             <Separator />
