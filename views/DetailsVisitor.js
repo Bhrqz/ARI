@@ -24,6 +24,18 @@ const DetailsVisitor = ( {route} ) => {
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [observ, setObserv] = useState("")
     
+    const firstVisit = () =>{
+        a = VisitorDetails["Fecha_registro"].toDate()
+        const day = a.getDate();
+        const month = a.getMonth()+1;
+        const year = a.getFullYear()
+        
+        return(
+            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+            )
+    }
+
+
     let MaxLettersDescription = 200
 
     //Today date for Deeclaration day
@@ -34,9 +46,11 @@ const DetailsVisitor = ( {route} ) => {
         const year = new_date.getFullYear();
         
         return(
-            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+            <Text style={styles.text}> {day}/{month}/{year}</Text>
         ) 
     }
+
+
 
     //For updating the remaining letters in the Observations TextInput
     function Observations(value) {
@@ -154,6 +168,11 @@ const DetailsVisitor = ( {route} ) => {
                             </View>
                         }
                     </Text>
+                </View>
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text}>Primera Visita: </Text>
+                    {firstVisit()}
                 </View>
                 
                 <View style={styles.viewCounter}>

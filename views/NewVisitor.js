@@ -12,7 +12,7 @@ import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function NewVisitor() {
+export default function NewVisitor({navigation}) {
 
     const [name, setName] = useState("")
     const [lastname, setLastname] = useState("")
@@ -54,6 +54,7 @@ export default function NewVisitor() {
               onChangeNumber("")
               setInviter("")
               setSwitchEnabled(false)
+              navigation.navigate("Home")
           }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)

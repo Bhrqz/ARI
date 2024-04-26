@@ -33,11 +33,27 @@ function Visitors ({navigation}) {
 
   }, []);
 
+  const Dates = (date) =>{
+    a = date.toDate()
+    const day = a.getDate();
+    const month = a.getMonth()+1;
+    const year = a.getFullYear()
+    
+    return(
+        <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+        )
+  }
+
+
   return (
     <ScrollView>
       <View style={styles.container}>
             <Text style={styles.textLogin}>Visitantes</Text>
-        </View>
+        
+      
+
+
+      </View>
 
         <View style={styles.container}>
           {loadingVisitors?
@@ -47,17 +63,26 @@ function Visitors ({navigation}) {
             </View>
             :
             visitors
+              .sort((a,b) => {
+                const dateA = a.Fecha_registro.toDate();
+                const dateB = b.Fecha_registro.toDate();
+                  return dateB - dateA; //dateB - dateA (starts with the most recently registered user)
+              })
               .map((visitor, index) => (
                 <TouchableOpacity 
                   style={styles.lists} 
                   key={index}
                   onPress={() => {navigation.navigate("Detalle de Visitante", { VisitorDetails: { id: visitor.id, ...visitor}})}}
                   >
-                  <View>
-                    {console.log(visitor)}
-                    <Text style={styles.textTitleList}>{visitor && visitor.Nombres}</Text>
-                    <Text style={styles.textNoTitleList}>{visitor && visitor.Apellidos}</Text>
+                  <View style={styles.viewCounter}>
+                    <View>
+                      <Text style={styles.textTitleList}>{visitor && visitor.Nombres}</Text>
+                      <Text style={styles.textNoTitleList}>{visitor && visitor.Apellidos}</Text>
                     </View>
+                    <View>
+                      {Dates(visitor.Fecha_registro)}
+                    </View>
+                  </View>
                   <Separator/>
                 </TouchableOpacity>
           ))}
