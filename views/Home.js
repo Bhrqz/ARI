@@ -9,8 +9,11 @@ export default function Home({ navigation }) {
     return (
       <View style={styles.container}>
           <Text style={styles.textLogin}> 
-            {'\n'}  
             Bienvenido 
+          </Text>
+          <Separator></Separator>
+          <Text style={styles.textTitleList}> 
+            Menú Principal 
           </Text>
           
           <StatusBar style="auto" />

@@ -59,7 +59,7 @@ const Login = () => {
                 
                 setLoading(false)
                 Alert.alert(
-                    "Autenticado", 
+                    "Usuario Autenticado", 
                     "Te doy la bienvenida",
                     [
                         // un invento para verificar si tiene nombre y aja
@@ -97,7 +97,7 @@ const Login = () => {
                     <Image source={require('../assets/LOGO PASTOR JULIO.png')} style={{width: 300, height: 200}} />
                     
                     <Separator />
-                    <Text style={styles.textLogin}>Identificación</Text>
+                    <Text style={styles.textLogin}>Autenticación</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Correo electrónico"
