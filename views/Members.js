@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { useState, Pressable } from "react"
 import { StatusBar } from 'expo-status-bar';
 import SearchFilter from './components/SearchFilter';
@@ -66,7 +66,7 @@ export default function Members({ navigation }) {
           {loadingMembers?
             <View>
               <Text>Cargando miembros...</Text>
-              <Button title="Cargando Miembros" type="solid" loading/>
+              <ActivityIndicator size="large"/>
             </View>
             :
             filteredMembers

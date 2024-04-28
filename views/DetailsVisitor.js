@@ -10,7 +10,7 @@ import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-const DetailsVisitor = ( {route} ) => {
+const DetailsVisitor = ( {route, navigation} ) => {
 
     const { VisitorDetails } = route.params;
     
@@ -22,7 +22,7 @@ const DetailsVisitor = ( {route} ) => {
     const [inviter, setInviter] = useState(VisitorDetails.Invitado)
     const [declaracion, setDeclaracion] = useState(VisitorDetails["Declaración de Fe"])
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
-    const [observ, setObserv] = useState("")
+    const [observ, setObserv] = useState(VisitorDetails.Observaciones)
     
     const firstVisit = () =>{
         a = VisitorDetails["Fecha_registro"].toDate()
@@ -90,7 +90,7 @@ const DetailsVisitor = ( {route} ) => {
         }).then(() => {
             Alert.alert('Información Actualizada')
             console.log("Data submitted")
-            
+            navigation.navigate("Home")
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)

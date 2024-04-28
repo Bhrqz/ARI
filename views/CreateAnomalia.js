@@ -49,7 +49,7 @@ export default function CreateAnomalia() {
               Solucionado: solved,
               Fecha_Reporte: serverTimestamp()
           }).then(() => {
-              Alert.alert('Anomalía enviado')
+              Alert.alert('Anomalía enviada')
               console.log("Data submitted")
               setDescription("")
               setTitulo("")

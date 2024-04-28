@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { ActivityIndicator, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useState, Pressable } from "react"
 import { StatusBar } from 'expo-status-bar';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -124,7 +124,7 @@ function Anomalias ({navigation}) {
           {loadingReports?
             <View>
               <Text>Cargando anomalías...</Text>
-              <Button title="Cargando Miembros" type="solid" loading/>
+              <ActivityIndicator size="large"/>
             </View>
             :
             filteredReports

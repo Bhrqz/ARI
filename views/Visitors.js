@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { ActivityIndicator, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useState, Pressable } from "react"
 import { StatusBar } from 'expo-status-bar';
 import SearchFilter from './components/SearchFilter';
@@ -49,17 +49,19 @@ function Visitors ({navigation}) {
     <ScrollView>
       <View style={styles.container}>
             <Text style={styles.textLogin}>Visitantes</Text>
-        
+            <Separator></Separator>
+            </View>
       
-
-
+      <View style={[styles.container, styles.viewCounter, styles.spaceAround]}>
+        <Text>Nombre y Apellido</Text>
+        <Text>Primera visita</Text>
       </View>
 
         <View style={styles.container}>
           {loadingVisitors?
             <View>
               <Text>Cargando lista visitantes...</Text>
-              <Button title="Cargando Visitantes" type="solid" loading/>
+              <ActivityIndicator size="large"/>
             </View>
             :
             visitors
@@ -74,7 +76,8 @@ function Visitors ({navigation}) {
                   key={index}
                   onPress={() => {navigation.navigate("Detalle de Visitante", { VisitorDetails: { id: visitor.id, ...visitor}})}}
                   >
-                  <View style={styles.viewCounter}>
+                  
+                  <View style={[styles.viewCounter, styles.spaceBetween]} >
                     <View>
                       <Text style={styles.textTitleList}>{visitor && visitor.Nombres}</Text>
                       <Text style={styles.textNoTitleList}>{visitor && visitor.Apellidos}</Text>

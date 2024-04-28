@@ -159,6 +159,12 @@ export default StyleSheet.create({
     textSelector:{
       fontSize:20,
       padding:10
+    },
+    spaceBetween:{
+      justifyContent: 'space-between',
+    },
+    spaceAround:{
+      justifyContent:"space-around"
     }
 
 

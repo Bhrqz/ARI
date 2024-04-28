@@ -60,7 +60,7 @@ function DetailsMember ( { route, navigation }) {
         }).then(() => {
             Alert.alert('Miembro Actualizado')
             console.log("Data submitted")
-            navigation.navigate("Miembros")
+            navigation.navigate("Home")
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)
@@ -274,7 +274,7 @@ function DetailsMember ( { route, navigation }) {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   '¿Estás seguro?',
-                  "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
+                  "La información será actualizada",
                   [
                     {
                       text: 'Si, guardar',

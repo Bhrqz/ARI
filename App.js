@@ -59,7 +59,7 @@ export default function App() {
           component={Anomalia} />
         
         <Stack.Screen
-          name= "Creación de Conteo"
+          name= "Número de asistentes"
           component={CreateCounter} />
         
         <Stack.Screen
