@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, VariantsBox, TouchableOpacity, Switch, Alert, Pressable, FlatList } from 'react-native';
+import { ActivityIndicator, Text, View, TextInput, VariantsBox, TouchableOpacity, Switch, Alert, Pressable, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import  React from 'react';
 import { useState, useEffect } from 'react';
@@ -123,8 +123,8 @@ export default function NewVisitor({navigation}) {
 
               <Separator></Separator>
               <Text>Dame un momento, porfa.</Text>
-              <Button title="Cargando Miembros" type="solid" loading/>
-              </View>
+              <ActivityIndicator size="large"/>
+          </View>
               :
               <View style={styles.container}>
               <Text style={styles.label} >Nombre</Text>
@@ -187,7 +187,7 @@ export default function NewVisitor({navigation}) {
                       >
                       <View style={styles.viewSelector}>
                         <Text style={styles.textSelectorTitle}>{member && member.Nombres}</Text>
-                        <Text style={styles.textSelector}>{member && member.Apellidos}</Text>
+                        <Text style={styles.textNoTitleList}>{member && member.Apellidos}</Text>
                         
                       </View>
                       <Separator/>
