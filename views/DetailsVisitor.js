@@ -100,7 +100,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
     return(
         <KeyboardAwareScrollView>
             <View style={styles.container}>
-            <Separator></Separator>
+            
                 
 
                 <View style={styles.viewCounter}>
@@ -123,6 +123,42 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     />
                 </View>
 
+                
+                
+                
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Contacto:</Text>
+                    <TextInput
+                        style={styles.inputMemberDetail}
+                        placeholder="Numero de Telefono"
+                        keyboardType="numeric"
+                        onChangeText ={(value) => setNumber(value)}
+                        value={number}
+                    />
+                </View>
+
+
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Direccion:</Text>
+                    <TextInput
+                        style={styles.inputMemberDetail}
+                        placeholder="Direccion del visitante"
+                        onChangeText ={(value) => setAdress(value)}
+                        value={address}
+                    />
+                </View>
+
+                
+                <View style={styles.viewCounter}>
+                    <Text style={styles.text} >Invitado por:</Text>
+                    <TextInput
+                        style={styles.inputMemberDetail}
+                        placeholder="Nombre del visitante"
+                        onChangeText ={(value) => setInviter(value)}
+                        value={inviter}
+                    />
+                </View>
                 <View style={styles.viewCounter}>
                     <Text style={styles.text}>¿Ha declarado su Fe?:</Text>
                     <Switch
@@ -197,40 +233,6 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     :
                     <Text>Maximo de letras: {MaxLettersDescription}</Text>
                 }
-
-                <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Contacto:</Text>
-                    <TextInput
-                        style={styles.inputMemberDetail}
-                        placeholder="Numero de Telefono"
-                        keyboardType="numeric"
-                        onChangeText ={(value) => setNumber(value)}
-                        value={number}
-                    />
-                </View>
-
-
-                <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Direccion:</Text>
-                    <TextInput
-                        style={styles.inputMemberDetail}
-                        placeholder="Direccion del visitante"
-                        onChangeText ={(value) => setAdress(value)}
-                        value={address}
-                    />
-                </View>
-
-                
-                <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Invitado por:</Text>
-                    <TextInput
-                        style={styles.inputMemberDetail}
-                        placeholder="Nombre del visitante"
-                        onChangeText ={(value) => setInviter(value)}
-                        value={inviter}
-                    />
-                </View>
-                
 
             </View>
 
