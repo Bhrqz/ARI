@@ -16,13 +16,13 @@ const DetailsAnomalia = ( {route, navigation} ) => {
     
     const [titulo, setTitulo] = useState(AnomaliaDetails.Titulo);
     const [description, setDescription] = useState(AnomaliaDetails.Descripcion);
-    const [incidencia, setIncidencia] = useState("");
+    const [incidencia, setIncidencia] = useState(AnomaliaDetails.Incidencia? AnomaliaDetails.Incidencia:"");
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [resolved, setResolved] = useState(AnomaliaDetails.Solucionado)
     const [resuelto, setResuelto] = useState("")
     
     const alreadySolved = () => {
-        if(AnomaliaDetails.Fecha_Solucion == null){
+        if(AnomaliaDetails.Solucionado == false){
             return false
         }else{
             return true
@@ -72,7 +72,7 @@ const DetailsAnomalia = ( {route, navigation} ) => {
         await updateDoc(docToUpdate, {
             Incidencia : incidencia,
             Solucionado : resolved,
-            Fecha_Solucion: serverTimestamp()
+            Fecha_Solucion: resolved? serverTimestamp():""
         }).then(() => {
             Alert.alert('Anomalía Actualizada')
             console.log("Data submitted")
@@ -169,31 +169,31 @@ const DetailsAnomalia = ( {route, navigation} ) => {
                 }
 
                 <Pressable
-                style={styles.button}
-                disabled={alreadySolved()}
-                onPress={() => Alert.alert(
-                  '¿Estás seguro?',
-                  "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
-                  [
+                    style={styles.button}
+                    disabled={alreadySolved()}
+                    onPress={() => Alert.alert(
+                    '¿Estás seguro?',
+                    "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
+                    [
+                        {
+                        text: 'Si, guardar',
+                        onPress: () => UpdatingInfo(),
+                        style: styles.input,
+                        },
+                        {
+                        text: 'Cancelar',
+                        onPress: () => Alert.alert('Accion Cancelada'),
+                        style: 'cancel',
+                        },
+                    ],
                     {
-                      text: 'Si, guardar',
-                      onPress: () => UpdatingInfo(),
-                      style: styles.input,
+                        cancelable: false,
+                        
                     },
-                    {
-                      text: 'Cancelar',
-                      onPress: () => Alert.alert('Accion Cancelada'),
-                      style: 'cancel',
-                    },
-                  ],
-                  {
-                    cancelable: false,
-                    
-                  },
-                )}>
-                <Text style={styles.buttonText}>Actualizar</Text>
+                    )}>
+                    <Text style={styles.buttonText}>Actualizar</Text>
            
-              </Pressable>
+                </Pressable>
               
               <Separator/>
               <Separator/>

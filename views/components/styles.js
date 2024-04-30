@@ -57,7 +57,7 @@ export default StyleSheet.create({
     },
     inputMemberDetail: {
       borderColor: "gray",
-      width: "50%",
+      width: "55%",
       borderWidth: 1,
       margin:10,
       borderRadius: 10,
