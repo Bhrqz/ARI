@@ -84,8 +84,8 @@ const DetailsVisitor = ( {route, navigation} ) => {
             Contacto: number,
             Direccion: address,
             Invitado: inviter,
-            ["Declaración de Fe"]: declaracion,
-            Observaciones: observ,
+            ["Declaración de Fe"]: declaracion?declaracion:"",
+            Observaciones: observ?observ:"",
                         
         }).then(() => {
             Alert.alert('Información Actualizada')
@@ -161,14 +161,17 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 </View>
                 <View style={styles.viewCounter}>
                     <Text style={styles.text}>¿Ha declarado su Fe?:</Text>
-                    <Switch
-                        trackColor={{false: '#767577', true: '#81b0ff'}}
-                        thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleDeclaracion}
-                        value={declaracion}
-                        
-                    />
+                    {VisitorDetails["Declaración de Fe"]?"":
+                        <Switch
+                            trackColor={{false: '#767577', true: '#81b0ff'}}
+                            thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleDeclaracion}
+                            value={declaracion}
+                            
+                            
+                        />
+                    }
                     <View>
                         {declaracion?
                             <Text style={styles.text}>
