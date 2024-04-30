@@ -52,7 +52,7 @@ const Login = () => {
 
         setLoading(true)
         const auth = getAuth()
-        await signInWithEmailAndPassword(auth, email, password)
+        await signInWithEmailAndPassword(auth, email.trim(), password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
