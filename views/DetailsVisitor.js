@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TextInput, Switch, Alert, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Switch, TouchableOpacity, Alert, Pressable, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import  React from 'react';
 import { useState, useEffect } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { db } from './components/config';
-import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, getDocs, updateDoc, collection } from "firebase/firestore";
 import styles from './components/styles';
 
 
@@ -42,9 +42,9 @@ const DetailsVisitor = ( {route, navigation} ) => {
     //Date for Deeclaration day
     const DeclarationDate = () => {
         a = VisitorDetails["Fecha de Declaración"]?VisitorDetails["Fecha de Declaración"].toDate():new Date
-        const day = new_date.getDate(); 
-        const month = new_date.getMonth() + 1; 
-        const year = new_date.getFullYear();
+        const day = a.getDate(); 
+        const month = a.getMonth() + 1; 
+        const year = a.getFullYear();
         
         return(
             <Text style={styles.text}> {day}/{month}/{year}</Text>
@@ -104,6 +104,61 @@ const DetailsVisitor = ( {route, navigation} ) => {
           })
     }
 
+    /**
+     * Inviter selector stuff
+     *   
+    */
+    
+    const [members, setMembers] = useState([]);
+    const [isSelected, setIsSelected] = useState(true)
+    const [loadingMembers, setLoadingMembers] = useState(true);
+    
+
+    useEffect(() => {
+      async function fetchData() {
+        const docs = [];
+        const querySnapshot = await getDocs(collection(db, "Membresía"));
+        setLoadingMembers(false);
+        querySnapshot.forEach((doc) => {
+          const object = {id: doc.id, ...doc.data()};
+          docs.push(object);
+        });
+        setMembers(docs);
+      }
+      fetchData();
+
+    }, []);
+
+    
+    const filteredMembers = members
+      .filter(member => {
+        if (inviter.trim() === '') {
+            return false; // false, in order to return nothing if inviter is empty.
+        } 
+        else if(isSelected)
+            return false;
+        else{
+            const fullName = `${member.Nombres} ${member.Apellidos}`.toLowerCase();
+            const lastName = member.Apellidos.toLowerCase()
+            return fullName.includes(inviter.toLowerCase()) || lastName.includes(inviter.toLocaleLowerCase());
+      }})  
+
+      const VisitorSelected = (member) =>{
+        setIsSelected(true)
+        setInviter(member.Nombres +" "+ member.Apellidos)
+  
+      }
+
+      const ChangingInviter = (value) =>{
+        setInviter(value)
+        setIsSelected(false)
+      }
+
+      /**
+     * End of Inviter selector stuff
+     *   
+    */
+
     return(
         <KeyboardAwareScrollView>
             <View style={styles.container}>
@@ -162,10 +217,31 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     <TextInput
                         style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
-                        onChangeText ={(value) => setInviter(value)}
+                        onChangeText ={(value) => ChangingInviter(value)}
                         value={inviter}
                     />
                 </View>
+
+                {
+                filteredMembers
+                  .sort((a,b) =>a.Nombres.localeCompare(b.Nombres))
+                  .map((member, index) => (
+                    <TouchableOpacity 
+                      style={styles.lists} 
+                      key={index}
+                      onPress={() => {VisitorSelected(member)}}
+                      >
+                      <View style={styles.viewSelector}>
+                        <Text style={styles.textSelectorTitle}>{member && member.Nombres}</Text>
+                        <Text style={styles.textNoTitleList}>{member && member.Apellidos}</Text>
+                        
+                      </View>
+                      <Separator/>
+                    </TouchableOpacity>
+                ))
+              }
+              
+
                 
                 <View style={styles.viewCounter}>
                     <Text style={styles.text}>Primera Visita: </Text>
@@ -258,7 +334,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  'Verifica la info',
+                  'Por favor, verifica que los datos estén correctos',
                   "Nombre: "+name +"\nApellido: "+lastname +"\nDeclaracion de Fe: "+Declarado()+"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter+"\nObservaciones: "+Filler(observ),
                   [
                     {

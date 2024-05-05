@@ -15,6 +15,7 @@ function Visitors ({navigation}) {
 
   const [visitors, setVisitors] = useState([]);
   const [loadingVisitors, setLoadingVisitors] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   
 
   useEffect(() => {
@@ -33,6 +34,16 @@ function Visitors ({navigation}) {
 
   }, []);
 
+  const filteredVisitors = visitors
+  .filter(visitor => {
+      if(searchQuery.trim()=== ""){
+        return true // to return all the reports
+      } else{
+        const FullVisitor = `${visitor.Nombres} ${visitor.Apellidos}`.toLowerCase()
+        return FullVisitor.includes(searchQuery.toLowerCase())
+      }
+  })
+
   const Dates = (date) =>{
     a = date.toDate()
     const day = a.getDate();
@@ -49,9 +60,22 @@ function Visitors ({navigation}) {
     <ScrollView>
       <View style={styles.container}>
             <Text style={styles.textLogin}>Visitantes</Text>
-            <Separator></Separator>
-            </View>
-      
+      </View>
+        <View style={styles.container}>
+          
+            <Text style={styles.text}>Busqueda</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='Filtrar por Titulo'
+              value={searchQuery}
+              onChangeText={(value) => setSearchQuery(value)}
+              >
+            </TextInput>
+            
+
+        </View>
+
+
       <View style={[styles.container, styles.viewCounter, styles.spaceAround]}>
         <Text>Nombre y Apellido</Text>
         <Text>Primera visita</Text>
@@ -64,7 +88,7 @@ function Visitors ({navigation}) {
               <ActivityIndicator size="large"/>
             </View>
             :
-            visitors
+            filteredVisitors
               .sort((a,b) => {
                 const dateA = a.Fecha_registro.toDate();
                 const dateB = b.Fecha_registro.toDate();
