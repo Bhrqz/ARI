@@ -127,54 +127,64 @@ export default function NewVisitor({navigation}) {
           </View>
               :
               <View style={styles.container}>
-              <Text style={styles.label} >Nombre</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="Nombre del visitante"
-                  onChangeText ={(value) => setName(value)}
-                  value={name}
-              />
-              
-              <Text style={styles.label}>Apellido</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="Apellido del visitante"
-                  onChangeText ={(value) => setLastname(value)}
-                  value={lastname}
-              />
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text} >Nombre:</Text>
+                  <TextInput
+                      style={styles.input}
+                      placeholder="Nombre del visitante"
+                      onChangeText ={(value) => setName(value)}
+                      value={name}
+                  />
+                </View>
 
-              <Text style={styles.label} >Número telefónico</Text>
-              <TextInput
-                  style={styles.input}
-                  onChangeText={(value) => onChangeNumber(value)}
-                  value={number}
-                  maxLength={10}
-                  placeholder="Número Celular"
-                  keyboardType="numeric"
-                  label="hey"
-              />
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text}>Apellido:</Text>
+                  <TextInput
+                      style={styles.input}
+                      placeholder="Apellido del visitante"
+                      onChangeText ={(value) => setLastname(value)}
+                      value={lastname}
+                  />
+                </View>
+
+
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text} >Contacto:</Text>
+                  <TextInput
+                      style={styles.input}
+                      onChangeText={(value) => onChangeNumber(value)}
+                      value={number}
+                      maxLength={10}
+                      placeholder="Número Celular"
+                      keyboardType="numeric"
+                      label="hey"
+                  />
+                </View>
               
-              <Text style={styles.label} >Dirección</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="Dirección del visitante"
-                  onChangeText ={(value) => setAdress(value)}
-                  value={address}
-              />
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text} >Dirección</Text>
+                  <TextInput
+                      style={styles.input}
+                      placeholder="Dirección del visitante"
+                      onChangeText ={(value) => setAdress(value)}
+                      value={address}
+                  />
+                </View>
 
               {/**
               Lets build the inviter selector 
               */}
               
 
-
-              <Text style={styles.label} >¿Quién le invitó?</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="Nombre del hermano o hermana"
-                  onChangeText ={(value) => setInviter(value)}
-                  value={inviter}
-              />
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text} >Invitado por:</Text>
+                  <TextInput
+                      style={styles.input}
+                      placeholder="Nombre del hermano o hermana"
+                      onChangeText ={(value) => setInviter(value)}
+                      value={inviter}
+                  />
+                </View>
 
               {
                 filteredMembers
@@ -195,34 +205,27 @@ export default function NewVisitor({navigation}) {
                 ))
               }
               
-
-
-
-
-
-
-
-
-              <Separator input={inviter} setInput={setInviter}/>
-              <Text style={styles.text}>
-                Si el visitante vino solo,
-                {"\n"}
-                sólo marque este switch 
-              </Text>
-              <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={switchEnabled ? '#f4f3f4' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={switchEnabled}
-                
-              />
-
+              <Separator></Separator>
+              <View style={styles.viewCounter}>
+                <Text style={styles.text}>
+                  Si el visitante vino solo,
+                  {"\n"}
+                  activa este switch:
+                </Text>
+                <Switch
+                  trackColor={{false: '#767577', true: '#81b0ff'}}
+                  thumbColor={switchEnabled ? '#f4f3f4' : '#f4f3f4'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitch}
+                  value={switchEnabled}
+                  
+                />
+              </View>
               <Separator />
               <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  'Revisa la info antes de guardarla ',
+                  'Por favor, verifica que los datos esten correctos',
                   "Nombre: "+name +"\nApellido: "+lastname +"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
                   [
                     {
@@ -241,7 +244,7 @@ export default function NewVisitor({navigation}) {
                     
                   },
                 )}>
-                <Text style={styles.buttonText}>Guardar visitante nuevo</Text>
+                <Text style={styles.buttonText}>Guardar Registro</Text>
            
               </Pressable>
             <Separator />

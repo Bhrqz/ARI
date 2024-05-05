@@ -23,6 +23,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
     const [declaracion, setDeclaracion] = useState(VisitorDetails["Declaración de Fe"])
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [observ, setObserv] = useState(VisitorDetails.Observaciones)
+    const [fechaDeclaracion, setfechaDeclaracion] = useState(VisitorDetails["Fecha de Declaración"]);
     
     const firstVisit = () =>{
         a = VisitorDetails["Fecha_registro"].toDate()
@@ -31,16 +32,16 @@ const DetailsVisitor = ( {route, navigation} ) => {
         const year = a.getFullYear()
         
         return(
-            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+            <Text style={styles.text}> {day}/{month}/{year}</Text>
             )
     }
 
 
     let MaxLettersDescription = 200
 
-    //Today date for Deeclaration day
-    const TodayDate = () => {
-        new_date=new Date()
+    //Date for Deeclaration day
+    const DeclarationDate = () => {
+        a = VisitorDetails["Fecha de Declaración"]?VisitorDetails["Fecha de Declaración"].toDate():new Date
         const day = new_date.getDate(); 
         const month = new_date.getMonth() + 1; 
         const year = new_date.getFullYear();
@@ -50,7 +51,12 @@ const DetailsVisitor = ( {route, navigation} ) => {
         ) 
     }
 
-
+    //to avoid the Undefined response in the confirmation alert
+    const Filler = (a) =>{
+        if(a)
+            {return(a)}
+        else {return("Vacío")}
+    }
 
     //For updating the remaining letters in the Observations TextInput
     function Observations(value) {
@@ -82,10 +88,11 @@ const DetailsVisitor = ( {route, navigation} ) => {
             Nombres:name,
             Apellidos:lastname,
             Contacto: number,
-            Direccion: address,
+            Dirección: address,
             Invitado: inviter,
             ["Declaración de Fe"]: declaracion?declaracion:"",
             Observaciones: observ?observ:"",
+            ["Fecha de Declaración"]: fechaDeclaracion?"":serverTimestamp(),
                         
         }).then(() => {
             Alert.alert('Información Actualizada')
@@ -140,7 +147,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
 
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Direccion:</Text>
+                    <Text style={styles.text} >Dirección:</Text>
                     <TextInput
                         style={styles.inputMemberDetail}
                         placeholder="Direccion del visitante"
@@ -159,9 +166,17 @@ const DetailsVisitor = ( {route, navigation} ) => {
                         value={inviter}
                     />
                 </View>
+                
                 <View style={styles.viewCounter}>
+                    <Text style={styles.text}>Primera Visita: </Text>
+                    {firstVisit()}
+                </View>
+
+                {VisitorDetails["Declaración de Fe"]?"":
+                <View style={styles.viewCounter}>
+               
                     <Text style={styles.text}>¿Ha declarado su Fe?:</Text>
-                    {VisitorDetails["Declaración de Fe"]?"":
+                    
                         <Switch
                             trackColor={{false: '#767577', true: '#81b0ff'}}
                             thumbColor={declaracion ? '#f4f3f4' : '#f4f3f4'}
@@ -171,48 +186,44 @@ const DetailsVisitor = ( {route, navigation} ) => {
                             
                             
                         />
-                    }
-                    <View>
+                   
+                    <View style={styles.viewCounter}>
                         {declaracion?
                             <Text style={styles.text}>
-                                Si, fe declarada
+                              Si
                             </Text>
                         :
                             <Text style={styles.text}>
-                                No, aun no
+                                No
                             </Text>
                         }
-                        <Text>
-
-                        </Text>
+                        <View>
+                        
+                        </View>
                     </View>
                 </View>
-                    
+            }
                 {
                 //I know its better a Date Picker, but... for now, this will do
                 //you can only report today as the day 
                 }
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}>Fecha de Declaración: </Text>
                     <Text>
                         {
-                            declaracion?
+                            fechaDeclaracion?
                             <View style={styles.text}>
-                                {TodayDate()}
+                                <Text style={styles.text}>
+                                    Fecha de declaración: {DeclarationDate()}
+                                </Text>
                             </View>
                         :
-                            <View>
-                                <Text style={styles.text}>Aun sin fecha</Text>
-                            </View>
+                            ""
                         }
                     </Text>
                 </View>
 
-                <View style={styles.viewCounter}>
-                    <Text style={styles.text}>Primera Visita: </Text>
-                    {firstVisit()}
-                </View>
+                
                 
                 <View style={styles.viewCounter}>
 
@@ -248,7 +259,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Verifica la info',
-                  "Nombre: "+name +"\nApellido: "+lastname +"\nDeclaracion de Fe: "+Declarado()+"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
+                  "Nombre: "+name +"\nApellido: "+lastname +"\nDeclaracion de Fe: "+Declarado()+"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter+"\nObservaciones: "+Filler(observ),
                   [
                     {
                       text: 'Si, guardar',

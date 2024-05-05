@@ -31,7 +31,7 @@ export default function App() {
       <Stack.Screen 
           name="Login" 
           component={Login} 
-          options={{ title: 'Valle de Bendición' }} />
+          options={{ title: 'Iglesia Valle de Bendición' }} />
 
         <Stack.Screen 
           name="Home" 
@@ -40,7 +40,8 @@ export default function App() {
 
         <Stack.Screen 
           name="Nuevo Visitante" 
-          component={NewVisitor} />
+          component={NewVisitor}
+          options={{ title: 'Registro de Nuevo Visitante' }}  />
         
         <Stack.Screen
           name= "Miembros"
