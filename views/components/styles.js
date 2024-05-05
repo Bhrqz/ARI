@@ -18,21 +18,65 @@ export default StyleSheet.create({
       borderBottomColor: '#737373',
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
+    separatorLine: {
+      borderBottomColor:"bbb",
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+
     button: {
       alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 12,
       paddingHorizontal: 32,
-      borderRadius: 4,
-      elevation: 3,
+      borderRadius: 10,
+      elevation: 6,
       backgroundColor: '#3a87cc',
+      
+
     },
+    buttonLogin: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#3a87cc',
+      width:150
+
+    },
+    buttonHome1: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#2A62F4',
+      
+
+    },
+    
+    buttonHome2: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#3356BD',
+      
+
+    },
+
+
     buttonText: {
       fontSize: 18,
       lineHeight: 21,
       fontWeight: 'bold',
       letterSpacing: 0.25,
       color: 'white',
+      
     },
     text:{
       fontSize:16,
@@ -70,6 +114,10 @@ export default StyleSheet.create({
       justifyContent: "flex-start",
       textAlign:"center"
     },
+    imageLogin:{
+      width: 300, 
+      height: 300,
+    },
 
     inputCounterM:{
       borderColor:"blue",
@@ -97,8 +145,14 @@ export default StyleSheet.create({
       borderWidth:10
     },
     textLogin:{
-        fontSize:35
+        fontSize:35,
+        fontStyle:"italic",
+        fontWeight:"bold"
     },
+    textLogin2:{
+      fontSize:30,
+      fontStyle:"italic"
+  },
     lists:{
       alignItems:"",
       width:300,

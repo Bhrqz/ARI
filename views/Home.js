@@ -4,34 +4,32 @@ import styles from './components/styles';
 
 
 const Separator = () => <View style={styles.separator} />;
+const Line = () => <Text>---------------------------</Text>;
 
 export default function Home({ navigation }) {
     return (
       <View style={styles.container}>
           <Text style={styles.textLogin}> 
-            Bienvenido 
+          Menú Principal  
           </Text>
-          <Separator></Separator>
-          <Text style={styles.textTitleList}> 
-            Menú Principal 
-          </Text>
+          
           
           <StatusBar style="auto" />
           <Separator />
           <Pressable
-            style={styles.button}
+            style={styles.buttonHome1}
             onPress={() => navigation.navigate('Nuevo Visitante')}>
-              <Text style={styles.buttonText}>Nuevo visitante</Text>
+              <Text style={styles.buttonText}>Registro de Visitante</Text>
           </Pressable>
           <Separator />
           <Pressable
-            style={styles.button}
+            style={styles.buttonHome1}
             onPress={() => navigation.navigate('Visitantes')}>
-              <Text style={styles.buttonText}>Lista Visitantes</Text>
+              <Text style={styles.buttonText}>Lista de Visitantes</Text>
           </Pressable>
           <Separator />
           <Pressable
-            style={styles.button}
+            style={styles.buttonHome1}
             onPress={() => navigation.navigate('Miembros')}>
               <Text style={styles.buttonText}>Lista de miembros</Text>
           </Pressable>
@@ -51,7 +49,7 @@ export default function Home({ navigation }) {
           <Separator />
           <Separator />
           <Pressable
-            style={styles.button}
+            style={styles.buttonHome2}
             onPress={() => navigation.navigate('Número de asistentes')}>
               <Text style={styles.buttonText}>Registrar Asistencia</Text>
           </Pressable>

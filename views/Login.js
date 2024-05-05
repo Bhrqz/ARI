@@ -59,8 +59,8 @@ const Login = () => {
                 
                 setLoading(false)
                 Alert.alert(
-                    "Usuario Autenticado", 
-                    "Te doy la bienvenida",
+                    "Bienvenido...!", 
+                    "Gracias por tu servicio",
                     [
                         // un invento para verificar si tiene nombre y aja
                            { text: 'OK',
@@ -92,12 +92,11 @@ const Login = () => {
                 <StatusBar style="auto" />
                 <View style={styles.container}>
 
-                    <Separator />
-                    <Text style={styles.textLogin}>Valle de Bendición</Text>
-                    <Image source={require('../assets/LOGO PASTOR JULIO.png')} style={{width: 300, height: 200}} />
+                    <Text style={styles.textLogin}>IglesiApp</Text>
+                    <Image source={require('../assets/LOGO sin sombra2.jpg')} style={styles.imageLogin} />
                     
                     <Separator />
-                    <Text style={styles.textLogin}>Autenticación</Text>
+                    <Text style={styles.textLogin2}>Autenticación</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Correo electrónico"
@@ -115,13 +114,13 @@ const Login = () => {
                     <Text>{loading? "¡Verificando!":""}</Text>
                     
                     <Pressable
-                        style={styles.button}
+                        style={styles.buttonLogin}
                         onPress={() => onLoginPress()}>
                         <Text style={styles.buttonText}>Entrar</Text>
                     </Pressable>
                     <Separator />
                     <Pressable
-                        style={styles.button}
+                        style={styles.buttonLogin}
                         onPress={() => Cleanfields()}>
                         <Text style={styles.buttonText}>Limpiar</Text>
                     </Pressable>
