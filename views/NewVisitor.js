@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { db } from './components/config';
 import { doc, serverTimestamp, collection, getDocs, addDoc } from "firebase/firestore";
 import styles from './components/styles';
-//import ListOfMembers from './components/ListOfMembers';
+import { Dropdown } from 'react-native-element-dropdown';
 
 
 const Separator = () => <View style={styles.separator} />;
@@ -21,7 +21,9 @@ export default function NewVisitor({navigation}) {
     const [inviter, setInviter] = useState("")
     const [isSelected, setIsSelected] = useState(false)
     const [switchEnabled, setSwitchEnabled] = useState(false);
+    const [gender, setGender] = useState("");
     
+   
     function toggleSwitch(){
       setSwitchEnabled(previousState => !previousState);
       switchEnabled? setInviter(""):setInviter("Nadie. Iniciativa propia")
@@ -108,6 +110,11 @@ export default function NewVisitor({navigation}) {
       setInviter(member.Nombres +" "+ member.Apellidos)
 
     }
+
+    const ChangingInviter = (value) =>{
+      setInviter(value)
+      setIsSelected(false)
+    }
     
 
     /**
@@ -115,6 +122,20 @@ export default function NewVisitor({navigation}) {
      *   
     */
 
+    //Gender selector stuff
+    const options =[
+      { label: 'Masculino', value: '1' },
+      { label: 'Femenino', value: '2' },
+      ]
+  
+    const renderItem = item => {
+      return(
+        <View>
+          <Text style={styles.textSelector}>{item.label}</Text>
+        </View>
+      )
+    }
+    // End of Gender selector things
 
     return (
       <KeyboardAwareScrollView>
@@ -171,17 +192,29 @@ export default function NewVisitor({navigation}) {
                   />
                 </View>
 
-              {/**
-              Lets build the inviter selector 
-              */}
-              
-
+                <View style={styles.viewCounter}>
+                  <Text style={styles.text} >Género: </Text>
+                  <Dropdown
+                    selectedTextStyle={styles.selectedTextStyle}
+                    style={styles.dropdownLittle}
+                    placeholderStyle={styles.textNoTitleList}
+                    data={options}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="Elija una opción"
+                    value={gender}
+                    maxHeight={300}
+                    onChange={ (value) => {setGender(value)}}
+                    renderItem={renderItem}
+                  />
+                </View>
+             
                 <View style={styles.viewCounter}>
                   <Text style={styles.text} >Invitado por:</Text>
                   <TextInput
                       style={styles.input}
                       placeholder="Nombre del hermano o hermana"
-                      onChangeText ={(value) => setInviter(value)}
+                      onChangeText ={(value) => ChangingInviter(value)}
                       value={inviter}
                   />
                 </View>
