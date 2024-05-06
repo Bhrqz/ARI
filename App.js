@@ -36,7 +36,7 @@ export default function App() {
         <Stack.Screen 
           name="Home" 
           component={Home} 
-          options={{ title: 'Valle de Bendición' }} />
+          options={{ title: 'Iglesia Valle de Bendición' }} />
 
         <Stack.Screen 
           name="Nuevo Visitante" 
