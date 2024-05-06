@@ -41,7 +41,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
 
     //Date for Deeclaration day
     const DeclarationDate = () => {
-        a = VisitorDetails["Fecha de Declaración"]?VisitorDetails["Fecha de Declaración"].toDate():new Date
+        a = VisitorDetails["Fecha de Declaración"]? VisitorDetails["Fecha de Declaración"].toDate() : new Date
         const day = a.getDate(); 
         const month = a.getMonth() + 1; 
         const year = a.getFullYear();
@@ -68,6 +68,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
     //Kinda selfexplanatory
     function toggleDeclaracion(){
         setDeclaracion(previousState => !previousState)
+        declaracion? setfechaDeclaracion("") : setfechaDeclaracion(new Date)
         }
     
     //This was created in order to not show TRUE or FALSE in the Alert of the Guardar button
@@ -92,7 +93,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
             Invitado: inviter,
             ["Declaración de Fe"]: declaracion?declaracion:"",
             Observaciones: observ?observ:"",
-            ["Fecha de Declaración"]: fechaDeclaracion?"":serverTimestamp(),
+            ["Fecha de Declaración"]: fechaDeclaracion? fechaDeclaracion : "",
                         
         }).then(() => {
             Alert.alert('Información Actualizada')
