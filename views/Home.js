@@ -4,56 +4,62 @@ import styles from './components/styles';
 
 
 const Separator = () => <View style={styles.separator} />;
+const SeparatorNoLine = () => <View style={styles.separatorNoLine} />;
 const Line = () => <Text>---------------------------</Text>;
 
 export default function Home({ navigation }) {
     return (
       <View style={styles.container}>
+      <View >
           <Text style={styles.textLogin}> 
           Menú Principal  
           </Text>
           
           
           <StatusBar style="auto" />
-          <Separator />
+          <SeparatorNoLine/>
           <Pressable
             style={styles.buttonHome1}
             onPress={() => navigation.navigate('Nuevo Visitante')}>
               <Text style={styles.buttonText}>Registro de Visitante</Text>
           </Pressable>
-          <Separator />
+          <SeparatorNoLine/>
           <Pressable
             style={styles.buttonHome1}
             onPress={() => navigation.navigate('Visitantes')}>
               <Text style={styles.buttonText}>Lista de Visitantes</Text>
           </Pressable>
+          <SeparatorNoLine/>
           <Separator />
+          <SeparatorNoLine/>
           <Pressable
-            style={styles.buttonHome1}
+            style={styles.buttonHome3}
             onPress={() => navigation.navigate('Miembros')}>
               <Text style={styles.buttonText}>Lista de miembros</Text>
           </Pressable>
+          <SeparatorNoLine/>
           <Separator />
-          <Separator />
+          <SeparatorNoLine/>
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Creación de Anomalia')}>
               <Text style={styles.buttonText}>Nueva Anomalía</Text>
           </Pressable>
-          <Separator />
+          <SeparatorNoLine/>
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Anomalias')}>
               <Text style={styles.buttonText}>Ver Anomalías</Text>
           </Pressable>
+          <SeparatorNoLine/>
           <Separator />
-          <Separator />
+          <SeparatorNoLine/>
           <Pressable
             style={styles.buttonHome2}
             onPress={() => navigation.navigate('Número de asistentes')}>
               <Text style={styles.buttonText}>Registrar Asistencia</Text>
           </Pressable>
-
+          </View>
       </View>
     )  
   }
