@@ -18,9 +18,8 @@ export default StyleSheet.create({
       borderBottomColor: '#737373',
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
-    separatorLine: {
-      borderBottomColor:"bbb",
-      borderBottomWidth: StyleSheet.hairlineWidth,
+    separatorNoLine: {
+        marginVertical:10,
     },
 
     button: {
@@ -53,6 +52,17 @@ export default StyleSheet.create({
       borderRadius: 10,
       elevation: 6,
       backgroundColor: '#2A62F4',
+      
+
+    },
+    buttonHome3: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#0291f7',
       
 
     },

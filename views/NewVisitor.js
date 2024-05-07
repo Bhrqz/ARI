@@ -259,7 +259,7 @@ export default function NewVisitor({navigation}) {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos esten correctos',
-                  "Nombre: "+name +"\nApellido: "+lastname +"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
+                  "Nombre: "+name +"\nApellido: "+lastname +"\nContacto: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
                   [
                     {
                       text: 'Si, guardar',
