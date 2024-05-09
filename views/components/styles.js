@@ -93,6 +93,11 @@ export default StyleSheet.create({
       textAlign :"auto",
       textAlignVertical:"center"
     },
+    textSmall:{
+      fontSize:12,
+      textAlign :"center",
+      textAlignVertical:"center"
+    },
     input: {
         borderColor: "gray",
         width: "70%",
