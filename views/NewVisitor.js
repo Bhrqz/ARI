@@ -137,9 +137,48 @@ export default function NewVisitor({navigation}) {
     }
     // End of Gender selector things
 
+
+
+    //Start of the PEV
+    //Previous Existence Verifier
+
+    const [visitors, setVisitors] = useState([]);
+    const [loadingVisitors, setLoadingVisitors] = useState(true);
+    const [duplicate, setDuplicate] = useState(false)
+
+    useEffect(() => {
+      async function fetchData() {
+        const docs = [];
+        const querySnapshot = await getDocs(collection(db, "Visitantes"));
+        setLoadingVisitors(false);
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          const object = {id: doc.id, ...doc.data()}
+          docs.push(object);
+        });
+        setVisitors(docs);
+      }
+      fetchData();
+  
+    }, []);
+
+    const hasSameNameOrLastname = () => {
+      for (const visitor of visitors) {
+        const visitorName = `${visitor.Nombres} `.toLowerCase();
+        const visitorLastName = `${visitor.Apellidos}`.toLowerCase();
+        if (name && lastname && visitorName.includes(name.toLowerCase()) && visitorLastName.includes(lastname.toLowerCase())) {
+          return true; 
+        }
+      }
+      return false; }
+
+    //End of the PEV
+
+
+
     return (
       <KeyboardAwareScrollView>
-        {loadingMembers?
+        {(loadingMembers && loadingVisitors)?
           <View style={styles.container}>
 
               <Separator></Separator>
@@ -168,6 +207,21 @@ export default function NewVisitor({navigation}) {
                   />
                 </View>
 
+           
+                {hasSameNameOrLastname()? 
+                  <View>
+                    <Text style={styles.textSmall}>
+                      Es posible que ya esté registrada esta persona.
+                    </Text>
+                    <Text style={styles.textSmall}>
+                      Por favor, verifica si ha venido antes.
+                    </Text>
+                  </View>
+                  :
+                  null
+                }
+                
+          
 
                 <View style={styles.viewCounter}>
                   <Text style={styles.text} >Contacto:</Text>
