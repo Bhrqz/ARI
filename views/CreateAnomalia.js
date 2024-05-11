@@ -68,7 +68,7 @@ export default function CreateAnomalia() {
       <KeyboardAwareScrollView>
         <View style={styles.container}>
               <View style={styles.container}>
-                <Text style={styles.textLogin}>Registro de Anomalía</Text>
+                <Text style={styles.textTitle}>Registro de Anomalía</Text>
               </View>
 
               <View style={styles.viewCounter}>

@@ -51,7 +51,7 @@ export default function Members({ navigation }) {
       <View style={styles.container}>
       
         <View style={styles.container}>
-            <Text style={styles.textLogin}>Miembros</Text>
+            <Text style={styles.textTitle}>Miembros</Text>
         </View>
 
         <TextInput

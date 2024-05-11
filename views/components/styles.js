@@ -166,6 +166,11 @@ export default StyleSheet.create({
         fontStyle:"italic",
         fontWeight:"bold"
     },
+    textTitle:{
+      fontSize:30,
+      fontStyle:"italic",
+      fontWeight:"bold"
+  },
     textLogin2:{
       fontSize:30,
       fontStyle:"italic"

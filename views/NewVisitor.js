@@ -190,6 +190,9 @@ export default function NewVisitor({navigation}) {
 
     return (
       <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <Text style={styles.textTitle}>Registro de Nuevo Visitante</Text>
+        </View>
         {(loadingMembers && loadingVisitors)?
           <View style={styles.container}>
 

@@ -198,7 +198,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
             <View style={styles.container}>
             
                 <View style={styles.container}>
-                    <Text style={styles.textLogin}>Detalle de Visitante</Text>
+                    <Text style={styles.textTitle}>Detalle de Visitante</Text>
                 </View>    
 
                 <View style={styles.viewCounter}>
@@ -274,8 +274,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                       </View>
                       <Separator/>
                     </TouchableOpacity>
-                ))
-              }
+                ))}
               
 
                 
@@ -314,7 +313,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                         </View>
                     </View>
                 </View>
-            }
+                }
                 {
                 //I know its better a Date Picker, but... for now, this will do
                 //you can only report today as the day 
