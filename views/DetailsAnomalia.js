@@ -19,7 +19,7 @@ const DetailsAnomalia = ( {route, navigation} ) => {
     const [incidencia, setIncidencia] = useState(AnomaliaDetails.Incidencia? AnomaliaDetails.Incidencia:"");
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [resolved, setResolved] = useState(AnomaliaDetails.Solucionado)
-    const [resuelto, setResuelto] = useState("")
+    const [solvedDate, setSolvedDate] = useState(AnomaliaDetails.Fecha_Solucion)
     
     const alreadySolved = () => {
         if(AnomaliaDetails.Solucionado == false){
@@ -27,16 +27,12 @@ const DetailsAnomalia = ( {route, navigation} ) => {
         }else{
             return true
         }
-            
-        
-
     }
 
     let MaxLettersDescription = 150
 
     function toggleResolved(){
-        setResolved(previousState => !previousState);
-        resolved?setResuelto("Si, solucionado"):setResuelto("No, aun pendiente")        
+        setResolved(previousState => !previousState);       
       }
     
     function Updating(value) {
@@ -53,15 +49,15 @@ const DetailsAnomalia = ( {route, navigation} ) => {
     const year = date.getFullYear(); 
     
     //Today date for SOlVED report
+    //TODAY is not quite the day of the report... bad name, I know
     const TodayDate = () => {
-        new_date=new Date()
-        const day = new_date.getDate(); 
-        const month = new_date.getMonth() + 1; 
-        const year = new_date.getFullYear();
+        a = AnomaliaDetails.Fecha_Solucion? AnomaliaDetails.Fecha_Solucion.toDate() : new Date
+        const day = a.getDate(); 
+        const month = a.getMonth() + 1; 
+        const year = a.getFullYear();
         
-
         return(
-            <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+            <Text style={styles.text}> {day}/{month}/{year}</Text>
         ) 
     } 
 
@@ -77,12 +73,45 @@ const DetailsAnomalia = ( {route, navigation} ) => {
             Alert.alert('Anomalía Actualizada')
             console.log("Data submitted")
             setIncidencia("")
-            setResuelto("")
             navigation.navigate("Home")
         }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
               console.log(error)
           })
+    }
+
+    //to avoid the Undefined response in the confirmation alert
+    const Filler = (a) =>{
+        if(a)
+            {return(a)}
+        else {return("Vacío")}
+    }
+
+    //Confirmation if the solved switch is marked
+    const FinalConfirmation = () => {
+        if(resolved){
+            Alert.alert(
+                "Se está marcando esta anomalía como solucionada",
+                "Una vez marcada como solucionada, no podrá editarse",
+                [
+                    {
+                    text: 'Si, guardar',
+                    onPress: () => UpdatingInfo(),
+                    style: styles.input,
+                    },
+                    {
+                    text: 'Cancelar',
+                    onPress: () => Alert.alert('Accion Cancelada'),
+                    style: 'cancel',
+                    },
+                ],
+                {
+                    cancelable: false,
+                    
+                }
+                )
+        }
+        else{UpdatingInfo()}
     }
 
     return(
@@ -94,60 +123,59 @@ const DetailsAnomalia = ( {route, navigation} ) => {
                 </View> 
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.labelTitle} >Suceso:</Text>
-                    <Text style={styles.paragraph}>{AnomaliaDetails.Titulo}</Text>
+                    <Text style={styles.text} >Suceso:</Text>
+                    <Text style={styles.inputMemberDetail}>{AnomaliaDetails.Titulo}</Text>
                 </View>
                 <View style={styles.viewCounter}>
-                    <Text style={styles.labelTitle}>Detalle:</Text>
-                    <Text style={styles.paragraph}> {AnomaliaDetails.Descripcion}</Text>
+                    <Text style={styles.text}>Detalle:</Text>
+                    <Text style={styles.inputMemberDetail}> {AnomaliaDetails.Descripcion}</Text>
                 </View>  
                 <View style={styles.viewCounter}>
-                    <Text style={styles.labelTitle}>Fecha de reporte:</Text>
-                    <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+                    <Text style={styles.text}>Fecha de reporte:</Text>
+                    <Text style={styles.text}> {day}/{month}/{year}</Text>
                 </View> 
             <Separator></Separator>
+                {solvedDate?"":
+                <View >
+                    <Text style={styles.text}>Cambiar Estado actual de la Anomalía</Text>
+                    <View style={styles.viewCounter}>
 
-                <Text style={styles.labelTitle}>Marcar como solucionado</Text>
-                <View style={styles.viewCounter}>
-                <Switch
-                    trackColor={{false: '#767577', true: '#81b0ff'}}
-                    thumbColor={resolved ? '#f4f3f4' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleResolved}
-                    value={resolved}
-                />
-                {
-                resolved?
-                    <View>
-                        <Text>Si, Solucionado</Text>
+                        <Switch
+                            trackColor={{false: '#767577', true: '#81b0ff'}}
+                            thumbColor={resolved ? '#f4f3f4' : '#f4f3f4'}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleResolved}
+                            value={resolved}
+                        />
+                        {
+                        resolved?
+                            <View style={styles.viewCounter}>
+                                <Text style={styles.text}>Solucionado</Text>
+                            </View>
+                        :
+                            <View style={styles.viewCounter}>
+                                <Text style={styles.text}>Pendiente</Text>
+                            </View>
+                        }
                     </View>
-                :
-                    <View>
-                        <Text>No, aun pendiente</Text>
-                    </View>
-                }
-                </View>
+                </View>}
                 
-                {
-                //I know its better a Date Picker, but... for now, this will do
-                //you can only report today as the day 
-                }
 
-                <Text style={styles.labelTitle}>Fecha de Solución</Text>
+                
                 <Text>
                     {
                         resolved?
-                        <View>
+                        
+                        <View style={styles.viewCounter}>
+                            <Text style={styles.text}>Fecha de Solución</Text>
                             {TodayDate()}
                         </View>
                     :
-                        <View>
-                            <Text style={styles.paragraph}>Aun sin fecha</Text>
-                        </View>
+                    null
                     }
                 </Text>
-
-                    <Text style={styles.labelTitle}>Incidencias</Text>
+                    <Separator></Separator>
+                    <Text style={styles.text}>Novedades:</Text>
                     <TextInput
                         editable
                         multiline
@@ -178,11 +206,11 @@ const DetailsAnomalia = ( {route, navigation} ) => {
                     disabled={alreadySolved()}
                     onPress={() => Alert.alert(
                     '¿Estás seguro?',
-                    "Luego de marcada como Solucionada,\nla anomalìa no podrá ser editada",
+                    "Suceso: "+titulo+"\nDetalle: "+description+"\nNovedades: "+Filler(incidencia),
                     [
                         {
-                        text: 'Si, guardar',
-                        onPress: () => UpdatingInfo(),
+                        text: 'Guardar',
+                        onPress: () => FinalConfirmation(),
                         style: styles.input,
                         },
                         {

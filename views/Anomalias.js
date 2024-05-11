@@ -91,7 +91,7 @@ function Anomalias ({navigation}) {
         
         <View style={styles.container}>
             <View style={styles.container}>
-              <Text style={styles.textLogin}>Lista de Anomalías</Text>
+              <Text style={styles.textTitle}>Lista de Anomalías</Text>
             </View>
             
             <TextInput

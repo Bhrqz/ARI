@@ -59,7 +59,7 @@ function Visitors ({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
-            <Text style={styles.textLogin}>Visitantes</Text>
+            <Text style={styles.textTitle}>Visitantes</Text>
       </View>
         <View style={styles.container}>
           

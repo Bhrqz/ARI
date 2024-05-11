@@ -67,6 +67,7 @@ function DetailsMember ( { route, navigation }) {
           })
     }
     
+    
     return(
         <KeyboardAwareScrollView>
             
@@ -164,8 +165,9 @@ function DetailsMember ( { route, navigation }) {
                         editable={editable}
                         style={styles.inputMemberDetail}
                         placeholder="Contacto"
+                        keyboardType="numeric"
                         onChangeText ={(value) => setContacto(value)}
-                        value={contacto}
+                        value={contacto.toString()}
                     />
                 </View>
 

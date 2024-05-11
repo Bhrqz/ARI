@@ -41,7 +41,7 @@ export default function App() {
         <Stack.Screen 
           name="Nuevo Visitante" 
           component={NewVisitor}
-          options={{ title: 'Registro de Nuevo Visitante' }}  />
+          options={{ title: 'Iglesia Valle de Bendición' }}  />
         
         <Stack.Screen
           name= "Miembros"
