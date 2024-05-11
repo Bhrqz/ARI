@@ -25,6 +25,39 @@ const DetailsVisitor = ( {route, navigation} ) => {
     const [observ, setObserv] = useState(VisitorDetails.Observaciones)
     const [fechaDeclaracion, setfechaDeclaracion] = useState(VisitorDetails["Fecha de Declaración"]);
     
+
+
+    //Dates for the confirmation alert
+    const fechaRegistro = () =>{
+        a = VisitorDetails["Fecha_registro"].toDate()
+        const day = a.getDate();
+        const month = a.getMonth()+1;
+        const year = a.getFullYear()
+        
+        return(
+            `${day}/${month}/${year}`
+              )
+    }
+
+    const DateDeclaracion = () =>{
+        if(fechaDeclaracion){
+            a = VisitorDetails["Fecha de Declaración"].toDate()
+            const day = a.getDate();
+            const month = a.getMonth()+1;
+            const year = a.getFullYear()
+        
+        return(
+            `${day}/${month}/${year}`
+              )
+        }
+        else{
+            return("No aplica")
+        }
+        
+    }
+    //End of the dates for confirmation alert
+
+
     const firstVisit = () =>{
         a = VisitorDetails["Fecha_registro"].toDate()
         const day = a.getDate();
@@ -96,7 +129,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
             ["Fecha de Declaración"]: fechaDeclaracion? fechaDeclaracion : "",
                         
         }).then(() => {
-            Alert.alert('Información Actualizada')
+            Alert.alert('Visitante Actualizado Correctamente.')
             console.log("Data submitted")
             navigation.navigate("Home")
         }).catch((error) =>{
@@ -164,10 +197,12 @@ const DetailsVisitor = ( {route, navigation} ) => {
         <KeyboardAwareScrollView>
             <View style={styles.container}>
             
-                
+                <View style={styles.container}>
+                    <Text style={styles.textLogin}>Detalle de Visitante</Text>
+                </View>    
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Nombre:</Text>
+                    <Text style={styles.text} >Nombres:</Text>
                     <TextInput
                         style={styles.inputMemberDetail}
                         placeholder="Nombre del visitante"
@@ -336,7 +371,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos estén correctos',
-                  "Nombre: "+name +"\nApellido: "+lastname +"\nDeclaracion de Fe: "+Declarado()+"\nNúmero: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter+"\nObservaciones: "+Filler(observ),
+                  "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+"\nFecha de Declaración: "+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
                   [
                     {
                       text: 'Si, guardar',

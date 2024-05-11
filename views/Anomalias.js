@@ -90,11 +90,13 @@ function Anomalias ({navigation}) {
     <ScrollView>
         
         <View style={styles.container}>
-          <Separator />
-            <Text style={styles.text}>Busqueda</Text>
+            <View style={styles.container}>
+              <Text style={styles.textLogin}>Lista de Anomalías</Text>
+            </View>
+            
             <TextInput
               style={styles.input}
-              placeholder='Filtrar por Titulo'
+              placeholder='Buscar por palabra clave'
               value={reportTitle}
               onChangeText={(value) => setReportTitle(value)}
               >

@@ -49,7 +49,7 @@ export default function CreateAnomalia() {
               Solucionado: solved,
               Fecha_Reporte: serverTimestamp()
           }).then(() => {
-              Alert.alert('Anomalía enviada')
+              Alert.alert('Anomalía registrada correctamente')
               console.log("Data submitted")
               setDescription("")
               setTitulo("")
@@ -67,26 +67,34 @@ export default function CreateAnomalia() {
     return (
       <KeyboardAwareScrollView>
         <View style={styles.container}>
-              <Text style={styles.label} >Titulo</Text>
-              <TextInput
-                  style={styles.input}
-                  maxLength={30}
-                  placeholder="Titulo del report"
-                  onChangeText ={(value) => setTitulo(value)}
-                  value={titulo}
-              />
-              
-              <Text style={styles.label}>Descripcion</Text>
-              <TextInput
-                  editable
-                  multiline
-                  numberOfLines={4}
-                  maxLength={MaxLettersDescription}
-                  style={styles.input}
-                  placeholder="Descripcion de lo sucedido"
-                  onChangeText ={(value) => Describing(value)}
-                  value={description}
-              />
+              <View style={styles.container}>
+                <Text style={styles.textLogin}>Registro de Anomalía</Text>
+              </View>
+
+              <View style={styles.viewCounter}>
+                <Text style={styles.text} >Suceso:</Text>
+                <TextInput
+                    style={styles.input}
+                    maxLength={30}
+                    placeholder="Mencione lo sucedido"
+                    onChangeText ={(value) => setTitulo(value)}
+                    value={titulo}
+                />
+              </View>
+
+              <View style={styles.viewCounter}>
+                <Text style={styles.text}>Detalle:</Text>
+                <TextInput
+                    editable
+                    multiline
+                    numberOfLines={4}
+                    maxLength={MaxLettersDescription}
+                    style={styles.input}
+                    placeholder="Descripción de lo sucedido"
+                    onChangeText ={(value) => Describing(value)}
+                    value={description}
+                />
+              </View>
               {
                 description?
                 <Text>Caracteres Faltantes: {remainingLetters}</Text>
@@ -102,7 +110,7 @@ export default function CreateAnomalia() {
               <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  'Revisa la info antes de guardarla ',
+                  'Por favor verifica que los datos estén correctos',
                   "Titulo: "+titulo +"\nDescripcion: "+description,
                   [
                     {
@@ -121,7 +129,7 @@ export default function CreateAnomalia() {
                     
                   },
                 )}>
-                <Text style={styles.buttonText}>Reportar Anomalía</Text>
+                <Text style={styles.buttonText}>Registrar Anomalía</Text>
            
               </Pressable>
             <Separator />

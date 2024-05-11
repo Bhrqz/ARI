@@ -50,17 +50,17 @@ export default function Members({ navigation }) {
     <ScrollView>
       <View style={styles.container}>
       
-        <Separator />
-        <Text style={styles.text}>Buscar un miembro</Text>
+        <View style={styles.container}>
+            <Text style={styles.textLogin}>Miembros</Text>
+        </View>
 
         <TextInput
           style={styles.input}
-          placeholder="Filtro por Nombre o Apellido"
+          placeholder="Buscar por Nombre o Apellido"
           value={visitorName}
           onChangeText={(value) => setVisitorName(value)}
         />
 
-        <Separator />
 
         <View>
           {loadingMembers?

@@ -71,29 +71,27 @@ function DetailsMember ( { route, navigation }) {
         <KeyboardAwareScrollView>
             
             <View style={styles.container}>
-            
-
-                <Separator />
+                <View style={styles.container}>
+                    <Text style={styles.textLogin}>Detalle Miembro</Text>
+                </View>
                 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Toque el Switch para habilitar la edición:</Text>
+                    <Text style={styles.text} >Habilitar edición:</Text>
                     <Switch
                         trackColor={{false: '#767577', true: '#81b0ff'}}
                         thumbColor={editable ? '#f4f3f4' : '#f4f3f4'}
                         ios_backgroundColor="#3e3e3e"
                         onValueChange={toggleEditable}
                         value={editable}
-                        
                     />
+                    {editable? <Text style={styles.text}>Si</Text>:<Text style={styles.text}>No</Text>}
                 </View>
-                {editable? <Text>Edición habilitada</Text>:<Text>Edición No habilitada</Text>}
-
-                <Separator />
                 
-                <View style={styles.containerMemberDetails}>    
+
+                
                 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Nombre:</Text>
+                    <Text style={styles.text} >Nombres:</Text>
                     <TextInput
                         editable={editable}
                         style={styles.inputMemberDetail}
@@ -128,7 +126,7 @@ function DetailsMember ( { route, navigation }) {
                 */}
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Direccion:</Text>
+                    <Text style={styles.text} >Dirección:</Text>
                     <TextInput
                         editable={editable}
                         style={styles.inputMemberDetail}
@@ -194,7 +192,7 @@ function DetailsMember ( { route, navigation }) {
                 </View>
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Profesion:</Text>
+                    <Text style={styles.text} >Profesión:</Text>
                     <TextInput
                         editable={editable}
                         style={styles.inputMemberDetail}
@@ -205,7 +203,7 @@ function DetailsMember ( { route, navigation }) {
                 </View>
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Ocupacion:</Text>
+                    <Text style={styles.text} >Ocupación:</Text>
                     <TextInput
                         editable={editable}
                         style={styles.inputMemberDetail}
@@ -249,7 +247,7 @@ function DetailsMember ( { route, navigation }) {
                 </View>
 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text} >Situacion Laboral:</Text>
+                    <Text style={styles.text} >Situación Laboral:</Text>
                     <TextInput
                         editable={editable}
                         style={styles.inputMemberDetail}
@@ -298,7 +296,6 @@ function DetailsMember ( { route, navigation }) {
 
               <Separator></Separator>
               
-            </View>
             </View>
         </KeyboardAwareScrollView>
     )
