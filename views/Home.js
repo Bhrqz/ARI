@@ -27,7 +27,7 @@ export default function Home({ navigation }) {
           <Pressable
             style={styles.buttonHome1}
             onPress={() => navigation.navigate('Visitantes')}>
-              <Text style={styles.buttonText}>Lista de Visitantes</Text>
+              <Text style={styles.buttonText}>Ver Visitantes</Text>
           </Pressable>
           <SeparatorNoLine/>
           <Separator />
@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
           <Pressable
             style={styles.buttonHome3}
             onPress={() => navigation.navigate('Miembros')}>
-              <Text style={styles.buttonText}>Lista de miembros</Text>
+              <Text style={styles.buttonText}>Actualizar Miembro</Text>
           </Pressable>
           <SeparatorNoLine/>
           <Separator />
@@ -43,7 +43,7 @@ export default function Home({ navigation }) {
           <Pressable
             style={styles.button}
             onPress={() => navigation.navigate('Creación de Anomalia')}>
-              <Text style={styles.buttonText}>Nueva Anomalía</Text>
+              <Text style={styles.buttonText}>Registro de Anomalía</Text>
           </Pressable>
           <SeparatorNoLine/>
           <Pressable
@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
           <Pressable
             style={styles.buttonHome2}
             onPress={() => navigation.navigate('Número de asistentes')}>
-              <Text style={styles.buttonText}>Registrar Asistencia</Text>
+              <Text style={styles.buttonText}>Registro de Asistencia</Text>
           </Pressable>
           </View>
       </View>

@@ -10,7 +10,8 @@ export default StyleSheet.create({
     
     label: {
         alignItems:"flex-end",
-        padding:10,
+        marginTop:20,
+        marginBottom:1,
         fontSize:23
     },
     separator: {
@@ -112,6 +113,7 @@ export default StyleSheet.create({
     },
     labelCounter:{
       fontSize:20,
+      marginTop:1,
       textAlign: "center"
     },
     inputMemberDetail: {
@@ -207,7 +209,8 @@ export default StyleSheet.create({
     },
     paragraph:{
       fontSize:20,
-      marginBottom:15
+      marginBottom:1,
+      textAlignVertical:"center"
     },
     dropdown: {
       margin: 16,

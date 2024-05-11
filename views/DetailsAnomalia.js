@@ -88,18 +88,23 @@ const DetailsAnomalia = ( {route, navigation} ) => {
     return(
         <KeyboardAwareScrollView>
            <View style={styles.container}>
-            
-                <Text style={styles.labelTitle} >Titulo</Text>
-                <Text style={styles.paragraph}>{AnomaliaDetails.Titulo}</Text>
-                    
-                <Text style={styles.labelTitle}>Descripcion</Text>
-                <Text style={styles.paragraph}> {AnomaliaDetails.Descripcion}</Text>
+                
+                <View style={styles.container}>
+                    <Text style={styles.textLogin}>Detalle de Anomalía</Text>
+                </View> 
 
-                <Text style={styles.labelTitle}>Fecha de reporte</Text>
-                <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
-            </View>
-
-            <View style={styles.container}>
+                <View style={styles.viewCounter}>
+                    <Text style={styles.labelTitle} >Suceso:</Text>
+                    <Text style={styles.paragraph}>{AnomaliaDetails.Titulo}</Text>
+                </View>
+                <View style={styles.viewCounter}>
+                    <Text style={styles.labelTitle}>Detalle:</Text>
+                    <Text style={styles.paragraph}> {AnomaliaDetails.Descripcion}</Text>
+                </View>  
+                <View style={styles.viewCounter}>
+                    <Text style={styles.labelTitle}>Fecha de reporte:</Text>
+                    <Text style={styles.paragraph}> {day}/{month}/{year}</Text>
+                </View> 
             <Separator></Separator>
 
                 <Text style={styles.labelTitle}>Marcar como solucionado</Text>

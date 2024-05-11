@@ -48,7 +48,7 @@ export default function NewVisitor({navigation}) {
               Compromiso:false,
               Fecha_registro: serverTimestamp()
           }).then(() => {
-              Alert.alert('Información Guardada')
+              Alert.alert('Visitante Registrado Correctamente')
               console.log("Data submitted")
               setLastname("")
               setName("")
@@ -174,6 +174,18 @@ export default function NewVisitor({navigation}) {
 
     //End of the PEV
 
+    //In order to show the date of registration in the
+    //confirmation Alert
+    const showDate = () =>{
+      a = new Date
+      const day = a.getDate();
+      const month = a.getMonth()+1;
+      const year = a.getFullYear()
+      
+      return(
+        `${day}/${month}/${year}`
+          )
+    }
 
 
     return (
@@ -182,26 +194,26 @@ export default function NewVisitor({navigation}) {
           <View style={styles.container}>
 
               <Separator></Separator>
-              <Text>Dame un momento, porfa.</Text>
+              <Text>Cargando Información.</Text>
               <ActivityIndicator size="large"/>
           </View>
               :
               <View style={styles.container}>
                 <View style={styles.viewCounter}>
-                  <Text style={styles.text} >Nombre:</Text>
+                  <Text style={styles.text} >Nombres:</Text>
                   <TextInput
                       style={styles.input}
-                      placeholder="Nombre del visitante"
+                      placeholder="Nombres del visitante"
                       onChangeText ={(value) => setName(value)}
                       value={name}
                   />
                 </View>
 
                 <View style={styles.viewCounter}>
-                  <Text style={styles.text}>Apellido:</Text>
+                  <Text style={styles.text}>Apellidos:</Text>
                   <TextInput
                       style={styles.input}
-                      placeholder="Apellido del visitante"
+                      placeholder="Apellidos del visitante"
                       onChangeText ={(value) => setLastname(value)}
                       value={lastname}
                   />
@@ -237,7 +249,7 @@ export default function NewVisitor({navigation}) {
                 </View>
               
                 <View style={styles.viewCounter}>
-                  <Text style={styles.text} >Dirección</Text>
+                  <Text style={styles.text} >Dirección:</Text>
                   <TextInput
                       style={styles.input}
                       placeholder="Dirección del visitante"
@@ -312,8 +324,8 @@ export default function NewVisitor({navigation}) {
               <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  'Por favor, verifica que los datos esten correctos',
-                  "Nombre: "+name +"\nApellido: "+lastname +"\nContacto: "+number+"\nDireccion: "+address+"\nInvitado por: "+inviter,
+                  'Por favor, verifica que los datos estén correctos',
+                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
                   [
                     {
                       text: 'Si, guardar',

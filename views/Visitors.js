@@ -63,10 +63,9 @@ function Visitors ({navigation}) {
       </View>
         <View style={styles.container}>
           
-            <Text style={styles.text}>Busqueda</Text>
             <TextInput
               style={styles.input}
-              placeholder='Filtrar por Titulo'
+              placeholder='Buscar por Nombre o Apellido'
               value={searchQuery}
               onChangeText={(value) => setSearchQuery(value)}
               >
@@ -77,14 +76,14 @@ function Visitors ({navigation}) {
 
 
       <View style={[styles.container, styles.viewCounter, styles.spaceAround]}>
-        <Text>Nombre y Apellido</Text>
+        <Text>Nombres y Apellidos</Text>
         <Text>Primera visita</Text>
       </View>
 
         <View style={styles.container}>
           {loadingVisitors?
             <View>
-              <Text>Cargando lista visitantes...</Text>
+              <Text>Cargando lista de Visitantes...</Text>
               <ActivityIndicator size="large"/>
             </View>
             :

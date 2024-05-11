@@ -45,35 +45,49 @@ export default function App() {
         
         <Stack.Screen
           name= "Miembros"
-          component={Members} />
+          component={Members} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
         
         <Stack.Screen
           name= "Detalles Miembro"
-          component={DetailsMember} />
+          component={DetailsMember} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
         
         <Stack.Screen
           name= "Creación de Anomalia"
-          component={CreateAnomalia} />
+          component={CreateAnomalia} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
         
         <Stack.Screen
           name= "Anomalias"
-          component={Anomalia} />
+          component={Anomalia}
+          options={{ title: 'Iglesia Valle de Bendición' }} />
         
         <Stack.Screen
           name= "Número de asistentes"
-          component={CreateCounter} />
+          component={CreateCounter} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
         
         <Stack.Screen
           name= "Detalle de Anomalía"
-          component={DetailsAnomalia} />
+          component={DetailsAnomalia} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
 
         <Stack.Screen
           name= "Visitantes"
-          component={Visitors} />
+          component={Visitors}
+          options={{ title: 'Iglesia Valle de Bendición' }} />
 
         <Stack.Screen
           name= "Detalle de Visitante"
-          component={DetailsVisitor} />
+          component={DetailsVisitor} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
         
 
       </Stack.Navigator>

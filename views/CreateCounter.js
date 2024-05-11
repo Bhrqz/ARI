@@ -8,7 +8,7 @@ import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/fires
 import styles from './components/styles';
 
 
-const Separator = () => <View style={styles.separatorCounter} />;
+const Separator = () => <View style={styles.separator} />;
 
 export default function CreateCounter() {
 
@@ -113,7 +113,6 @@ export default function CreateCounter() {
                     </View>
             </View>
             
-            <Separator />
 
             
             <Text style={styles.label} >Sala Cuna</Text>
@@ -141,8 +140,8 @@ export default function CreateCounter() {
                     />
               </View>
             </View>
-
-            <Separator />
+            <View>
+            </View>
 
             <Text style={styles.label} >Párvulos</Text>
             <View style={styles.viewCounter}>
@@ -170,8 +169,6 @@ export default function CreateCounter() {
                 </View>
             </View>
 
-            <Separator />
-
             <Text style={styles.label} >Principiantes</Text>
             <View style={styles.viewCounter}>
               <View>
@@ -198,7 +195,6 @@ export default function CreateCounter() {
               </View>
             </View>
 
-            <Separator />
               
             <Text style={styles.label} >Primarios</Text>
             <View style={styles.viewCounter}>
@@ -226,13 +222,12 @@ export default function CreateCounter() {
               </View>
             </View>
 
-            <Separator />
 
 
             <Text style={styles.label} >Adolescentes</Text>
             <View style={styles.viewCounter}>
               <View>
-              <Text style={styles.labelCounter} >Chicos</Text>
+              <Text style={styles.labelCounter} >Niños</Text>
               
                 <TextInput
                     style={styles.inputCounterM}
@@ -244,7 +239,7 @@ export default function CreateCounter() {
               />
               </View>
               <View>
-              <Text style={styles.labelCounter} >Chicas</Text>
+              <Text style={styles.labelCounter} >NIñas</Text>
             
                 <TextInput
                     style={styles.inputCounterF}
@@ -263,8 +258,8 @@ export default function CreateCounter() {
             <Pressable
                 style={styles.button}
                 onPress={() => Alert.alert(
-                  'Revisa la info antes de guardarla ',
-                    "Salon Principal: Hombres: "+mainHallMen+"/ Mujeres: "+mainHallWomen+"\nSala Cuna: Niños: "+salaCunaBoys+"/ Niñas: "+salaCunaGirls+"\nPárculos: Niños: "+parvulosBoys+"/ Niñas: "+parvulosGirls+"\nPrincipiantes: Niños: "+principiantesBoys+" / Niñas: "+primariosGirls+"\nPrimarios: Niños: "+primeriosBoys+"/ Niñas: "+primariosGirls+"\nAdolescentes: Chicos: "+adolescentesBoys+"/ Chicas: "+adolescentesGirls+"\n",
+                  'Por favor verifica que los datos estén correctos',
+                    "Salon Principal: Hombres: "+mainHallMen+"/ Mujeres: "+mainHallWomen+"\nSala Cuna: Niños: "+salaCunaBoys+"/ Niñas: "+salaCunaGirls+"\nPárvulos: Niños: "+parvulosBoys+"/ Niñas: "+parvulosGirls+"\nPrincipiantes: Niños: "+principiantesBoys+" / Niñas: "+primariosGirls+"\nPrimarios: Niños: "+primeriosBoys+"/ Niñas: "+primariosGirls+"\nAdolescentes: Niños: "+adolescentesBoys+"/ Niñas: "+adolescentesGirls+"\n",
                   [
                     {
                       text: 'Si, guardar',
@@ -282,7 +277,7 @@ export default function CreateCounter() {
                     
                   },
                 )}>
-                <Text style={styles.buttonText}>Guardar Conteo</Text>
+                <Text style={styles.buttonText}>Asistencia Registrada</Text>
            
               </Pressable>
             <Separator />
