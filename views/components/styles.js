@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      
       alignItems: 'center',
       justifyContent: "flex-start",
     },
@@ -22,7 +22,13 @@ export default StyleSheet.create({
     separatorNoLine: {
         marginVertical:10,
     },
-
+    separatorCounter: {
+      marginVertical:10,
+      
+      backgroundColor: '#fff',
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
     button: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -121,6 +127,11 @@ export default StyleSheet.create({
     },
     labelCounter:{
       fontSize:20,
+      marginTop:1,
+      textAlign: "center"
+    },
+    warningCounter:{
+      fontSize:15,
       marginTop:1,
       textAlign: "center"
     },

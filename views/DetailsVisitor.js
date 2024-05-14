@@ -40,6 +40,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
     }
 
     //This is the date to show in the confirmation  alert
+    //including the string part.
     const DateDeclaracion = () =>{
         if(fechaDeclaracion){
             a = VisitorDetails["Fecha de Declaración"]? VisitorDetails["Fecha de Declaración"].toDate() : new Date
@@ -48,11 +49,11 @@ const DetailsVisitor = ( {route, navigation} ) => {
             const year = a.getFullYear()
         
         return(
-            `${day}/${month}/${year}`
+            `\nFecha de declaración: ${day}/${month}/${year}`
               )
         }
         else{
-            return("No aplica")
+            return("")
         }
         
     }
@@ -371,7 +372,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos estén correctos',
-                  "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+"\nFecha de Declaración: "+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
+                  "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
                   [
                     {
                       text: 'Si, guardar',

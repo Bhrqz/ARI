@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, Switch, Alert, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Switch, Alert, Pressable, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import  React from 'react';
 import { useState, useEffect } from 'react';
@@ -8,7 +8,7 @@ import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs } from "fireb
 import styles from './components/styles';
 
 
-const Separator = () => <View style={styles.separator} />;
+const Separator = () => <View style={styles.separatorCounter} />;
 
 export default function CreateCounter( {navigation} ) {
 
@@ -159,7 +159,7 @@ export default function CreateCounter( {navigation} ) {
       console.log(objetosCoincidentes)
       if(objetosCoincidentes.length>0){
         
-        return("La Asistencia de hoy ya fue registrada\nEl botón 'Actualizar' está desactivado.")
+        return("La Asistencia de hoy ya fue registrada\nEl botón para Registrar está desactivado.")
       }
       else{return ""}
     }
@@ -167,6 +167,7 @@ export default function CreateCounter( {navigation} ) {
 
     return (
       <KeyboardAwareScrollView>
+        
         <View style={styles.container}>
             <View style={styles.container}>
               <Text style={styles.textTitle}>Registro de Asistencia</Text>
@@ -179,14 +180,14 @@ export default function CreateCounter( {navigation} ) {
             </View>
 
             <View>
-              <Text style={styles.text}>
+              <Text style={styles.warningCounter}>
                 {AlreadyRegistered()}
               </Text>
             </View>
 
             <Text style={styles.label} >Salón Principal</Text>
               
-              <View style={styles.viewCounter}>
+            <View style={styles.viewCounter}>
               <View >
                 <Text style={styles.labelCounter} >Hombres</Text>
                     <TextInput
@@ -199,6 +200,7 @@ export default function CreateCounter( {navigation} ) {
                     />
                     
                </View>
+               
                 <View>
                 <Text style={styles.labelCounter} >Mujeres</Text>
                     <TextInput
@@ -209,65 +211,76 @@ export default function CreateCounter( {navigation} ) {
                         placeholder="Número de mujeres"
                         keyboardType="numeric"
                     />
-                    </View>
-            </View>
-            <View>
-              <Separator></Separator>
-            </View>
-            
-            <Text style={styles.label} >Sala Cuna</Text>
-            <View style={styles.viewCounter}>
-              <View>
-                    <Text style={styles.labelCounter} >Niños</Text>
-                        <TextInput
-                            style={styles.inputCounterM}
-                            onChangeText={(value) => setSalaCunaBoys(value)}
-                            value={salaCunaBoys}
-                            maxLength={3}
-                            placeholder="Número de niños"
-                            keyboardType="numeric"
-                    />
-              </View>
-              <View>      
-                    <Text style={styles.labelCounter} >Niñas</Text>
-                        <TextInput
-                            style={styles.inputCounterF}
-                            onChangeText={(value) => setSalaCunaGirls(value)}
-                            value={salaCunaGirls}
-                            maxLength={3}
-                            placeholder="Número de niñas"
-                            keyboardType="numeric"
-                    />
-              </View>
-            </View>
-            <View>
-            </View>
-
-            <Text style={styles.label} >Párvulos</Text>
-            <View style={styles.viewCounter}>
-              <View>
-                <Text style={styles.labelCounter} >Niños</Text>
-                    <TextInput
-                        style={styles.inputCounterM}
-                        onChangeText={(value) => setParvulosBoys(value)}
-                        value={parvulosBoys}
-                        maxLength={3}
-                        placeholder="Número de niños"
-                        keyboardType="numeric"
-                />
-               </View>
-               <View> 
-                <Text style={styles.labelCounter} >Niñas</Text>
-                    <TextInput
-                        style={styles.inputCounterF}
-                        onChangeText={(value) => setParvulosGirls(value)}
-                        value={parvulosGirls}
-                        maxLength={3}
-                        placeholder="Número de niñas"
-                        keyboardType="numeric"
-                />
                 </View>
             </View>
+            
+            </View>
+              
+            <Separator></Separator>
+              
+            <View style={styles.container}>
+
+              <Text style={styles.label} >Sala Cuna</Text>
+              <View style={styles.viewCounter}>
+                <View>
+                      <Text style={styles.labelCounter} >Niños</Text>
+                          <TextInput
+                              style={styles.inputCounterM}
+                              onChangeText={(value) => setSalaCunaBoys(value)}
+                              value={salaCunaBoys}
+                              maxLength={3}
+                              placeholder="Número de niños"
+                              keyboardType="numeric"
+                      />
+                </View>
+                <View>      
+                      <Text style={styles.labelCounter} >Niñas</Text>
+                          <TextInput
+                              style={styles.inputCounterF}
+                              onChangeText={(value) => setSalaCunaGirls(value)}
+                              value={salaCunaGirls}
+                              maxLength={3}
+                              placeholder="Número de niñas"
+                              keyboardType="numeric"
+                      />
+                </View>
+              </View>
+            
+            </View>
+              <Separator></Separator>
+              
+            <View style={styles.container}>
+
+              <Text style={styles.label} >Párvulos</Text>
+              <View style={styles.viewCounter}>
+                <View>
+                  <Text style={styles.labelCounter} >Niños</Text>
+                      <TextInput
+                          style={styles.inputCounterM}
+                          onChangeText={(value) => setParvulosBoys(value)}
+                          value={parvulosBoys}
+                          maxLength={3}
+                          placeholder="Número de niños"
+                          keyboardType="numeric"
+                  />
+                </View>
+                <View> 
+                  <Text style={styles.labelCounter} >Niñas</Text>
+                      <TextInput
+                          style={styles.inputCounterF}
+                          onChangeText={(value) => setParvulosGirls(value)}
+                          value={parvulosGirls}
+                          maxLength={3}
+                          placeholder="Número de niñas"
+                          keyboardType="numeric"
+                  />
+                  </View>
+              </View>
+
+            </View>
+              <Separator></Separator>
+              
+            <View style={styles.container}>
 
             <Text style={styles.label} >Principiantes</Text>
             <View style={styles.viewCounter}>
@@ -295,7 +308,11 @@ export default function CreateCounter( {navigation} ) {
               </View>
             </View>
 
+            </View>
+              <Separator></Separator>
               
+            <View style={styles.container}>
+
             <Text style={styles.label} >Primarios</Text>
             <View style={styles.viewCounter}>
               <View>
@@ -322,7 +339,10 @@ export default function CreateCounter( {navigation} ) {
               </View>
             </View>
 
-
+            </View>
+              <Separator></Separator>
+              
+            <View style={styles.container}>
 
             <Text style={styles.label} >Adolescentes</Text>
             <View style={styles.viewCounter}>
@@ -359,7 +379,7 @@ export default function CreateCounter( {navigation} ) {
                 disabled={objetosCoincidentes.length>0}
                 style={objetosCoincidentes.length>0? styles.buttonDeactivated:styles.button}
                 onPress={() => Alert.alert(
-                  'Por favor verifica que los datos estén correctos',
+                  'Por favor, verifica que los datos estén correctos',
                     "Salon Principal: Hombres: "+mainHallMen+"/ Mujeres: "+mainHallWomen+"\nSala Cuna: Niños: "+salaCunaBoys+"/ Niñas: "+salaCunaGirls+"\nPárvulos: Niños: "+parvulosBoys+"/ Niñas: "+parvulosGirls+"\nPrincipiantes: Niños: "+principiantesBoys+" / Niñas: "+primariosGirls+"\nPrimarios: Niños: "+primeriosBoys+"/ Niñas: "+primariosGirls+"\nAdolescentes: Niños: "+adolescentesBoys+"/ Niñas: "+adolescentesGirls+"\n\n"+AlreadyRegistered(),
                   [
                     {
@@ -378,10 +398,12 @@ export default function CreateCounter( {navigation} ) {
                     
                   },
                 )}>
-                <Text style={styles.buttonText}>Asistencia Registrada</Text>
+                <Text style={styles.buttonText}>Registrar Asistencia</Text>
            
               </Pressable>
             <Separator />
+            <Separator />
+            
             <Separator />
             <StatusBar style="auto" />
         </View>

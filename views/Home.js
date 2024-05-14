@@ -59,7 +59,7 @@ export default function Home({ navigation }) {
             onPress={() => navigation.navigate('Número de asistentes')}>
               <Text style={styles.buttonText}>Registro de Asistencia</Text>
           </Pressable>
-          </View>
+      </View>
       </View>
     )  
   }
