@@ -39,9 +39,10 @@ const DetailsVisitor = ( {route, navigation} ) => {
               )
     }
 
+    //This is the date to show in the confirmation  alert
     const DateDeclaracion = () =>{
         if(fechaDeclaracion){
-            a = VisitorDetails["Fecha de Declaración"].toDate()
+            a = VisitorDetails["Fecha de Declaración"]? VisitorDetails["Fecha de Declaración"].toDate() : new Date
             const day = a.getDate();
             const month = a.getMonth()+1;
             const year = a.getFullYear()

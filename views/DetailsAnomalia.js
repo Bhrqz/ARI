@@ -202,7 +202,7 @@ const DetailsAnomalia = ( {route, navigation} ) => {
                 }
 
                 <Pressable
-                    style={styles.button}
+                    style={alreadySolved()? styles.buttonDeactivated:styles.button}
                     disabled={alreadySolved()}
                     onPress={() => Alert.alert(
                     '¿Estás seguro?',
