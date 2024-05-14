@@ -10,7 +10,7 @@ import styles from './components/styles';
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function CreateCounter() {
+export default function CreateCounter( {navigation} ) {
 
     const [mainHallMen, setMainHallMen] = useState("")
     const [mainHallWomen, setMainHallWomen] = useState("")
@@ -71,6 +71,7 @@ export default function CreateCounter() {
                 setPrimariosGirls("")
                 setAdolescentesBoys("")
                 setAdolescentesGirls("")
+                navigation.navigate("Home")
 
           }).catch((error) =>{
               Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
@@ -154,12 +155,13 @@ export default function CreateCounter() {
     //I think we need to include an Alert with this same info
     //triggered by the submit button
 
-    //need to see if this works tomorrow
     const AlreadyRegistered = () =>{
-      if(objetosCoincidentes){
-        return("La Asistencia de hoy ya fue registrada")
+      console.log(objetosCoincidentes)
+      if(objetosCoincidentes.length>0){
+        
+        return("La Asistencia de hoy ya fue registrada\nEl botón 'Actualizar' está desactivado.")
       }
-      else{return null}
+      else{return ""}
     }
 
 
@@ -354,7 +356,8 @@ export default function CreateCounter() {
             
             
             <Pressable
-                style={styles.button}
+                disabled={objetosCoincidentes.length>0}
+                style={objetosCoincidentes.length>0? styles.buttonDeactivated:styles.button}
                 onPress={() => Alert.alert(
                   'Por favor verifica que los datos estén correctos',
                     "Salon Principal: Hombres: "+mainHallMen+"/ Mujeres: "+mainHallWomen+"\nSala Cuna: Niños: "+salaCunaBoys+"/ Niñas: "+salaCunaGirls+"\nPárvulos: Niños: "+parvulosBoys+"/ Niñas: "+parvulosGirls+"\nPrincipiantes: Niños: "+principiantesBoys+" / Niñas: "+primariosGirls+"\nPrimarios: Niños: "+primeriosBoys+"/ Niñas: "+primariosGirls+"\nAdolescentes: Niños: "+adolescentesBoys+"/ Niñas: "+adolescentesGirls+"\n\n"+AlreadyRegistered(),

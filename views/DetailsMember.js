@@ -155,7 +155,7 @@ function DetailsMember ( { route, navigation }) {
                         style={styles.inputMemberDetail}
                         placeholder="Comuna"
                         onChangeText ={(value) => setComuna(value)}
-                        value={comuna}
+                        value={comuna.toString()}
                     />
                 </View>
                 

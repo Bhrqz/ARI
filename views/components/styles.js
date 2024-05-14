@@ -31,8 +31,16 @@ export default StyleSheet.create({
       borderRadius: 10,
       elevation: 6,
       backgroundColor: '#3a87cc',
-      
+    },
 
+    buttonDeactivated: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#6B6B74',
     },
     buttonLogin: {
       alignItems: 'center',
