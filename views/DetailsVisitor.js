@@ -24,8 +24,9 @@ const DetailsVisitor = ( {route, navigation} ) => {
     const [remainingLetters, setRemainingLetters] = useState(MaxLettersDescription)
     const [observ, setObserv] = useState(VisitorDetails.Observaciones)
     const [fechaDeclaracion, setfechaDeclaracion] = useState(VisitorDetails["Fecha de Declaración"]);
-    
+    const [visitsDate, setVisitsDate] = useState(VisitorDetails.Visitas || []);
 
+    let MaxLettersDescription = 200
 
     //Dates for the confirmation alert
     const fechaRegistro = () =>{
@@ -59,9 +60,9 @@ const DetailsVisitor = ( {route, navigation} ) => {
     }
     //End of the dates for confirmation alert
 
-
-    const firstVisit = () =>{
-        a = VisitorDetails["Fecha_registro"].toDate()
+    //Func to make all dates legible
+    const LegibleDate = (date) =>{
+        a = date.toDate()
         const day = a.getDate();
         const month = a.getMonth()+1;
         const year = a.getFullYear()
@@ -71,8 +72,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
             )
     }
 
-
-    let MaxLettersDescription = 200
+    
 
     //Date for Deeclaration day
     const DeclarationDate = () => {
@@ -140,6 +140,28 @@ const DetailsVisitor = ( {route, navigation} ) => {
           })
     }
 
+    //This is Firebase stuff to push a new date the visitor
+    //came to the church
+  
+    async function PushingNewVisit(){
+        
+        const docToUpdate = doc(db, "Visitantes", VisitorDetails.id)
+        console.log("Visits: " +visitsDate)
+        
+        await updateDoc(docToUpdate, {
+            Visitas:visitsDate
+            
+        }).then(() => {
+            Alert.alert('Nueva Visita Registrada.')
+            console.log("Data submitted")
+            navigation.navigate("Home")
+        }).catch((error) =>{
+              Alert.alert('Ha sucedido un error',"Por favor, intentalo de nuevo")
+              console.log(error)
+          })
+    }
+
+
     /**
      * Inviter selector stuff
      *   
@@ -160,6 +182,12 @@ const DetailsVisitor = ( {route, navigation} ) => {
           docs.push(object);
         });
         setMembers(docs);
+
+        //This in case a new visit going to be recorded
+        //in order to give time the VisitsDate variable to breath
+        const today = new Date();
+        setVisitsDate(prevVisitsDate => [...prevVisitsDate, today]);
+
       }
       fetchData();
 
@@ -282,7 +310,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 
                 <View style={styles.viewCounter}>
                     <Text style={styles.text}>Primera Visita: </Text>
-                    {firstVisit()}
+                    {LegibleDate(VisitorDetails.Fecha_registro)}
                 </View>
 
                 {VisitorDetails["Declaración de Fe"]?"":
@@ -364,41 +392,69 @@ const DetailsVisitor = ( {route, navigation} ) => {
             </View>
 
             <View style={styles.container}>
-            <Separator></Separator>
-
-            
+                <Separator></Separator>
 
                 <Pressable
-                style={styles.button}
-                onPress={() => Alert.alert(
-                  'Por favor, verifica que los datos estén correctos',
-                  "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
-                  [
+                    style={styles.button}
+                    onPress={() => Alert.alert(
+                    'Por favor, verifica que los datos estén correctos',
+                    "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
+                    [
+                        {
+                        text: 'Si, guardar',
+                        onPress: () => UpdatingInfo(),
+                        style: styles.input,
+                        },
+                        {
+                        text: 'Cancelar',
+                        onPress: () => Alert.alert('Accion Cancelada'),
+                        style: 'cancel',
+                        },
+                    ],
                     {
-                      text: 'Si, guardar',
-                      onPress: () => UpdatingInfo(),
-                      style: styles.input,
+                        cancelable: false,
+                        
                     },
-                    {
-                      text: 'Cancelar',
-                      onPress: () => Alert.alert('Accion Cancelada'),
-                      style: 'cancel',
-                    },
-                  ],
-                  {
-                    cancelable: false,
-                    
-                  },
-                )}>
-                <Text style={styles.buttonText}>Actualizar</Text>
-           
-              </Pressable>
-              
-              <Separator/>
-              <Separator/>
-              <Separator/>
+                    )}>
+                    <Text style={styles.buttonText}>Actualizar</Text>
+            
+                </Pressable>
                 
-           </View> 
+                <Separator/>
+                <Pressable
+                    style={styles.button}
+                    onPress={() => Alert.alert(
+                    '¿Nueva Visita?',
+                    "Se registrará el día de hoy como nueva visita en el perfil del visitante",
+                    [
+                        {
+                        text: 'Si, registrar',
+                        onPress: () => PushingNewVisit(),
+                        style: styles.input,
+                        },
+                        {
+                        text: 'Cancelar',
+                        onPress: () => Alert.alert('Accion Cancelada'),
+                        style: 'cancel',
+                        },
+                    ],
+                    {
+                        cancelable: false,
+                        
+                    },
+                    )}>
+                    <Text style={styles.buttonText}>Registrar Nueva Visita</Text>
+                </Pressable>
+                
+                    {/**
+                        Maybe we need to create a visual of the dates
+                        of previous visits.
+                     */}
+
+                <Separator/>
+                <Separator/>
+                
+            </View> 
         </KeyboardAwareScrollView>
     )
 
