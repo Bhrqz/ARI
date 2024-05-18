@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { db } from './components/config';
 import { doc, serverTimestamp, getDocs, updateDoc, collection } from "firebase/firestore";
 import styles from './components/styles';
+import { Dropdown } from 'react-native-element-dropdown';
 
 
 const Separator = () => <View style={styles.separator} />;
@@ -29,8 +30,8 @@ const DetailsVisitor = ( {route, navigation} ) => {
     let MaxLettersDescription = 200
 
     //Dates for the confirmation alert
-    const fechaRegistro = () =>{
-        a = VisitorDetails["Fecha_registro"].toDate()
+    const fechaRegistro = (date) =>{
+        a = date.toDate()
         const day = a.getDate();
         const month = a.getMonth()+1;
         const year = a.getFullYear()
@@ -60,8 +61,10 @@ const DetailsVisitor = ( {route, navigation} ) => {
     }
     //End of the dates for confirmation alert
 
+
     //Func to make all dates legible
     const LegibleDate = (date) =>{
+        console.log("legible date" + date)
         a = date.toDate()
         const day = a.getDate();
         const month = a.getMonth()+1;
@@ -222,6 +225,22 @@ const DetailsVisitor = ( {route, navigation} ) => {
      * End of Inviter selector stuff
      *   
     */
+
+
+    //Dates dropdown stuff
+    //WIP
+    const options =[
+        (VisitorDetails.Visitas)
+      ]
+    
+      const renderItem = date => {
+        return(
+          <View>
+            {options.map((date)=>{date})}
+          </View>
+        )
+      }
+
 
     return(
         <KeyboardAwareScrollView>
@@ -398,7 +417,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     style={styles.button}
                     onPress={() => Alert.alert(
                     'Por favor, verifica que los datos estén correctos',
-                    "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro()+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
+                    "Nombres: "+name +"\nApellidos: "+lastname +"\nNúmero: "+number+"\nDirección: "+address+"\nInvitado por: "+inviter+"\nDeclaración de Fe: "+Declarado()+"\nPrimera Visita: "+fechaRegistro(VisitorDetails["Fecha_registro"])+DateDeclaracion()+"\nObservaciones: "+Filler(observ),
                     [
                         {
                         text: 'Si, guardar',
@@ -422,7 +441,8 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 
                 <Separator/>
                 <Pressable
-                    style={styles.button}
+                    disabled={fechaDeclaracion?true:false}
+                    style={fechaDeclaracion?styles.buttonDeactivated:styles.button}
                     onPress={() => Alert.alert(
                     '¿Nueva Visita?',
                     "Se registrará el día de hoy como nueva visita en el perfil del visitante",
@@ -446,11 +466,20 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     <Text style={styles.buttonText}>Registrar Nueva Visita</Text>
                 </Pressable>
                 
-                    {/**
-                        Maybe we need to create a visual of the dates
-                        of previous visits.
-                     */}
+                {
+                    //This Dropdown is not working. Tired rn
+                }
 
+                <Dropdown
+                    selectedTextStyle={styles.selectedTextStyle}
+                    style={styles.dropdown}
+                    placeholderStyle={styles.textNoTitleList}
+                    data={options}
+                    placeholder="Visitas guardadas"
+                    maxHeight={300}
+                    renderItem={renderItem}
+                ></Dropdown>
+                
                 <Separator/>
                 <Separator/>
                 
