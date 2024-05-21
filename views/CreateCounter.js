@@ -215,7 +215,7 @@ export default function CreateCounter( {navigation} ) {
             </View>
             
             </View>
-              
+            
             <Separator></Separator>
               
             <View style={styles.container}>

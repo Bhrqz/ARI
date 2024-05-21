@@ -64,7 +64,6 @@ const DetailsVisitor = ( {route, navigation} ) => {
 
     //Func to make all dates legible
     const LegibleDate = (date) =>{
-        console.log("legible date" + date)
         a = date.toDate()
         const day = a.getDate();
         const month = a.getMonth()+1;
@@ -229,18 +228,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
 
     //Dates dropdown stuff
     //WIP
-    const options =[
-        (VisitorDetails.Visitas)
-      ]
-    
-      const renderItem = date => {
-        return(
-          <View>
-            {options.map((date)=>{date})}
-          </View>
-        )
-      }
-
+   
 
     return(
         <KeyboardAwareScrollView>
@@ -470,15 +458,7 @@ const DetailsVisitor = ( {route, navigation} ) => {
                     //This Dropdown is not working. Tired rn
                 }
 
-                <Dropdown
-                    selectedTextStyle={styles.selectedTextStyle}
-                    style={styles.dropdown}
-                    placeholderStyle={styles.textNoTitleList}
-                    data={options}
-                    placeholder="Visitas guardadas"
-                    maxHeight={300}
-                    renderItem={renderItem}
-                ></Dropdown>
+                
                 
                 <Separator/>
                 <Separator/>
