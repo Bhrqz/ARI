@@ -28,7 +28,8 @@ export default StyleSheet.create({
       backgroundColor: '#fff',
       borderBottomColor: '#737373',
       borderBottomWidth: StyleSheet.hairlineWidth,
-    },
+    
+      },
     button: {
       alignItems: 'center',
       justifyContent: 'center',
