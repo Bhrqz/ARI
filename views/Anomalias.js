@@ -1,7 +1,6 @@
-import { ActivityIndicator, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
-import { useState, Pressable } from "react"
+import { ActivityIndicator, Pressable, Text, View, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { useState } from "react"
 import { StatusBar } from 'expo-status-bar';
-import { Dropdown } from 'react-native-element-dropdown';
 import styles from './components/styles';
 import { collection, doc, setDoc, getDocs, query, where, getDoc, QuerySnapshot } from "firebase/firestore";
 import { db } from './components/config';
@@ -61,20 +60,12 @@ function Anomalias ({navigation}) {
   // This 3 paragraphs are for the filter. These will create the 
   //discriminator between ALL, SOLVED and PENDING
 
-  const options =[
-    { label: 'Todas', value: '1' },
-    { label: 'Pendientes', value: '2' },
-    { label: 'Solucionadas', value: '3' }
-  ]
+  
 
-  const renderItem = item => {
-    return(
-      <View>
-        <Text style={styles.textSelector}>{item.label}</Text>
-      </View>
-    )
-  }
-
+  const [todas, setTodas] = useState(false);
+  const [solucionadas, setSolucionadas] = useState(false);
+  const [pendientes, setPendientes] = useState(true);
+  
   const SelectorViews =(report)=>{
     if (selector=="Todas")
       {return report}
@@ -84,6 +75,35 @@ function Anomalias ({navigation}) {
     return report.Solucionado == false
   }
   }
+
+  const HandleTap = (selection) => {
+    setSelector(selection)
+
+    switch(selection){
+        case("Todas"):{
+          setTodas(true)
+          setSolucionadas(false)
+          setPendientes(false)
+          break
+        }
+        case("Solucionadas"):{
+          setTodas(false)
+          setSolucionadas(true)
+          setPendientes(false)
+          break
+            
+        }
+        case("Pendientes"):{
+          setTodas(false)
+          setSolucionadas(false)
+          setPendientes(true)
+          break
+            
+        }
+        
+    }
+    
+}
 
 
   return (
@@ -106,20 +126,27 @@ function Anomalias ({navigation}) {
         </View>
 
         <View style={styles.container}>
-          <Dropdown
-            selectedTextStyle={styles.selectedTextStyle}
-            style={styles.dropdown}
-            placeholderStyle={styles.textNoTitleList}
-            data={options}
-            labelField="label"
-            valueField="value"
-            placeholder={selector}
-            value={selector}
-            maxHeight={300}
-            onChange={ (value) => {setSelector(value.label);
-            console.log(selector)}}
-            renderItem={renderItem}
-          />
+
+        <View style={styles.viewCounter}>
+          <Pressable
+                style={todas?styles.selectorButtonON:styles.selectorButtonOff}
+                onPress={() => HandleTap("Todas")}>
+                    <Text style={styles.littleButtonText}>Todas</Text>
+            </Pressable>
+            <Pressable
+                style={solucionadas?styles.selectorButtonON:styles.selectorButtonOff}
+                onPress={() => HandleTap("Solucionadas")}>
+                    <Text style={styles.littleButtonText}>Solucionadas</Text>
+            </Pressable>
+            <Pressable
+                style={pendientes?styles.selectorButtonON:styles.selectorButtonOff}
+                onPress={() => HandleTap("Pendientes")}>
+                    <Text style={styles.littleButtonText}>Pendientes</Text>
+            </Pressable>
+        </View>
+
+
+          
         </View>
 
         <View style={styles.container}>

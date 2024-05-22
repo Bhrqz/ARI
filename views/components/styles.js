@@ -71,18 +71,6 @@ export default StyleSheet.create({
       
 
     },
-    buttonHome3: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 10,
-      elevation: 6,
-      backgroundColor: '#0291f7',
-      
-
-    },
-    
     buttonHome2: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -94,7 +82,61 @@ export default StyleSheet.create({
       
 
     },
+    buttonHome3: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#0291f7',
+      
 
+    },   
+    buttonHome4: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      fontSize:1,
+      borderRadius: 10,
+      elevation: 6,
+      backgroundColor: '#14b5de',
+    },
+
+    selectorButtonON: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 3,
+      borderRadius: 30,
+      margin:8,
+      elevation: 0,
+      shadowOpacity:0,
+      marginHorizontal:5,
+      backgroundColor: '#14b5de',
+    },
+    selectorButtonOff: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 3,
+      margin:8,
+      borderRadius: 30,
+      marginHorizontal:5,
+      elevation: 12,
+      shadowOffset:3,
+      backgroundColor: '#6B6B74',
+    },
+
+    littleButtonText: {
+      fontSize: 14,
+      lineHeight: 15,
+      fontWeight: "normal",
+      letterSpacing: 0.25,
+      color: 'white',
+      
+    },
 
     buttonText: {
       fontSize: 18,

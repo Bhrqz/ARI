@@ -15,6 +15,7 @@ import DetailsAnomalia from './views/DetailsAnomalia.js';
 import DetailsMember from './views/DetailsMember.js';
 import Members from './views/Members.js';
 import Visitors from './views/Visitors.js';
+import ReportsMenu from './views/ReportsMenu.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -27,12 +28,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator> 
-  {/**
+  
       <Stack.Screen 
           name="Login" 
           component={Login} 
           options={{ title: 'Iglesia Valle de Bendición' }} />
- */}
+ 
         <Stack.Screen 
           name="Home" 
           component={Home} 
@@ -86,6 +87,12 @@ export default function App() {
         <Stack.Screen
           name= "Detalle de Visitante"
           component={DetailsVisitor} 
+          options={{ title: 'Iglesia Valle de Bendición' }}
+          />
+          
+        <Stack.Screen
+          name= "Reportes"
+          component={ReportsMenu} 
           options={{ title: 'Iglesia Valle de Bendición' }}
           />
         
