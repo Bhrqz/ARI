@@ -167,7 +167,6 @@ export default function CreateCounter( {navigation} ) {
 
     return (
       <KeyboardAwareScrollView>
-        
         <View style={styles.container}>
             <View style={styles.container}>
               <Text style={styles.textTitle}>Registro de Asistencia</Text>
@@ -212,12 +211,12 @@ export default function CreateCounter( {navigation} ) {
                         keyboardType="numeric"
                     />
                 </View>
-            </View>
+              </View>
             
             </View>
             
             <Separator></Separator>
-              
+           
             <View style={styles.container}>
 
               <Text style={styles.label} >Sala Cuna</Text>

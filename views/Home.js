@@ -68,6 +68,8 @@ export default function Home({ navigation }) {
               onPress={() => navigation.navigate('Reportes')}>
                 <Text style={styles.buttonText}>Reportes</Text>
             </Pressable>
+            <SeparatorNoLine/>
+            <SeparatorNoLine/>
             
           </View>
         </View>

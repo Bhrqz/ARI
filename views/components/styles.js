@@ -16,20 +16,16 @@ export default StyleSheet.create({
     },
     separator: {
       marginVertical: 15,
-      borderBottomColor: '#737373',
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
     separatorNoLine: {
         marginVertical:10,
     },
     separatorCounter: {
-      marginVertical:10,
-      
-      backgroundColor: '#fff',
-      borderBottomColor: '#737373',
+      marginVertical: 15,
+      color:"#fff",
       borderBottomWidth: StyleSheet.hairlineWidth,
-    
-      },
+    },
     button: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -214,19 +210,14 @@ export default StyleSheet.create({
       borderRadius:10,
       padding:5
     },
-    separatorCounter:{
-      margin: 15,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-
     buttonAlert:{
       borderWidth:10
     },
     textLogin:{
         fontSize:35,
         fontStyle:"italic",
-        fontWeight:"bold"
+        fontWeight:"bold",
+        textAlign:"center"
     },
     textTitle:{
       fontSize:30,
