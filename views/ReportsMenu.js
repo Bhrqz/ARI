@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Button, Pressable, ScrollView } from 'react-native';
+import { ActivityIndicator, Text, View, Button, Pressable, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { collection, doc, setDoc, getDocs, query,db, where, getDoc, QuerySnapshot } from "firebase/firestore";
+import { db } from './components/config';
+import { collection, doc, setDoc, getDocs, query, where, getDoc, QuerySnapshot } from "firebase/firestore";
 import styles from './components/styles';
 
 
@@ -15,6 +16,7 @@ export default function ReportsMenu ({navigation}){
     const [visitors, setVisitors] = useState([]);
     const [members, setMembers] = useState([]);
 
+    const [loading, setLoading] = useState(true);
     const [active, setActive] = useState("");
     const [visitantes, setVisitantes] = useState(false);
     const [asistencia, setAsistencia] = useState(false);
@@ -58,8 +60,7 @@ export default function ReportsMenu ({navigation}){
         
     }
 
-    //There is an error here.... maybe I need to create 3 UseEffects.. Ugh
-
+    
     useEffect(() => {
         async function fetchData() {
           const docs = [];
@@ -89,11 +90,38 @@ export default function ReportsMenu ({navigation}){
             });
             setMembers(docs3);
 
-
+            setLoading(false)
+            
         }
         fetchData();
     
       }, []);
+
+    const Renderer = () =>{
+
+        if (active=="visitantes"){
+            return(
+                <Text>Visitantes</Text>
+            )   
+        }
+        else if (active=="asistencia"){
+            return(
+                <Text>Asistencia</Text>
+            )
+        }
+        else if (active=="consolidado"){
+            return(
+                <Text>Consolidado</Text>
+            )
+        }
+        else if (active=="anomalia"){
+            return(
+                <Text>Anomalia</Text>
+            )
+        }
+        
+
+    }
 
 
     return(
@@ -126,6 +154,17 @@ export default function ReportsMenu ({navigation}){
                     </Pressable>
                 </View>
 
+                {
+                    loading?
+                    <View>
+                        <Text>Cargando información...</Text>
+                        <ActivityIndicator size="large"/>
+                    </View>
+                    :
+                    <View>
+                        {Renderer()}
+                    </View>
+                }
                                 
 
                 <StatusBar style="auto" />
