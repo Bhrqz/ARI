@@ -171,14 +171,12 @@ const DetailsVisitor = ( {route, navigation} ) => {
     
     const [members, setMembers] = useState([]);
     const [isSelected, setIsSelected] = useState(true)
-    const [loadingMembers, setLoadingMembers] = useState(true);
     
 
     useEffect(() => {
       async function fetchData() {
         const docs = [];
         const querySnapshot = await getDocs(collection(db, "Membresía"));
-        setLoadingMembers(false);
         querySnapshot.forEach((doc) => {
           const object = {id: doc.id, ...doc.data()};
           docs.push(object);
@@ -228,7 +226,6 @@ const DetailsVisitor = ( {route, navigation} ) => {
 
     //Dates dropdown stuff
     //WIP
-   
 
     return(
         <KeyboardAwareScrollView>
@@ -314,11 +311,19 @@ const DetailsVisitor = ( {route, navigation} ) => {
                 ))}
               
 
+                    {VisitorDetails.Visitas?
+                        <View style={styles.viewCounter}>
+                            <Text style={styles.text}>Última Visita: </Text>
+                            {LegibleDate(VisitorDetails.Visitas[VisitorDetails.Visitas.length-1])}
+                        </View>
+                    :
+                        <View style={styles.viewCounter}>
+                            <Text style={styles.text}>Primera Visita: </Text>
+                            {LegibleDate(VisitorDetails.Fecha_registro)}
+                        </View>
+                    }
+                    
                 
-                <View style={styles.viewCounter}>
-                    <Text style={styles.text}>Primera Visita: </Text>
-                    {LegibleDate(VisitorDetails.Fecha_registro)}
-                </View>
 
                 {VisitorDetails["Declaración de Fe"]?"":
                 <View style={styles.viewCounter}>
