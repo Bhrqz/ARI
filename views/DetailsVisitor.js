@@ -6,7 +6,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { db } from './components/config';
 import { doc, serverTimestamp, getDocs, updateDoc, collection } from "firebase/firestore";
 import styles from './components/styles';
-import { Dropdown } from 'react-native-element-dropdown';
 
 
 const Separator = () => <View style={styles.separator} />;

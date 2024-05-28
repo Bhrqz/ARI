@@ -239,6 +239,16 @@ export default StyleSheet.create({
     },
     textNoTitleList:{
       fontSize: 18,
+    }
+    ,
+    textNoTitleListGreen:{
+      fontSize: 18,
+      color:"green"
+    }
+    ,
+    textNoTitleListRed:{
+      fontSize: 18,
+      color:"red"
     },
     textSelector:{
       fontSize:16

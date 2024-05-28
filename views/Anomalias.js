@@ -172,7 +172,11 @@ function Anomalias ({navigation}) {
                   <View>
                     <Text style={styles.textTitleList}>{report && report.Titulo}</Text>
                     <Text style={styles.textNoTitleList}>{report && report.Descripcion}</Text>
-                    <Text style={styles.textNoTitleList}> {(report && report.Fecha_Solucion)?"Solucionado":"Pendiente"} </Text>
+                    <Text 
+                      style={report && report.Fecha_Solucion?styles.textNoTitleListGreen:styles.textNoTitleListRed}
+                      > 
+                        {(report && report.Fecha_Solucion)?"Solucionado":"Pendiente"} 
+                    </Text>
                     <Text>Fecha de creación: {Dates(report.Fecha_Reporte)}</Text>
                   </View>
                   <Separator/>
