@@ -46,7 +46,7 @@ export default function NewVisitor({navigation}) {
               Dirección: address,
               Invitado:inviter,
               Compromiso:false,
-              Visitas:[],
+              
               Fecha_registro: serverTimestamp()
           }).then(() => {
               Alert.alert('Visitante Registrado Correctamente')
