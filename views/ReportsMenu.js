@@ -95,12 +95,27 @@ export default function ReportsMenu ({navigation}){
         }
         fetchData();
     
-      }, []);
+    }, []);
 
     
     //This is the function to get the info and take the relevant data for
     //the visual representation
     //I need to make this more readable in the app. 
+
+    //This is specifically for the label for every bar
+    const DateLabel = (date) =>{
+            const [day, month, year] = date.split('-');
+            const theDate = `${day}-${month}`;
+        return theDate
+    }
+
+    const BarHeigth = (data) =>{
+        const maxValue = data.reduce((max, obj) => {
+            return obj.value > max ? obj.value : max;
+          }, 0);
+        return maxValue
+    }
+
     function groupByDate(array) {
         const grouped = {};
             
@@ -117,19 +132,37 @@ export default function ReportsMenu ({navigation}){
             }
             grouped[key]++;
         });
-        console.log(grouped)
-        const resultarray = Object.values(grouped).map
-            ((count) =>({ 
-                value: count 
-            }))
+        const resultarray = []
 
-        return resultarray;
+        //creation of the array of objects 
+        //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
+        for(let[key, visits] of Object.entries(grouped)){
+            const tempObj= {value:visits, label:DateLabel(key), }
+            resultarray.push(tempObj)
+        }
+        
+        // Función para convertir label en objeto Date
+        const convertToDate = (label) => {
+            const [day, month, year] = label.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        };
+        
+        // Ordenar el array basado en las fechas
+        const sortedData = resultarray.sort((a, b) => a.label.localeCompare(b.label));
+        console.log("sorted")
+        console.log(sortedData)
+        // Seleccionar los primeros 4 objetos del array ordenado
+        const latestFour = sortedData.slice(0, 4);
+
+        return latestFour;
     }
     
     
     const groupedByDate = groupByDate(visitors);
-    console.log(groupedByDate);
     //End of the function for.... ugh visual representation stuff
+
+    //okOK HERES THE DEAL
+    //I NEED TO REDUCE THE ARRAY RETURNED BY GROUPEDBYDATE TO THE 4 MOST RECENT ITEMS
 
 
 
@@ -139,7 +172,12 @@ export default function ReportsMenu ({navigation}){
             return(
                 <View style={styles.container}>
                     <Text>Visitantes</Text>
-                    <BarChart data = {groupedByDate}  />
+                    <BarChart
+                        data = {groupedByDate}
+                        noOfSections={BarHeigth(groupedByDate) + 1}
+                        maxValue={BarHeigth(groupedByDate) + 1} 
+                          
+                    />
                 </View>
                 
             )   
