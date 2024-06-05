@@ -142,29 +142,28 @@ export default function ReportsMenu ({navigation}){
         }
         
         // Función para convertir label en objeto Date
+        // Year is fixed. The graphic bar only admits the Day-Month layout
         const convertToDate = (label) => {
-            const [day, month, year] = label.split('-').map(Number);
-            return new Date(year, month - 1, day);
+            const [day, month] = label.split('-').map(Number);
+            return new Date(2024, month - 1, day); 
         };
-        
-        // Ordenar el array basado en las fechas
-        const sortedData = resultarray.sort((a, b) => a.label.localeCompare(b.label));
-        console.log("sorted")
-        console.log(sortedData)
-        // Seleccionar los primeros 4 objetos del array ordenado
-        const latestFour = sortedData.slice(0, 4);
 
-        return latestFour;
+        // Ordenar el array basado en las fechas
+        const sortedArray = resultarray.sort((a, b) => convertToDate(b.label) - convertToDate(a.label));
+        
+        // Seleccionar los primeros 4 objetos del array ordenado
+        const latestFour = sortedArray.slice(0, 4);
+        const reversedArray = latestFour.reverse()
+        console.log("sorted")
+        console.log(reversedArray)
+        return reversedArray;
     }
     
     
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
-    //okOK HERES THE DEAL
-    //I NEED TO REDUCE THE ARRAY RETURNED BY GROUPEDBYDATE TO THE 4 MOST RECENT ITEMS
-
-
+    
 
     const Renderer = () =>{
 
@@ -174,6 +173,10 @@ export default function ReportsMenu ({navigation}){
                     <Text>Visitantes</Text>
                     <BarChart
                         data = {groupedByDate}
+                        frontColor={'#177AD5'}
+                        barBorderRadius={5}
+                        xAxisThickness={0}
+                        dashGap={20}
                         noOfSections={BarHeigth(groupedByDate) + 1}
                         maxValue={BarHeigth(groupedByDate) + 1} 
                           
