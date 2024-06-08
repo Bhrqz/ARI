@@ -1,9 +1,11 @@
-import { ActivityIndicator, Text, View, Button, Pressable, ScrollView } from 'react-native';
+import { ActivityIndicator, Text, View, Button, Pressable, ScrollView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { db } from './components/config';
-import { collection, doc, setDoc, getDocs, query, where, getDoc, QuerySnapshot } from "firebase/firestore";
+import { collection, getDocs, } from "firebase/firestore";
 import styles from './components/styles';
+import * as FileSystem from 'expo-file-system';
+import * as MailComposer from 'expo-mail-composer';
 import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-gifted-charts";
 
 
@@ -23,10 +25,7 @@ export default function ReportsMenu ({navigation}){
     const [consolidado, setConsolidado] = useState(false);
     const [anomalia, setAnomalia] = useState(false);
 
-    const data=[ {value:5}, {value:8},{value:8},{value:8},{value:8},{value:8},{value:8}, {value:9}, {value:70} ]
-
-
-
+    
     const HandleTap = (selection) => {
         setActive(selection)
 
@@ -154,17 +153,15 @@ export default function ReportsMenu ({navigation}){
         // Seleccionar los primeros 4 objetos del array ordenado
         const latestFour = sortedArray.slice(0, 4);
         const reversedArray = latestFour.reverse()
-        console.log("sorted")
-        console.log(reversedArray)
+        
         return reversedArray;
     }
-    
     
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
     
-
+    //This is the visualizer of the previews
     const Renderer = () =>{
 
         if (active=="visitantes"){
@@ -187,7 +184,9 @@ export default function ReportsMenu ({navigation}){
         }
         else if (active=="asistencia"){
             return(
+                <View style={styles.container}>
                 <Text>Asistencia</Text>
+                </View>
             )
         }
         else if (active=="consolidado"){
@@ -200,8 +199,46 @@ export default function ReportsMenu ({navigation}){
                 <Text>Anomalia</Text>
             )
         }
-        
+    }
+    //End of the preview selector
 
+
+    //This si for preparing the data downloaded and sending it to an email
+    const DownAndSendDataHandle = () => {
+        
+        const AllData = {visitors, members, reports}
+        
+        const generateJSON = async () => {
+
+            try {
+              const json = JSON.stringify(AllData, null, 2);
+              const fileUri = `${FileSystem.documentDirectory}data.json`;
+              await FileSystem.writeAsStringAsync(fileUri, json);
+                console.log("dentro del try" + fileUri)
+              return fileUri;
+            } catch (err) {
+              console.error('Error creating JSON file:', err);
+            }
+        };
+
+        const sendEmail = async () => {
+            const jsonUri = await generateJSON();
+          
+            const isAvailable = await MailComposer.isAvailableAsync();
+            if (isAvailable) {
+              const options = {
+                recipients: ['josebchrist@hotmail.com'],
+                subject: 'JSON File',
+                body: 'Here is the JSON file you requested.',
+                attachments: [jsonUri],
+              };
+          
+              await MailComposer.composeAsync(options);
+            } else {
+              alert('Email services are not available');
+            }
+        };        
+        sendEmail()
     }
 
 
@@ -235,6 +272,18 @@ export default function ReportsMenu ({navigation}){
                     </Pressable>
                 </View>
 
+                <View>
+                    <SeparatorNoLine></SeparatorNoLine>
+                    <Pressable
+                        style={loading?styles.buttonDeactivated:styles.buttonHome3}
+                        disabled={loading}
+                        onPress={DownAndSendDataHandle}>
+                        <Text style={styles.buttonText}>Descargar y enviar Datos</Text>
+                    </Pressable>
+                    
+                    <Separator></Separator>
+                </View>
+
                 {
                     loading?
                     <View>
@@ -244,12 +293,10 @@ export default function ReportsMenu ({navigation}){
                     :
                     <View>
                         {Renderer()}
-                        <SeparatorNoLine></SeparatorNoLine>
-                        <SeparatorNoLine></SeparatorNoLine>
-                        <SeparatorNoLine></SeparatorNoLine>
-                        <SeparatorNoLine></SeparatorNoLine>
                     </View>
                 }
+
+                
                                 
 
                 <StatusBar style="auto" />
