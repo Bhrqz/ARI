@@ -133,13 +133,51 @@ export default function ReportsMenu ({navigation}){
         });
         const resultarray = []
 
-        //creation of the array of objects 
+        //The last four sundays:
+        function getLastFourSundays() {
+            const lastFourSundays = {};
+            const today = new Date();
+            let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+            
+            // If today is not Sunday, move back to the last Sunday
+            if (dayOfWeek !== 0) {
+              today.setDate(today.getDate() - dayOfWeek);
+            }
+          
+            for (let i = 0; i < 4; i++) {
+              const year = today.getFullYear();
+              const month = today.getMonth() + 1; // getMonth() returns 0-based month
+              const day = today.getDate();
+              const dateKey = `${day}-${month}-${year}`;
+              
+              lastFourSundays[dateKey] = true;
+              
+              // Move to the previous Sunday
+              today.setDate(today.getDate() - 7);
+            }
+            return lastFourSundays;
+        }
+
+        console.log(getLastFourSundays())
+
+        for(let[key, visits] of Object.entries(grouped)){
+            if(Object.keys(getLastFourSundays()).includes(key)){
+                const tempObj= {value:visits, label:DateLabel(key), }
+                resultarray.push(tempObj)
+            }
+        }
+
+        //I need to push the sundays without visits to the resultArray array.
+        //THIIIIISSSSS
+ 
+
+        /**creation of the array of objects 
         //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
         for(let[key, visits] of Object.entries(grouped)){
             const tempObj= {value:visits, label:DateLabel(key), }
             resultarray.push(tempObj)
         }
-        
+        */
         // Función para convertir label en objeto Date
         // Year is fixed. The graphic bar only admits the Day-Month layout
         const convertToDate = (label) => {
@@ -203,18 +241,27 @@ export default function ReportsMenu ({navigation}){
     //End of the preview selector
 
 
-    //This si for preparing the data downloaded and sending it to an email
+    //This is for preparing the data downloaded and sending it to an email
     const DownAndSendDataHandle = () => {
         
         const AllData = {visitors, members, reports}
+
+        const today = () =>{ 
+            const date = new Date
+            const day = date.getDate();
+            const month = date.getMonth() + 1; 
+            const year = date.getFullYear();
+            const key = `${day}-${month}-${year}`;
+            return key
+        }
         
-        const generateJSON = async () => {
+        const generateJSON = async (fileName) => {
 
             try {
               const json = JSON.stringify(AllData, null, 2);
-              const fileUri = `${FileSystem.documentDirectory}data.json`;
+              const fileUri = `${FileSystem.documentDirectory}Data hasta ${fileName}.json`;
               await FileSystem.writeAsStringAsync(fileUri, json);
-                console.log("dentro del try" + fileUri)
+              
               return fileUri;
             } catch (err) {
               console.error('Error creating JSON file:', err);
@@ -222,14 +269,14 @@ export default function ReportsMenu ({navigation}){
         };
 
         const sendEmail = async () => {
-            const jsonUri = await generateJSON();
+            const jsonUri = await generateJSON(today());
           
             const isAvailable = await MailComposer.isAvailableAsync();
             if (isAvailable) {
               const options = {
-                recipients: ['josebchrist@hotmail.com'],
-                subject: 'JSON File',
-                body: 'Here is the JSON file you requested.',
+                recipients: ['josebchrist@hotmail.com'], //This is the EMAIL
+                subject: `Data hasta ${today()}`,
+                body: `Este archivo contiene toda la base de datos hasta ${today()}.`,
                 attachments: [jsonUri],
               };
           
@@ -278,7 +325,7 @@ export default function ReportsMenu ({navigation}){
                         style={loading?styles.buttonDeactivated:styles.buttonHome3}
                         disabled={loading}
                         onPress={DownAndSendDataHandle}>
-                        <Text style={styles.buttonText}>Descargar y enviar Datos</Text>
+                        <Text style={styles.buttonText}>Enviar datos por email</Text>
                     </Pressable>
                     
                     <Separator></Separator>
