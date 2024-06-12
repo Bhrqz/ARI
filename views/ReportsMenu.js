@@ -132,6 +132,7 @@ export default function ReportsMenu ({navigation}){
             grouped[key]++;
         });
         const resultarray = []
+        const MaxNumberofDays = 4
 
         //The last four sundays:
         function getLastFourSundays() {
@@ -144,13 +145,13 @@ export default function ReportsMenu ({navigation}){
               today.setDate(today.getDate() - dayOfWeek);
             }
           
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < MaxNumberofDays; i++) {
               const year = today.getFullYear();
               const month = today.getMonth() + 1; // getMonth() returns 0-based month
               const day = today.getDate();
               const dateKey = `${day}-${month}-${year}`;
               
-              lastFourSundays[dateKey] = true;
+              lastFourSundays[dateKey] = "";
               
               // Move to the previous Sunday
               today.setDate(today.getDate() - 7);
@@ -158,19 +159,17 @@ export default function ReportsMenu ({navigation}){
             return lastFourSundays;
         }
 
-        console.log(getLastFourSundays())
 
-        for(let[key, visits] of Object.entries(grouped)){
-            if(Object.keys(getLastFourSundays()).includes(key)){
-                const tempObj= {value:visits, label:DateLabel(key), }
-                resultarray.push(tempObj)
+        const lastFourSundays = Object.keys(getLastFourSundays());
+        lastFourSundays.forEach(sunday => {
+            if (grouped[sunday]) {
+                resultarray.push({ label: DateLabel(sunday), value: grouped[sunday] });
+            } else {
+                resultarray.push({ label: DateLabel(sunday), value: 0 });
             }
-        }
+        });
 
-        //I need to push the sundays without visits to the resultArray array.
-        //THIIIIISSSSS
- 
-
+        
         /**creation of the array of objects 
         //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
         for(let[key, visits] of Object.entries(grouped)){
@@ -188,8 +187,8 @@ export default function ReportsMenu ({navigation}){
         // Ordenar el array basado en las fechas
         const sortedArray = resultarray.sort((a, b) => convertToDate(b.label) - convertToDate(a.label));
         
-        // Seleccionar los primeros 4 objetos del array ordenado
-        const latestFour = sortedArray.slice(0, 4);
+        // Seleccionar los primeros MAxNumberofDays objetos del array ordenado
+        const latestFour = sortedArray.slice(0, MaxNumberofDays);
         const reversedArray = latestFour.reverse()
         
         return reversedArray;
