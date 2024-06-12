@@ -3,6 +3,15 @@ ARI stands for App para Registro en Iglesias, in spanish.
 
 LOGS
 
+Jun 11 2024
+Long time without documenting huh?
+Well. I dont even know if this README counts as documenting but, here I am.
+The app is almost complete. The new Visitor, and New Anomalia functionalities are complete.
+The visitors list has the New Visit function working well.
+The Reports page is being under construction. More speciffically, I am creating the previews of the Visitors, Anomalias, consolidado and Asistencias database information. The button that downloads the info form firebase and sends it via email in a JSON is working too. 
+
+
+
 Apr 12 2024
 After a long fight with a simple bug I just created the page for editting the New visitors information.
 Yeah. that is it.
