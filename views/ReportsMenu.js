@@ -24,7 +24,8 @@ export default function ReportsMenu ({navigation}){
     const [asistencia, setAsistencia] = useState(false);
     const [consolidado, setConsolidado] = useState(false);
     const [anomalia, setAnomalia] = useState(false);
-
+    
+    const MaxNumberofDays = 4
     
     const HandleTap = (selection) => {
         setActive(selection)
@@ -98,9 +99,7 @@ export default function ReportsMenu ({navigation}){
 
     
     //This is the function to get the info and take the relevant data for
-    //the visual representation
-    //I need to make this more readable in the app. 
-
+    //the VISITORS visual representation
     //This is specifically for the label for every bar
     const DateLabel = (date) =>{
             const [day, month, year] = date.split('-');
@@ -115,6 +114,32 @@ export default function ReportsMenu ({navigation}){
         return maxValue
     }
 
+    //The last X sundays:
+    function getLastFourSundays() {
+        const lastFourSundays = {};
+        const today = new Date();
+        let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+        
+        // If today is not Sunday, move back to the last Sunday
+        if (dayOfWeek !== 0) {
+          today.setDate(today.getDate() - dayOfWeek);
+        }
+      
+        for (let i = 0; i < MaxNumberofDays; i++) {
+          const year = today.getFullYear();
+          const month = today.getMonth() + 1; // getMonth() returns 0-based month
+          const day = today.getDate();
+          const dateKey = `${day}-${month}-${year}`;
+          
+          lastFourSundays[dateKey] = "";
+          
+          // Move to the previous Sunday
+          today.setDate(today.getDate() - 7);
+        }
+        return lastFourSundays;
+    }
+
+    
     function groupByDate(array) {
         const grouped = {};
             
@@ -132,34 +157,11 @@ export default function ReportsMenu ({navigation}){
             grouped[key]++;
         });
         const resultarray = []
-        const MaxNumberofDays = 4
+        
 
-        //The last four sundays:
-        function getLastFourSundays() {
-            const lastFourSundays = {};
-            const today = new Date();
-            let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
-            
-            // If today is not Sunday, move back to the last Sunday
-            if (dayOfWeek !== 0) {
-              today.setDate(today.getDate() - dayOfWeek);
-            }
-          
-            for (let i = 0; i < MaxNumberofDays; i++) {
-              const year = today.getFullYear();
-              const month = today.getMonth() + 1; // getMonth() returns 0-based month
-              const day = today.getDate();
-              const dateKey = `${day}-${month}-${year}`;
-              
-              lastFourSundays[dateKey] = "";
-              
-              // Move to the previous Sunday
-              today.setDate(today.getDate() - 7);
-            }
-            return lastFourSundays;
-        }
-
-
+        //creation of the array of Sundays with number of visits
+        //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
+        
         const lastFourSundays = Object.keys(getLastFourSundays());
         lastFourSundays.forEach(sunday => {
             if (grouped[sunday]) {
@@ -169,14 +171,15 @@ export default function ReportsMenu ({navigation}){
             }
         });
 
-        
-        /**creation of the array of objects 
-        //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
-        for(let[key, visits] of Object.entries(grouped)){
-            const tempObj= {value:visits, label:DateLabel(key), }
-            resultarray.push(tempObj)
-        }
+        /**This code was meant to show only the dates that register any visitors
+         * regardless the day
+            for(let[key, visits] of Object.entries(grouped)){
+                const tempObj= {value:visits, label:DateLabel(key), }
+                resultarray.push(tempObj)
+            }
         */
+        
+
         // Función para convertir label en objeto Date
         // Year is fixed. The graphic bar only admits the Day-Month layout
         const convertToDate = (label) => {
@@ -194,6 +197,7 @@ export default function ReportsMenu ({navigation}){
         return reversedArray;
     }
     
+    
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
@@ -205,6 +209,7 @@ export default function ReportsMenu ({navigation}){
             return(
                 <View style={styles.container}>
                     <Text>Visitantes</Text>
+                    
                     <BarChart
                         data = {groupedByDate}
                         frontColor={'#177AD5'}
@@ -215,6 +220,13 @@ export default function ReportsMenu ({navigation}){
                         maxValue={BarHeigth(groupedByDate) + 1} 
                           
                     />
+                    <Separator></Separator>
+                    <Text 
+                        style={styles.textSmall}
+                        >
+                        Se muestra el número de visitantes de los últimos {MaxNumberofDays} Domingos
+                    </Text>
+                    <Separator></Separator>
                 </View>
                 
             )   
@@ -281,7 +293,7 @@ export default function ReportsMenu ({navigation}){
           
               await MailComposer.composeAsync(options);
             } else {
-              alert('Email services are not available');
+              alert('El servicio de email no está disponible.');
             }
         };        
         sendEmail()
