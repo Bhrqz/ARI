@@ -16,6 +16,7 @@ const SeparatorNoLine = () => <View style={styles.separatorNoLine} />;
 export default function ReportsMenu ({navigation}){
 
     const [reports, setReports] = useState([]);
+    const [conteo, setConteo] = useState([]);
     const [visitors, setVisitors] = useState([]);
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default function ReportsMenu ({navigation}){
     const [anomalia, setAnomalia] = useState(false);
     
     const MaxNumberofDays = 4
+    let totalVisitorsMonth = 0
     
     const HandleTap = (selection) => {
         setActive(selection)
@@ -90,6 +92,14 @@ export default function ReportsMenu ({navigation}){
             });
             setMembers(docs3);
 
+            const docs4 = [];
+            const querySnapshot4 = await getDocs(collection(db, "Conteos"));
+            querySnapshot4.forEach((doc) => {
+                const object = {id: doc.id, ...doc.data()};
+                docs4.push(object);
+            });
+            setConteo(docs4);
+
             setLoading(false)
             
         }
@@ -114,8 +124,8 @@ export default function ReportsMenu ({navigation}){
         return maxValue
     }
 
-    //The last X sundays:
-    function getLastFourSundays() {
+    //The last Max sundays:
+    function getLastXSundays(Max) {
         const lastFourSundays = {};
         const today = new Date();
         let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
@@ -125,7 +135,7 @@ export default function ReportsMenu ({navigation}){
           today.setDate(today.getDate() - dayOfWeek);
         }
       
-        for (let i = 0; i < MaxNumberofDays; i++) {
+        for (let i = 0; i < Max; i++) {
           const year = today.getFullYear();
           const month = today.getMonth() + 1; // getMonth() returns 0-based month
           const day = today.getDate();
@@ -138,6 +148,9 @@ export default function ReportsMenu ({navigation}){
         }
         return lastFourSundays;
     }
+
+    
+
 
     
     function groupByDate(array) {
@@ -161,15 +174,21 @@ export default function ReportsMenu ({navigation}){
 
         //creation of the array of Sundays with number of visits
         //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
-        
-        const lastFourSundays = Object.keys(getLastFourSundays());
-        lastFourSundays.forEach(sunday => {
+            const lastFourSundays = Object.keys(getLastXSundays(MaxNumberofDays));
+            lastFourSundays.forEach(sunday => {
+            
             if (grouped[sunday]) {
                 resultarray.push({ label: DateLabel(sunday), value: grouped[sunday] });
+                totalVisitorsMonth = totalVisitorsMonth + grouped[sunday] //I tried to do this with useState. Was not possible. Simple is better
             } else {
                 resultarray.push({ label: DateLabel(sunday), value: 0 });
             }
         });
+        
+
+      
+        
+        
 
         /**This code was meant to show only the dates that register any visitors
          * regardless the day
@@ -178,6 +197,7 @@ export default function ReportsMenu ({navigation}){
                 resultarray.push(tempObj)
             }
         */
+        
         
 
         // Función para convertir label en objeto Date
@@ -197,6 +217,26 @@ export default function ReportsMenu ({navigation}){
         return reversedArray;
     }
     
+    const AsistenciaVisual = () => {
+
+        const lastSunday = getLastXSundays(1)
+        const DataConteo = conteo[0]
+        const pieData = [
+            {value: 60, color: '#177AD5'},
+            {value: 400, color: '#79D2DE'},
+            {value: 200, color: '#ED6665'},
+            {value: Number(DataConteo.Salon_Principal_F), color: '#79D2DE'}
+            
+          
+          ];
+          console.log(lastSunday)
+          console.log(DataConteo.Fecha_registro)
+        return (
+            pieData
+        )
+
+    }
+    console.log({conteo})
     
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
@@ -226,6 +266,11 @@ export default function ReportsMenu ({navigation}){
                         >
                         Se muestra el número de visitantes de los últimos {MaxNumberofDays} Domingos
                     </Text>
+                    <Text 
+                        style={styles.textSmall}
+                        >
+                        En total hubo {totalVisitorsMonth} visitantes.
+                    </Text>
                     <Separator></Separator>
                 </View>
                 
@@ -234,7 +279,20 @@ export default function ReportsMenu ({navigation}){
         else if (active=="asistencia"){
             return(
                 <View style={styles.container}>
-                <Text>Asistencia</Text>
+                    <Text>Asistencia</Text>
+                    
+                    <PieChart
+                        data={AsistenciaVisual()}
+                        showText
+                        textColor="black"
+                        radius={150}
+                        textSize={20}
+                        focusOnPress
+                        showValuesAsLabels
+                        showTextBackground
+                        textBackgroundRadius={26}
+                    />
+
                 </View>
             )
         }
