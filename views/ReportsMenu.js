@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, View, Button, Pressable, ScrollView, Alert } from 'react-native';
+import { ActivityIndicator, Text, View, FlatList, Pressable, ScrollView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { db } from './components/config';
@@ -255,6 +255,13 @@ export default function ReportsMenu ({navigation}){
 
     
     //This is the visualizerSelector of the previews
+
+    const renderItem = ({ item }) => (
+        <View style={[styles.itemContainer, { borderColor: item.color }]}>
+            <Text style={styles.label}>{item.label}</Text>
+            <Text style={styles.value}>{item.value}</Text>
+        </View>)
+
     const Renderer = () =>{
 
         if (active=="visitantes"){
@@ -302,14 +309,15 @@ export default function ReportsMenu ({navigation}){
                         showTextBackground
                         textBackgroundRadius={26}
                     />
-
-                    {AsistenciaVisual().map((obj)=>{
-                        <View>
-                            <Text>
-                            hey
-                            </Text>
-                        </View>
-                    })}
+                    
+                    {
+                        //THIS nEEds WOORRRKK!!!... style work
+                    }
+                    <FlatList
+                        data={AsistenciaVisual()}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={renderItem}
+                         />
 
                 </View>
             )
