@@ -7,7 +7,7 @@ import styles from './components/styles';
 import * as FileSystem from 'expo-file-system';
 import * as MailComposer from 'expo-mail-composer';
 import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-gifted-charts";
-
+import colorPicker from './components/AsistenciaColorpicker';
 
 const Separator = () => <View style={styles.separator} />;
 const SeparatorNoLine = () => <View style={styles.separatorNoLine} />;
@@ -149,7 +149,15 @@ export default function ReportsMenu ({navigation}){
         return lastFourSundays;
     }
 
+    function dateCreation (date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1; 
+        const year = date.getFullYear();
     
+        const key = `${day}-${month}-${year}`;
+
+        return key
+    }
 
 
     
@@ -157,12 +165,7 @@ export default function ReportsMenu ({navigation}){
         const grouped = {};
             
         array.forEach(item => {
-            const date = item["Fecha_registro"].toDate();  
-            const day = date.getDate();
-            const month = date.getMonth() + 1; 
-            const year = date.getFullYear();
-    
-            const key = `${day}-${month}-${year}`;
+            const key = dateCreation(item["Fecha_registro"].toDate())
     
             if (!grouped[key]) {
                 grouped[key] = 0;
@@ -218,31 +221,40 @@ export default function ReportsMenu ({navigation}){
     }
     
     const AsistenciaVisual = () => {
-
         const lastSunday = getLastXSundays(1)
-        const DataConteo = conteo[0]
-        const pieData = [
-            {value: 60, color: '#177AD5'},
-            {value: 400, color: '#79D2DE'},
-            {value: 200, color: '#ED6665'},
-            {value: Number(DataConteo.Salon_Principal_F), color: '#79D2DE'}
-            
-          
-          ];
-          console.log(lastSunday)
-          console.log(DataConteo.Fecha_registro)
-        return (
-            pieData
-        )
+        const theDaytoShow = 
+            conteo.filter((cnt) =>{
+                const key = dateCreation(cnt.Fecha_Reporte.toDate())
 
+                if(key == Object.keys(lastSunday)){
+                    return({cnt})
+                }
+        })
+
+        function transformData(theDaytoShow) {
+            const data = theDaytoShow[0];
+            const pieData = [];
+            for (const key in data) {
+                if (key !== "id" && key !== "Fecha_Reporte") {
+                    pieData.push({
+                        value: parseInt(data[key], 10), 
+                        label: key,
+                        color: colorPicker(key)
+                    });
+                }
+            }
+            return pieData;
+        }
+        return (
+            transformData(theDaytoShow)
+        )
     }
-    console.log({conteo})
     
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
     
-    //This is the visualizer of the previews
+    //This is the visualizerSelector of the previews
     const Renderer = () =>{
 
         if (active=="visitantes"){
@@ -283,8 +295,6 @@ export default function ReportsMenu ({navigation}){
                     
                     <PieChart
                         data={AsistenciaVisual()}
-                        showText
-                        textColor="black"
                         radius={150}
                         textSize={20}
                         focusOnPress
@@ -292,6 +302,14 @@ export default function ReportsMenu ({navigation}){
                         showTextBackground
                         textBackgroundRadius={26}
                     />
+
+                    {AsistenciaVisual().map((obj)=>{
+                        <View>
+                            <Text>
+                            hey
+                            </Text>
+                        </View>
+                    })}
 
                 </View>
             )
@@ -316,11 +334,7 @@ export default function ReportsMenu ({navigation}){
         const AllData = {visitors, members, reports}
 
         const today = () =>{ 
-            const date = new Date
-            const day = date.getDate();
-            const month = date.getMonth() + 1; 
-            const year = date.getFullYear();
-            const key = `${day}-${month}-${year}`;
+            const key = dateCreation(date.getDate())
             return key
         }
         

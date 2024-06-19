@@ -54,7 +54,7 @@ export default function CreateCounter( {navigation} ) {
                 Primarios_M:primeriosBoys,
                 Primarios_F:primariosGirls,
                 Adolescentes_M:adolescentesBoys,
-                adolescentes_F:adolescentesGirls,
+                Adolescentes_F:adolescentesGirls,
                 Fecha_Reporte: serverTimestamp()
           }).then(() => {
                 Alert.alert('Asistencia Registrada')
