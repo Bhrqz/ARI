@@ -6,6 +6,9 @@ function colorPicker (selec) {
         case "Adolescentes_M":
             return "#1fcc61"
             break
+        case "Adolescentes_F":
+            return "#e6c3e4"
+            break
         case "Parvulos_F":
             return "#d4e3bc"
             break
