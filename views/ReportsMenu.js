@@ -258,9 +258,6 @@ export default function ReportsMenu ({navigation}){
 
     
     //This is the visualizerSelector of the previews
-
-    
-
     const Renderer = () =>{
 
         if (active=="visitantes"){
@@ -347,7 +344,8 @@ export default function ReportsMenu ({navigation}){
         const AllData = {visitors, members, reports}
 
         const today = () =>{ 
-            const key = dateCreation(date.getDate())
+            
+            const key = dateCreation(new Date())
             return key
         }
         
