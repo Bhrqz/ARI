@@ -3,6 +3,13 @@ ARI stands for App para Registro en Iglesias, in spanish.
 
 LOGS
 
+June 19 2024
+At this moment, I am working in the Reportes page with the previews. 
+The visitors preview shows the nuber of visitors for the last 4 sundays.
+I need to make that more dinamic but the library (react-native-gifted-charts) I am using to show the bar graphic might do not tolerate such dinamics.
+
+
+
 Jun 11 2024
 Long time without documenting huh?
 Well. I dont even know if this README counts as documenting but, here I am.

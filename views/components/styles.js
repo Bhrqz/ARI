@@ -296,6 +296,12 @@ export default StyleSheet.create({
       shadowRadius: 1.41,
       elevation: 2,
     },
+    tableHeader: { 
+      backgroundColor: '#DCDCDC', 
+    }, 
+    tableRow: { 
+      backgroundColor: '#4CDCDC', 
+    },
     dropdownLittle: {
       margin: 10,
       height: 35,
