@@ -246,9 +246,22 @@ export default function ReportsMenu ({navigation}){
             }
             return pieData;
         }
-        console.log(transformData(theDaytoShow))
+        
+        //This is just to sort the 
+        const sorted = transformData(theDaytoShow)
+            .sort(function (a, b) {
+                if (a.label > b.label) {
+                return -1;
+                }
+                if (a.label < b.label) {
+                return 1;
+                }
+                // a must be equal to b
+                return 0;
+            });
+            
         return (
-            transformData(theDaytoShow)
+            sorted
         )
     }
     
@@ -300,6 +313,8 @@ export default function ReportsMenu ({navigation}){
                         data={asistenciavisual}
                         radius={150}
                         textSize={20}
+                        strokeWidth={3}
+                        strokeColor="#333"
                         focusOnPress
                         showValuesAsLabels
                         showTextBackground

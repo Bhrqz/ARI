@@ -4,43 +4,40 @@
 function colorPicker (selec) {
     switch(selec){
         case "Adolescentes_M":
-            return "#1fcc61"
+            return "#82406c"
             break
         case "Adolescentes_F":
-            return "#e6c3e4"
+            return "#d40f92"
             break
         case "Parvulos_F":
-            return "#d4e3bc"
+            return "#911bcc"
             break
         case "Parvulos_M":
-            return "#c1f5d5"
+            return "#be7ede"
             break
         case "Primarios_F":
-            return "#d4cf6e"
+            return "#3f2de0"
             break
         case "Primarios_M":
-            return "#6bed9d"
+            return "#7c74c4"
             break
         case "Principiantes_F":
-            return "#d1a3ca"
+            return "#16c5d9"
             break
         case "Principiantes_M":
             return "#aaeff2"
             break
         case "Sala_Cuna_F":
-            return "#ed74db"
+            return "#16d94a"
             break
         case "Sala_Cuna_M":
-            return "#05e9f5"
-            break
-        case "Principiantes_M":
-            return "#79a8f2"
+            return "#7dd494"
             break
         case "Salon_Principal_F":
-            return "#f25572"
+            return "#8f2c2c"
             break
         case "Salon_Principal_M":
-            return "#0a62f0"
+            return "#c92626"
             break
         
     }

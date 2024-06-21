@@ -299,9 +299,7 @@ export default StyleSheet.create({
     tableHeader: { 
       backgroundColor: '#DCDCDC', 
     }, 
-    tableRow: { 
-      backgroundColor: '#4CDCDC', 
-    },
+    
     dropdownLittle: {
       margin: 10,
       height: 35,
