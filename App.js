@@ -28,12 +28,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator> 
-      {/**
+      
       <Stack.Screen 
           name="Login" 
           component={Login} 
           options={{ title: 'Iglesia Valle de Bendición' }} />
-    */}
+    
         <Stack.Screen 
           name="Home" 
           component={Home} 
