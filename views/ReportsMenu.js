@@ -26,6 +26,7 @@ export default function ReportsMenu ({navigation}){
     const [asistencia, setAsistencia] = useState(false);
     const [consolidado, setConsolidado] = useState(false);
     const [anomalia, setAnomalia] = useState(false);
+    const [dateReport, setDateReport] = useState("")
     
     const MaxNumberofDays = 4
     let totalVisitorsMonth = 0
@@ -159,8 +160,6 @@ export default function ReportsMenu ({navigation}){
 
         return key
     }
-
-
     
     function groupByDate(array) {
         const grouped = {};
@@ -221,6 +220,7 @@ export default function ReportsMenu ({navigation}){
         return reversedArray;
     }
     
+    //this is for the Attendance
     const AsistenciaVisual = () => {
         const lastSunday = getLastXSundays(1)
         const theDaytoShow = 
@@ -232,11 +232,13 @@ export default function ReportsMenu ({navigation}){
                 }
         })
 
+
+
         function transformData(theDaytoShow) {
             const data = theDaytoShow[0];
             const pieData = [];
             for (const key in data) {
-                if (key !== "id" && key !== "Fecha_Reporte") {
+                if (key !== "id" && key !== "Fecha_Reporte" && key != "Hour") {
                     pieData.push({
                         value: parseInt(data[key], 10), 
                         label: key,
@@ -247,7 +249,7 @@ export default function ReportsMenu ({navigation}){
             return pieData;
         }
         
-        //This is just to sort the 
+        //This is just to sort the elements for the pie
         const sorted = transformData(theDaytoShow)
             .sort(function (a, b) {
                 if (a.label > b.label) {
@@ -266,6 +268,7 @@ export default function ReportsMenu ({navigation}){
     }
     
     const asistenciavisual = AsistenciaVisual()
+    
     const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
@@ -308,7 +311,7 @@ export default function ReportsMenu ({navigation}){
             return(
                 <View style={styles.container}>
                     <Text>Asistencia</Text>
-                    
+                    <Text></Text>
                     <PieChart
                         data={asistenciavisual}
                         radius={150}

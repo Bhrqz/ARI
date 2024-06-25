@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { db } from './components/config';
 import { addDoc, collection, doc, serverTimestamp, setDoc, getDocs } from "firebase/firestore";
 import styles from './components/styles';
+import { Dropdown } from 'react-native-element-dropdown';
 
 
 const Separator = () => <View style={styles.separatorCounter} />;
@@ -28,6 +29,7 @@ export default function CreateCounter( {navigation} ) {
     const [dateReported, setDateReported] = useState("")
     const [loadingInfo, setLoadingInfo] = useState(true);
     const [counters, setCounters] = useState([])
+    const [hour, setHour] = useState("9 am")
     
 
     //Function for sending info
@@ -43,18 +45,19 @@ export default function CreateCounter( {navigation} ) {
       //erase PruebadelaApp2
 
       await addDoc(collection(db, "Conteos"), {
-                Salon_Principal_M:mainHallMen,
-                Salon_Principal_F:mainHallWomen,
-                Sala_Cuna_M:salaCunaBoys,
-                Sala_Cuna_F:salaCunaGirls,
-                Parvulos_M:parvulosBoys,
-                Parvulos_F:parvulosGirls,
-                Principiantes_M:principiantesBoys,
-                Principiantes_F:principiantesGirls,
-                Primarios_M:primeriosBoys,
-                Primarios_F:primariosGirls,
-                Adolescentes_M:adolescentesBoys,
-                Adolescentes_F:adolescentesGirls,
+                Salon_Principal_M:mainHallMen?mainHallMen:"0",
+                Salon_Principal_F:mainHallWomen?mainHallWomen:"0",
+                Sala_Cuna_M:salaCunaBoys?salaCunaBoys:"0",
+                Sala_Cuna_F:salaCunaGirls?salaCunaGirls:"0",
+                Parvulos_M:parvulosBoys?parvulosBoys:"0",
+                Parvulos_F:parvulosGirls?parvulosGirls:"0",
+                Principiantes_M:principiantesBoys?principiantesBoys:"0",
+                Principiantes_F:principiantesGirls?principiantesGirls:"0",
+                Primarios_M:primeriosBoys?primeriosBoys:"0",
+                Primarios_F:primariosGirls?primariosGirls:"0",
+                Adolescentes_M:adolescentesBoys?adolescentesBoys:"0",
+                Adolescentes_F:adolescentesGirls?adolescentesGirls:"0",
+                Hour:hour,
                 Fecha_Reporte: serverTimestamp()
           }).then(() => {
                 Alert.alert('Asistencia Registrada')
@@ -71,6 +74,7 @@ export default function CreateCounter( {navigation} ) {
                 setPrimariosGirls("")
                 setAdolescentesBoys("")
                 setAdolescentesGirls("")
+                setHour("9")
                 navigation.navigate("Home")
 
           }).catch((error) =>{
@@ -79,6 +83,25 @@ export default function CreateCounter( {navigation} ) {
           })
       
     }
+
+    //This is the set of options for the dropdown
+    //for the hours of the counter
+    //Not in use in the current version of the app
+    //´cause the first church only have one service per day
+    const options =[
+      { label: '9 am', value: '9 am' },
+      { label: '11 am', value: '11 am' },
+      ]
+    
+      const renderItem = item => {
+        return(
+          <View>
+            <Text style={styles.textSelector}>{item.label}</Text>
+          </View>
+        )
+      }
+    // End of Gender Hour selector
+
 
     //I know there is a way to show the date easier, but I dont remember it yet
     const showDate = () =>{
@@ -144,12 +167,11 @@ export default function CreateCounter( {navigation} ) {
     const objetosCoincidentes = counters.filter(counter => {
       try{
         const fechaReporte = new Date(counter["Fecha_Reporte"].seconds * 1000); // Suponiendo que "Fecha_Reporte" es un objeto con una propiedad "seconds"
-    
         return fechaReporte.toDateString() === fechaActual.toDateString(); // Comparar solo las partes de fecha, ignorando la hora
-    }
-    catch{
-      return false
-    }
+      }
+      catch{
+        return false
+      }
     });
 
     //I think we need to include an Alert with this same info
@@ -157,10 +179,10 @@ export default function CreateCounter( {navigation} ) {
 
     const AlreadyRegistered = () =>{
       console.log(objetosCoincidentes)
-      if(objetosCoincidentes.length>0){
-        
-        return("La Asistencia de hoy ya fue registrada\nEl botón para Registrar está desactivado.")
-      }
+      if(objetosCoincidentes.length>0 && objetosCoincidentes[0].Hour==hour)
+        {
+          return("La Asistencia de hoy ya fue registrada\n para la hora elegida\nEl botón para Registrar está desactivado.")
+        }
       else{return ""}
     }
 
@@ -182,6 +204,25 @@ export default function CreateCounter( {navigation} ) {
               <Text style={styles.warningCounter}>
                 {AlreadyRegistered()}
               </Text>
+            </View>
+
+            <View>
+              <Text style={styles.warningCounter}>
+                Hora del servicio:
+              </Text>
+              <Dropdown
+                    selectedTextStyle={styles.selectedTextStyle}
+                    style={styles.dropdownLittle}
+                    placeholderStyle={styles.textNoTitleList}
+                    data={options}
+                    labelField="label"
+                    valueField="value"
+                    placeholder="Elija una opción"
+                    value={hour}
+                    maxHeight={300}
+                    onChange={ (value) => {setHour(value.value)}}
+                    renderItem={renderItem}
+                  />
             </View>
 
             <Text style={styles.label} >Salón Principal</Text>
@@ -375,8 +416,8 @@ export default function CreateCounter( {navigation} ) {
             
             
             <Pressable
-                disabled={objetosCoincidentes.length>0}
-                style={objetosCoincidentes.length>0? styles.buttonDeactivated:styles.button}
+                disabled={objetosCoincidentes.length>0 && objetosCoincidentes[0].Hour==hour}
+                style={objetosCoincidentes.length>0 && objetosCoincidentes[0].Hour==hour? styles.buttonDeactivated:styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos estén correctos',
                     "Salon Principal: Hombres: "+mainHallMen+"/ Mujeres: "+mainHallWomen+"\nSala Cuna: Niños: "+salaCunaBoys+"/ Niñas: "+salaCunaGirls+"\nPárvulos: Niños: "+parvulosBoys+"/ Niñas: "+parvulosGirls+"\nPrincipiantes: Niños: "+principiantesBoys+" / Niñas: "+primariosGirls+"\nPrimarios: Niños: "+primeriosBoys+"/ Niñas: "+primariosGirls+"\nAdolescentes: Niños: "+adolescentesBoys+"/ Niñas: "+adolescentesGirls+"\n\n"+AlreadyRegistered(),
