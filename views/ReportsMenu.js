@@ -30,7 +30,9 @@ export default function ReportsMenu ({navigation}){
     
     const MaxNumberofDays = 4
     let totalVisitorsMonth = 0
-    
+    let totalReportsMonth = 0
+    let totalSolvedReportsMonth = 0
+
     const HandleTap = (selection) => {
         setActive(selection)
 
@@ -160,6 +162,13 @@ export default function ReportsMenu ({navigation}){
 
         return key
     }
+
+    // Función para convertir label en objeto Date
+    // Year is fixed. The graphic bar only admits the Day-Month layout
+    const convertToDate = (label) => {
+        const [day, month] = label.split('-').map(Number);
+        return new Date(2024, month - 1, day); 
+    };
     
     function groupByDate(array) {
         const grouped = {};
@@ -177,20 +186,15 @@ export default function ReportsMenu ({navigation}){
 
         //creation of the array of Sundays with number of visits
         //like this: [{"label": "11-4", "value": 1}, {"label": "12-4", "value": 2}]
-            const lastFourSundays = Object.keys(getLastXSundays(MaxNumberofDays));
+        const lastFourSundays = Object.keys(getLastXSundays(MaxNumberofDays));
             lastFourSundays.forEach(sunday => {
-            
-            if (grouped[sunday]) {
-                resultarray.push({ label: DateLabel(sunday), value: grouped[sunday] });
-                totalVisitorsMonth = totalVisitorsMonth + grouped[sunday] //I tried to do this with useState. Was not possible. Simple is better
-            } else {
-                resultarray.push({ label: DateLabel(sunday), value: 0 });
+                if (grouped[sunday]) {
+                    resultarray.push({ label: DateLabel(sunday), value: grouped[sunday] });
+                    totalVisitorsMonth = totalVisitorsMonth + grouped[sunday]
+                } else {
+                    resultarray.push({ label: DateLabel(sunday), value: 0 });
             }
         });
-        
-
-      
-        
         
 
         /**This code was meant to show only the dates that register any visitors
@@ -201,15 +205,6 @@ export default function ReportsMenu ({navigation}){
             }
         */
         
-        
-
-        // Función para convertir label en objeto Date
-        // Year is fixed. The graphic bar only admits the Day-Month layout
-        const convertToDate = (label) => {
-            const [day, month] = label.split('-').map(Number);
-            return new Date(2024, month - 1, day); 
-        };
-
         // Ordenar el array basado en las fechas
         const sortedArray = resultarray.sort((a, b) => convertToDate(b.label) - convertToDate(a.label));
         
@@ -262,14 +257,56 @@ export default function ReportsMenu ({navigation}){
                 return 0;
             });
             
-        return (
-            sorted
-        )
+        return sorted
     }
     
+
+    //This is for the Report(Anomalías)
+    const reportbyDate =(array)=>{
+        const grouped = {};
+        
+        array.forEach(item => {
+            const key = dateCreation(item["Fecha_Reporte"].toDate())
+            
+            if (!grouped[key]) {
+                grouped[key] = 0;
+            }
+            grouped[key]++;
+
+        });
+
+        const resultarray = []
+        const lastFourSundays = Object.keys(getLastXSundays(MaxNumberofDays));
+            lastFourSundays.forEach(sunday => {
+                if (grouped[sunday]) {
+                    resultarray.push({ label: DateLabel(sunday), value: grouped[sunday] });
+                    totalReportsMonth = totalReportsMonth + grouped[sunday] 
+                    
+                    // Contar los solucionados para los últimos cuatro domingos
+                    array.forEach(item => {
+                        const key = dateCreation(item["Fecha_Reporte"].toDate());
+                        if (key === sunday && item["Fecha_Solucion"]) {
+                            totalSolvedReportsMonth++;
+                        }
+                    });
+
+                } else {
+                    resultarray.push({ label: DateLabel(sunday), value: 0 });
+                }
+        });
+
+        const sortedArray = resultarray.sort((a, b) => convertToDate(b.label) - convertToDate(a.label));
+        // Seleccionar los primeros MAxNumberofDays objetos del array ordenado
+        const latestFour = sortedArray.slice(0, MaxNumberofDays);
+        const reversedArray = latestFour.reverse()
+
+        return reversedArray;
+    }
+
+    const reportedByDate = reportbyDate(reports)
+    const groupedByDate = groupByDate(visitors);
     const asistenciavisual = AsistenciaVisual()
     
-    const groupedByDate = groupByDate(visitors);
     //End of the function for.... ugh visual representation stuff
 
     
@@ -280,7 +317,6 @@ export default function ReportsMenu ({navigation}){
             return(
                 <View style={styles.container}>
                     <Text>Visitantes</Text>
-                    
                     <BarChart
                         data = {groupedByDate}
                         frontColor={'#177AD5'}
@@ -311,7 +347,6 @@ export default function ReportsMenu ({navigation}){
             return(
                 <View style={styles.container}>
                     <Text>Asistencia</Text>
-                    <Text></Text>
                     <PieChart
                         data={asistenciavisual}
                         radius={150}
@@ -349,7 +384,30 @@ export default function ReportsMenu ({navigation}){
         }
         else if (active=="anomalia"){
             return(
-                <Text>Anomalia</Text>
+                <View style={styles.container}>
+                    <Text>Anomalia</Text>
+                    <BarChart
+                        data = {reportedByDate}
+                        frontColor={'#14b5de'}
+                        barBorderRadius={5}
+                        xAxisThickness={0}
+                        dashGap={20}
+                        noOfSections={BarHeigth(reportedByDate) + 1}
+                        maxValue={BarHeigth(reportedByDate) + 1} 
+                          
+                    />
+                    <Separator></Separator>
+                    <Text 
+                        style={styles.textSmall}
+                        >
+                        En total hubo {totalReportsMonth} anomalias los últimos cuatro domingos.
+                    </Text>
+                    <Text 
+                        style={styles.textSmall}
+                        >
+                        De los cuales {totalSolvedReportsMonth} han sido solucionadas.
+                    </Text>
+                </View>
             )
         }
     }
