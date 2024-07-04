@@ -26,12 +26,12 @@ export default function ReportsMenu ({navigation}){
     const [asistencia, setAsistencia] = useState(false);
     const [consolidado, setConsolidado] = useState(false);
     const [anomalia, setAnomalia] = useState(false);
-    const [dateReport, setDateReport] = useState("")
     
     const MaxNumberofDays = 4
     let totalVisitorsMonth = 0
     let totalReportsMonth = 0
     let totalSolvedReportsMonth = 0
+    let wasCounted = true
 
     const HandleTap = (selection) => {
         setActive(selection)
@@ -215,6 +215,26 @@ export default function ReportsMenu ({navigation}){
         return reversedArray;
     }
     
+    const wasThereACount =()=>{
+        const theDaytoShow = 
+            conteo.filter((cnt) =>{
+                const key = dateCreation(cnt.Fecha_Reporte.toDate())
+
+                if(key == Object.keys(getLastXSundays(1))){
+                    return({cnt})
+                }
+        })
+        console.log(theDaytoShow)
+        if (theDaytoShow.length==0){
+            return false
+        } else{
+            return true
+        }
+    }
+    
+    wasCounted = wasThereACount()
+    console.log(wasCounted)
+
     //this is for the Attendance
     const AsistenciaVisual = () => {
         const lastSunday = getLastXSundays(1)
@@ -226,8 +246,6 @@ export default function ReportsMenu ({navigation}){
                     return({cnt})
                 }
         })
-
-
 
         function transformData(theDaytoShow) {
             const data = theDaytoShow[0];
@@ -316,7 +334,7 @@ export default function ReportsMenu ({navigation}){
         if (active=="visitantes"){
             return(
                 <View style={styles.container}>
-                    <Text>Visitantes</Text>
+                    <Text style={styles.textTitleList}>Visitantes</Text>
                     <BarChart
                         data = {groupedByDate}
                         frontColor={'#177AD5'}
@@ -343,49 +361,64 @@ export default function ReportsMenu ({navigation}){
                 
             )   
         }
-        else if (active=="asistencia"){
+        else if (active=="asistencia" && wasCounted==true){
             return(
                 <View style={styles.container}>
-                    <Text>Asistencia</Text>
-                    <PieChart
-                        data={asistenciavisual}
-                        radius={150}
-                        textSize={20}
-                        strokeWidth={3}
-                        strokeColor="#333"
-                        focusOnPress
-                        showValuesAsLabels
-                        showTextBackground
-                        textBackgroundRadius={26}
-                    />
+                    <Text style={styles.textTitleList}>Asistencia</Text>
                     
-                    <CounterTable 
-                        label1={asistenciavisual[0].label} color1={asistenciavisual[0].color} value1={asistenciavisual[0].value}
-                        label2={asistenciavisual[1].label} color2={asistenciavisual[1].color} value2={asistenciavisual[1].value}
-                        label3={asistenciavisual[2].label} color3={asistenciavisual[2].color} value3={asistenciavisual[2].value}
-                        label4={asistenciavisual[3].label} color4={asistenciavisual[3].color} value4={asistenciavisual[3].value}
-                        label5={asistenciavisual[4].label} color5={asistenciavisual[4].color} value5={asistenciavisual[4].value}
-                        label6={asistenciavisual[5].label} color6={asistenciavisual[5].color} value6={asistenciavisual[5].value}
-                        label7={asistenciavisual[6].label} color7={asistenciavisual[6].color} value7={asistenciavisual[6].value}
-                        label8={asistenciavisual[7].label} color8={asistenciavisual[7].color} value8={asistenciavisual[7].value}
-                        label9={asistenciavisual[8].label} color9={asistenciavisual[8].color} value9={asistenciavisual[8].value}
-                        label10={asistenciavisual[9].label} color10={asistenciavisual[9].color} value10={asistenciavisual[9].value}
-                        label11={asistenciavisual[10].label} color11={asistenciavisual[10].color} value11={asistenciavisual[10].value}
-                        label12={asistenciavisual[11].label} color12={asistenciavisual[11].color} value12={asistenciavisual[11].value} 
-                    />
+                        <View>
+                        <PieChart
+                            data={asistenciavisual}
+                            radius={150}
+                            textSize={20}
+                            strokeWidth={3}
+                            strokeColor="#333"
+                            focusOnPress
+                            showValuesAsLabels
+                            showTextBackground
+                            textBackgroundRadius={26}
+                        />
+                        
+                        <CounterTable 
+                            label1={asistenciavisual[0].label} color1={asistenciavisual[0].color} value1={asistenciavisual[0].value}
+                            label2={asistenciavisual[1].label} color2={asistenciavisual[1].color} value2={asistenciavisual[1].value}
+                            label3={asistenciavisual[2].label} color3={asistenciavisual[2].color} value3={asistenciavisual[2].value}
+                            label4={asistenciavisual[3].label} color4={asistenciavisual[3].color} value4={asistenciavisual[3].value}
+                            label5={asistenciavisual[4].label} color5={asistenciavisual[4].color} value5={asistenciavisual[4].value}
+                            label6={asistenciavisual[5].label} color6={asistenciavisual[5].color} value6={asistenciavisual[5].value}
+                            label7={asistenciavisual[6].label} color7={asistenciavisual[6].color} value7={asistenciavisual[6].value}
+                            label8={asistenciavisual[7].label} color8={asistenciavisual[7].color} value8={asistenciavisual[7].value}
+                            label9={asistenciavisual[8].label} color9={asistenciavisual[8].color} value9={asistenciavisual[8].value}
+                            label10={asistenciavisual[9].label} color10={asistenciavisual[9].color} value10={asistenciavisual[9].value}
+                            label11={asistenciavisual[10].label} color11={asistenciavisual[10].color} value11={asistenciavisual[10].value}
+                            label12={asistenciavisual[11].label} color12={asistenciavisual[11].color} value12={asistenciavisual[11].value} 
+                        />
+                        
+                        </View>
+                        
                     
+                </View>
+            )
+        }
+        else if (active=="asistencia" && wasCounted==false){
+            return(
+                <View style={styles.container}>
+                    <Text style={styles.textTitleList}>Asistencia</Text>
+                    <SeparatorNoLine/>
+                    <Text>No se registra conteo de asistencia</Text>
+                    <Text>para el ùltimo domingo</Text>
                 </View>
             )
         }
         else if (active=="consolidado"){
             return(
-                <Text>Consolidado</Text>
+                <Text style={styles.textTitleList}>Consolidado</Text>
             )
         }
         else if (active=="anomalia"){
             return(
                 <View style={styles.container}>
-                    <Text>Anomalia</Text>
+                    <Text style={styles.textTitleList}>Anomalías</Text>
                     <BarChart
                         data = {reportedByDate}
                         frontColor={'#14b5de'}
