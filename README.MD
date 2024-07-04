@@ -3,6 +3,16 @@ ARI stands for App para Registro en Iglesias, in spanish.
 
 LOGS
 
+Jul 4 2024
+The reports page is almost complete. 
+I only need to create the Consolidado subpage and that would be it.
+The library I´m using for the bar graphics needs to be reinitialized in order to update the info when I change from one to another bar graphic, such as Anomalias and Visitantes.
+I need to find the solution for that visual bug.
+The Asistencia subpage does not break the code when does not find a count log matching the last sunday date. Success!! =D
+I am aware soon I will need to come with a better solution for the whole reports page.
+But for now, this will do. I`m working for free  anyways. The gain is educational, nevertheless.
+
+
 June 19 2024
 At this moment, I am working in the Reportes page with the previews. 
 The visitors preview shows the nuber of visitors for the last 4 sundays.
