@@ -30,7 +30,7 @@ const Consolidadocompo = (props) => {
     const mostRecentCountingReport = getMostRecentCountingReport(props.count);
     console.log(mostRecentCountingReport);
     
-    console.log(mostRecentCountingReport["Fecha_Reporte"])
+    console.log(dateCreation(mostRecentCountingReport["Fecha_Reporte"].toDate()))
     return (
         <View>
             <Text>Prueba</Text>
