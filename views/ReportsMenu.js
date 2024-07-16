@@ -9,6 +9,7 @@ import * as MailComposer from 'expo-mail-composer';
 import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-gifted-charts";
 import colorPicker from './components/AsistenciaColorpicker';
 import CounterTable from './components/CounterTable';
+import Consolidadocompo from './components/Consolidadocompo';
 
 const Separator = () => <View style={styles.separator} />;
 const SeparatorNoLine = () => <View style={styles.separatorNoLine} />;
@@ -224,7 +225,7 @@ export default function ReportsMenu ({navigation}){
                     return({cnt})
                 }
         })
-        console.log(theDaytoShow)
+        
         if (theDaytoShow.length==0){
             return false
         } else{
@@ -233,9 +234,9 @@ export default function ReportsMenu ({navigation}){
     }
     
     wasCounted = wasThereACount()
-    console.log(wasCounted)
+    
 
-    //this is for the Attendance
+    //this is for the Attendance (Asistencia)
     const AsistenciaVisual = () => {
         const lastSunday = getLastXSundays(1)
         const theDaytoShow = 
@@ -367,33 +368,32 @@ export default function ReportsMenu ({navigation}){
                     <Text style={styles.textTitleList}>Asistencia</Text>
                     
                         <View>
-                        <PieChart
-                            data={asistenciavisual}
-                            radius={150}
-                            textSize={20}
-                            strokeWidth={3}
-                            strokeColor="#333"
-                            focusOnPress
-                            showValuesAsLabels
-                            showTextBackground
-                            textBackgroundRadius={26}
-                        />
-                        
-                        <CounterTable 
-                            label1={asistenciavisual[0].label} color1={asistenciavisual[0].color} value1={asistenciavisual[0].value}
-                            label2={asistenciavisual[1].label} color2={asistenciavisual[1].color} value2={asistenciavisual[1].value}
-                            label3={asistenciavisual[2].label} color3={asistenciavisual[2].color} value3={asistenciavisual[2].value}
-                            label4={asistenciavisual[3].label} color4={asistenciavisual[3].color} value4={asistenciavisual[3].value}
-                            label5={asistenciavisual[4].label} color5={asistenciavisual[4].color} value5={asistenciavisual[4].value}
-                            label6={asistenciavisual[5].label} color6={asistenciavisual[5].color} value6={asistenciavisual[5].value}
-                            label7={asistenciavisual[6].label} color7={asistenciavisual[6].color} value7={asistenciavisual[6].value}
-                            label8={asistenciavisual[7].label} color8={asistenciavisual[7].color} value8={asistenciavisual[7].value}
-                            label9={asistenciavisual[8].label} color9={asistenciavisual[8].color} value9={asistenciavisual[8].value}
-                            label10={asistenciavisual[9].label} color10={asistenciavisual[9].color} value10={asistenciavisual[9].value}
-                            label11={asistenciavisual[10].label} color11={asistenciavisual[10].color} value11={asistenciavisual[10].value}
-                            label12={asistenciavisual[11].label} color12={asistenciavisual[11].color} value12={asistenciavisual[11].value} 
-                        />
-                        
+                            <PieChart
+                                data={asistenciavisual}
+                                radius={150}
+                                textSize={20}
+                                strokeWidth={3}
+                                strokeColor="#333"
+                                focusOnPress
+                                showValuesAsLabels
+                                showTextBackground
+                                textBackgroundRadius={26}
+                            />
+                            
+                            <CounterTable 
+                                label1={asistenciavisual[0].label} color1={asistenciavisual[0].color} value1={asistenciavisual[0].value}
+                                label2={asistenciavisual[1].label} color2={asistenciavisual[1].color} value2={asistenciavisual[1].value}
+                                label3={asistenciavisual[2].label} color3={asistenciavisual[2].color} value3={asistenciavisual[2].value}
+                                label4={asistenciavisual[3].label} color4={asistenciavisual[3].color} value4={asistenciavisual[3].value}
+                                label5={asistenciavisual[4].label} color5={asistenciavisual[4].color} value5={asistenciavisual[4].value}
+                                label6={asistenciavisual[5].label} color6={asistenciavisual[5].color} value6={asistenciavisual[5].value}
+                                label7={asistenciavisual[6].label} color7={asistenciavisual[6].color} value7={asistenciavisual[6].value}
+                                label8={asistenciavisual[7].label} color8={asistenciavisual[7].color} value8={asistenciavisual[7].value}
+                                label9={asistenciavisual[8].label} color9={asistenciavisual[8].color} value9={asistenciavisual[8].value}
+                                label10={asistenciavisual[9].label} color10={asistenciavisual[9].color} value10={asistenciavisual[9].value}
+                                label11={asistenciavisual[10].label} color11={asistenciavisual[10].color} value11={asistenciavisual[10].value}
+                                label12={asistenciavisual[11].label} color12={asistenciavisual[11].color} value12={asistenciavisual[11].value} 
+                            />
                         </View>
                         
                     
@@ -412,7 +412,22 @@ export default function ReportsMenu ({navigation}){
         }
         else if (active=="consolidado"){
             return(
-                <Text style={styles.textTitleList}>Consolidado</Text>
+                <View style={styles.container}>
+                    <Text style={styles.textTitleList}>Consolidado</Text>
+                    <SeparatorNoLine/>
+                    
+                    {/**
+                        Componente para mostrar el total de visitantes
+                        discriminados por genero y salon 
+                        de la ultima fecha registrada
+                    */}
+                    
+                    <Consolidadocompo 
+                        count={conteo}
+                        visitors={visitors}
+                    />
+
+                </View>
             )
         }
         else if (active=="anomalia"){
@@ -491,7 +506,6 @@ export default function ReportsMenu ({navigation}){
         sendEmail()
     }
 
-
     return(
         <ScrollView>
             <View style={styles.container}> 
@@ -545,9 +559,6 @@ export default function ReportsMenu ({navigation}){
                         {Renderer()}
                     </View>
                 }
-
-                
-                                
 
                 <StatusBar style="auto" />
             </View>
