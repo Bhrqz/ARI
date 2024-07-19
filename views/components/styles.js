@@ -325,7 +325,28 @@ export default StyleSheet.create({
     },
     spaceAround:{
       justifyContent:"space-around"
-    }
+    },
+    containerTable: { 
+      flex: 1, 
+      padding: 10, 
+      justifyContent: 'center', 
+      backgroundColor: '#fff' },
+    
+    head: { 
+      height: 44, 
+      backgroundColor: 'darkblue' 
+    },
+    headText: { 
+      fontSize: 20, 
+      fontWeight: 'bold' , 
+      textAlign: 'center', 
+      color: 'white' },
+    text: { 
+      margin: 6, 
+      fontSize: 16, 
+      fontWeight: 'bold' , 
+      textAlign: 'center' 
+    },
 
 
 
