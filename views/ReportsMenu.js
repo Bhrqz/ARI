@@ -422,7 +422,7 @@ export default function ReportsMenu ({navigation}){
                         de la ultima fecha registrada
                     */}
                     
-                    <Consolidadocompo 
+                    <Consolidadocompo style={styles.container}
                         count={conteo}
                         visitors={visitors}
                     />
