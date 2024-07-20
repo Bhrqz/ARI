@@ -142,7 +142,8 @@ export default StyleSheet.create({
       color: 'white',
       
     },
-    text:{
+    
+    textNoBold:{
       fontSize:16,
       textAlign :"auto",
       textAlignVertical:"center"
