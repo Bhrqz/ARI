@@ -5,10 +5,20 @@ import styles from './styles';
 const Separator = () => <View style={styles.separatorCounter} />;
 
 const Consolidadocompo = (props) => {
-    
-let countDate = "" 
-let visitorsNumber = 0  
-let visitorsDeclaredNumber = 0 
+
+    if(!props.count){
+        return(
+            <Text style={styles.container}>No hay registros que mostrar</Text>
+        )
+    }
+
+    let countDate = "" 
+    let visitorsNumber = 0  
+    let visitorsDeclaredNumber = 0
+    let womenCount = 0
+    let menCount = 0
+    let declaredMenCount = 0
+    let declaredWomenCount = 0 
     
     /** Esquema del consolidado
      * Total de asistentes
@@ -73,6 +83,18 @@ let visitorsDeclaredNumber = 0
             visitorsNumber++
             if(element["Declaración de Fe"]){
                 visitorsDeclaredNumber++
+                if(element["Genero"]=="Masculino"){
+                    declaredMenCount++
+                }
+                else if(element["Genero"]=="Femenino"){
+                    declaredWomenCount++
+                }
+            }
+            if(element["Genero"]=="Masculino"){
+                menCount++
+            }
+            else if(element["Genero"]=="Femenino"){
+                womenCount++
             }
         }
         
@@ -85,104 +107,112 @@ let visitorsDeclaredNumber = 0
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}> Fecha:</Text>
+                    <Text style={styles.textBold}> Fecha:</Text>
                     <Text style={styles.textNoBold}>{countDate}</Text>
                 </View> 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}> Total de Personas:</Text>
+                    <Text style={styles.textBold}> Total de Personas:</Text>
                     <Text style={styles.textNoBold}>{CountTotal}</Text>
                 </View>
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}> Visitantes en el dia:</Text>
+                    <Text style={styles.textBold}> Visitantes en el dia:</Text>
                     <Text style={styles.textNoBold}>{visitorsNumber}</Text>
+                    <Text style={styles.textBold}> F:</Text>
+                    <Text style={styles.textNoBold}>{womenCount}</Text>
+                    <Text style={styles.textBold}> M:</Text>
+                    <Text style={styles.textNoBold}>{menCount}</Text>
                 </View> 
                 <View style={styles.viewCounter}>
-                    <Text style={styles.text}> Visitantes Declarados:</Text>
+                    <Text style={styles.textBold}> Visitantes Declarados:</Text>
                     <Text style={styles.textNoBold}>{visitorsDeclaredNumber}</Text>
+                    <Text style={styles.textBold}> F:</Text>
+                    <Text style={styles.textNoBold}>{declaredWomenCount}</Text>
+                    <Text style={styles.textBold}> M:</Text>
+                    <Text style={styles.textNoBold}>{declaredMenCount}</Text>
                 </View> 
             </View>
             <Separator/>
 
             <View style={styles.container}>
-                <Text style={styles.text}> Salon Principal</Text>
+                <Text style={styles.textBold}> Salon Principal</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Mujeres: {CountToShow.Salon_Principal_M}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Hombres: {CountToShow.Salon_Principal_F}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Adolescentes</Text>
+                <Text style={styles.textBold}>Adolescentes</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Adolescentes_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Adolescentes_M}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Párvulos</Text>
+                <Text style={styles.textBold}>Párvulos</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Parvulos_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Parvulos_M}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Primarios</Text>
+                <Text style={styles.textBold}>Primarios</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Primarios_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Primarios_M}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Principiantes</Text>
+                <Text style={styles.textBold}>Principiantes</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Principiantes_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Principiantes_M}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Adolescentes</Text>
+                <Text style={styles.textBold}>Adolescentes</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Adolescentes_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Adolescentes_M}
                     </Text>
                 </View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.text}>Sala Cuna</Text>
+                <Text style={styles.textBold}>Sala Cuna</Text>
                 <View style={styles.viewCounter}>
-                    <Text>
+                    <Text style={styles.textNoBold}>
                         Niñas: {CountToShow.Sala_Cuna_F}
                     </Text>
-                    <Text>  /  </Text>
-                    <Text>
+                    <Text style={styles.textNoBold}>  /  </Text>
+                    <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Sala_Cuna_M}
                     </Text>
                 </View>

@@ -142,12 +142,6 @@ export default StyleSheet.create({
       color: 'white',
       
     },
-    
-    textNoBold:{
-      fontSize:16,
-      textAlign :"auto",
-      textAlignVertical:"center"
-    },
     textSmall:{
       fontSize:12,
       textAlign :"center",
@@ -345,11 +339,22 @@ export default StyleSheet.create({
     text: { 
       margin: 6, 
       fontSize: 16, 
-      fontWeight: 'bold' , 
-      textAlign: 'center' 
+      fontWeight: 'normal' , 
+      alignSelf: 'center',
     },
 
-
+    textBold: { 
+      margin: 6, 
+      fontSize: 18, 
+      fontWeight: "bold" , 
+      textAlign: 'center', 
+    },
+    
+    textNoBold:{
+      fontSize:18,
+      textAlign :"auto",
+      textAlignVertical:"center"
+    }
 
     }
   )

@@ -42,11 +42,11 @@ export default function NewVisitor({navigation}) {
       await addDoc(collection(db, "Visitantes"), {
               Nombres: name,
               Apellidos: lastname,
-              Contacto:  number,
+              Contacto:  number.toString(),
               Dirección: address,
               Invitado:inviter,
               Compromiso:false,
-              
+              Genero:gender?gender.label:"No Registrado",
               Fecha_registro: serverTimestamp()
           }).then(() => {
               Alert.alert('Visitante Registrado Correctamente')
@@ -329,7 +329,7 @@ export default function NewVisitor({navigation}) {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos estén correctos',
-                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
+                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nGénero: "+gender+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
                   [
                     {
                       text: 'Si, guardar',
