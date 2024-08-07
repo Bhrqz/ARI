@@ -28,7 +28,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator> 
-      
+       
       <Stack.Screen 
           name="Login" 
           component={Login} 
