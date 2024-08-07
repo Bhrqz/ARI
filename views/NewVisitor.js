@@ -124,7 +124,7 @@ export default function NewVisitor({navigation}) {
     */
 
     //Gender selector stuff
-    const options =[
+    const genderOptions =[
       { label: 'Masculino', value: '1' },
       { label: 'Femenino', value: '2' },
       ]
@@ -188,6 +188,7 @@ export default function NewVisitor({navigation}) {
           )
     }
 
+    console.log("HEYRYERYEYEYR"+gender.label)
 
     return (
       <KeyboardAwareScrollView>
@@ -268,7 +269,7 @@ export default function NewVisitor({navigation}) {
                     selectedTextStyle={styles.selectedTextStyle}
                     style={styles.dropdownLittle}
                     placeholderStyle={styles.textNoTitleList}
-                    data={options}
+                    data={genderOptions}
                     labelField="label"
                     valueField="value"
                     placeholder="Elija una opción"
@@ -329,7 +330,7 @@ export default function NewVisitor({navigation}) {
                 style={styles.button}
                 onPress={() => Alert.alert(
                   'Por favor, verifica que los datos estén correctos',
-                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nGénero: "+gender+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
+                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nGénero: "+gender.label+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
                   [
                     {
                       text: 'Si, guardar',

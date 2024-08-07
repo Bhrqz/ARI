@@ -10,6 +10,7 @@ import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-g
 import colorPicker from './components/AsistenciaColorpicker';
 import CounterTable from './components/CounterTable';
 import Consolidadocompo from './components/Consolidadocompo';
+import Papa from 'papaparse';
 
 const Separator = () => <View style={styles.separator} />;
 const SeparatorNoLine = () => <View style={styles.separatorNoLine} />;
@@ -468,16 +469,16 @@ export default function ReportsMenu ({navigation}){
         const AllData = {visitors, members, reports}
 
         const today = () =>{ 
-            
             const key = dateCreation(new Date())
             return key
         }
         
+        //This code is meant to create JSON
         const generateJSON = async (fileName) => {
-
             try {
               const json = JSON.stringify(AllData, null, 2);
-              const fileUri = `${FileSystem.documentDirectory}Data hasta ${fileName}.json`;
+              
+              const fileUri = `${FileSystem.documentDirectory}Data.json`;
               await FileSystem.writeAsStringAsync(fileUri, json);
               
               return fileUri;
@@ -486,16 +487,65 @@ export default function ReportsMenu ({navigation}){
             }
         };
 
+        //This code is meant to create CSV!!
+        // Función para procesar los datos y convertirlos en un CSV
+        const generateCSV = (data) => {
+            // Crear array de cabeceras y filas
+            const headers = [];
+            const rows = [];
+            
+            //Here I need to create a REALLY Good CSV.
+            Object.keys(data).forEach((key) => {
+            const array = data[key];
+            if (array.length > 0) {
+                const arrayHeaders = Object.keys(array[0]).map(header => `${key}/${header}`);
+                headers.push(...arrayHeaders);
+        
+                array.forEach((item) => {
+                const row = arrayHeaders.map(header => item[header.split('/')[1]]);
+                rows.push(row);
+                });
+            }
+            });
+        
+
+
+            const csvString = Papa.unparse({
+            fields: headers,
+            data: rows,
+            });
+            return csvString;
+        };
+        
+        
+        const saveCSV = async () => {
+            try {
+                const csvString = generateCSV(AllData);
+                const filename = FileSystem.documentDirectory + 'data.csv';
+                await FileSystem.writeAsStringAsync(filename, csvString, { encoding: FileSystem.EncodingType.UTF8 });
+                console.log('Archivo CSV guardado en:', filename);
+                return filename
+            }catch(err){
+                console.error('Error creating JSON file:', err);
+            }
+            
+        };
+
+
         const sendEmail = async () => {
-            const jsonUri = await generateJSON(today());
+            //JSON
+            //const jsonUri = await generateJSON(today());
           
+            //CSV
+            const jsonUri = await saveCSV();
+            
             const isAvailable = await MailComposer.isAvailableAsync();
             if (isAvailable) {
               const options = {
                 recipients: ['josebchrist@hotmail.com'], //This is the EMAIL
                 subject: `Data hasta ${today()}`,
                 body: `Este archivo contiene toda la base de datos hasta ${today()}.`,
-                attachments: [jsonUri],
+                attachments: [jsonUri]
               };
           
               await MailComposer.composeAsync(options);
