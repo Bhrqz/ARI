@@ -489,33 +489,75 @@ export default function ReportsMenu ({navigation}){
 
         //This code is meant to create CSV!!
         // Función para procesar los datos y convertirlos en un CSV
-        const generateCSV = (data) => {
-            // Crear array de cabeceras y filas
-            const headers = [];
-            const rows = [];
-            
-            //Here I need to create a REALLY Good CSV.
-            Object.keys(data).forEach((key) => {
-            const array = data[key];
-            if (array.length > 0) {
-                const arrayHeaders = Object.keys(array[0]).map(header => `${key}/${header}`);
-                headers.push(...arrayHeaders);
-        
-                array.forEach((item) => {
-                const row = arrayHeaders.map(header => item[header.split('/')[1]]);
-                rows.push(row);
+        const flattenObject = (obj, parentKey = '', res = {}) => {
+            for (let key in obj) {
+              const propName = parentKey ? `${parentKey}/${key}` : key;
+          
+              if (Array.isArray(obj[key])) {
+                // Si el valor es un array, expándelo en columnas separadas
+                obj[key].forEach((item, index) => {
+                  const arrayKey = `${propName}_${index + 1}`; // Ej: visitors/visitas_1, visitors/visitas_2, etc.
+                  if (typeof item === 'object' && item !== null) {
+                    flattenObject(item, arrayKey, res);
+                  } else {
+                    res[arrayKey] = item;
+                  }
                 });
+              } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+                // Si el valor es un objeto, sigue aplanando
+                flattenObject(obj[key], propName, res);
+              } else {
+                // Si es un valor simple, añádelo al resultado
+                res[propName] = obj[key];
+              }
             }
-            });
-        
-
-
+            return res;
+          };
+          
+          const generateCSV = (data) => {
+            const headersSet = new Set();
+            const rows = [];
+          
+            const maxLength = Math.max(data.visitors.length, data.members.length, data.reports.length);
+          
+            for (let i = 0; i < maxLength; i++) {
+              const row = {};
+          
+              if (i < data.visitors.length) {
+                const flatVisitor = flattenObject(data.visitors[i], 'visitors');
+                Object.assign(row, flatVisitor);
+              }
+          
+              if (i < data.members.length) {
+                const flatMember = flattenObject(data.members[i], 'members');
+                Object.assign(row, flatMember);
+              }
+          
+              if (i < data.reports.length) {
+                const flatReport = flattenObject(data.reports[i], 'reports');
+                Object.assign(row, flatReport);
+              }
+          
+              Object.keys(row).forEach(header => headersSet.add(header));
+          
+              rows.push(row);
+            }
+          
+            const headers = Array.from(headersSet);
+          
+            const csvRows = rows.map(row => headers.map(header => row[header] || ''));
+          
+            csvRows.unshift(headers);
+          
             const csvString = Papa.unparse({
-            fields: headers,
-            data: rows,
+              fields: headers,
+              data: csvRows,
             });
+          
             return csvString;
-        };
+          };
+            
+          
         
         
         const saveCSV = async () => {
