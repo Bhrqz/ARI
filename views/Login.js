@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {View, Text, TextInput, Pressable, Image, Alert} from 'react-native';
+import { db } from './components/config';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './components/styles';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useNavigation } from '@react-navigation/core';
+
 
 
   
