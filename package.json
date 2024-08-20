@@ -13,30 +13,20 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
-<<<<<<< HEAD
     "@json2csv/plainjs": "^7.0.6",
-=======
->>>>>>> 7ea475df21ff3c5d62de601e63ec0ffc89e67668
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^6.1.14",
     "@react-navigation/native-stack": "^6.9.22",
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.8",
-<<<<<<< HEAD
     "expo": "^51.0.24",
-=======
-    "expo": "^51.0.8",
->>>>>>> 7ea475df21ff3c5d62de601e63ec0ffc89e67668
     "expo-file-system": "^17.0.1",
     "expo-linear-gradient": "~13.0.2",
     "expo-mail-composer": "~13.0.1",
     "expo-status-bar": "~1.12.1",
     "firebase": "^10.8.1",
-<<<<<<< HEAD
     "json2csv": "^6.0.0-alpha.2",
     "papaparse": "^5.4.1",
-=======
->>>>>>> 7ea475df21ff3c5d62de601e63ec0ffc89e67668
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.73.4",
