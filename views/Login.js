@@ -8,10 +8,6 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useNavigation } from '@react-navigation/core';
 
 
-
-  
- 
-
 const Separator = () => <View style={styles.separator} />;
 
 
