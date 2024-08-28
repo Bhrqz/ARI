@@ -174,8 +174,8 @@ export default function ReportsMenu ({navigation}){
     
     function groupByDate(array) {
         const grouped = {};
-            
         array.forEach(item => {
+            console.log(item)
             const key = dateCreation(item["Fecha_registro"].toDate())
     
             if (!grouped[key]) {
@@ -280,7 +280,6 @@ export default function ReportsMenu ({navigation}){
         return sorted
     }
     
-
     //This is for the Report(Anomalías)
     const reportbyDate =(array)=>{
         const grouped = {};
@@ -294,7 +293,7 @@ export default function ReportsMenu ({navigation}){
             grouped[key]++;
 
         });
-
+        
         const resultarray = []
         const lastFourSundays = Object.keys(getLastXSundays(MaxNumberofDays));
             lastFourSundays.forEach(sunday => {
@@ -323,6 +322,7 @@ export default function ReportsMenu ({navigation}){
         return reversedArray;
     }
 
+    
     const reportedByDate = reportbyDate(reports)
     const groupedByDate = groupByDate(visitors);
     const asistenciavisual = AsistenciaVisual()
@@ -492,7 +492,6 @@ export default function ReportsMenu ({navigation}){
         const flattenObject = (obj, parentKey = '', res = {}) => {
             for (let key in obj) {
               const propName = parentKey ? `${parentKey}/${key}` : key;
-          
               if (Array.isArray(obj[key])) {
                 // Si el valor es un array, expándelo en columnas separadas
                 obj[key].forEach((item, index) => {

@@ -188,7 +188,35 @@ export default function NewVisitor({navigation}) {
           )
     }
 
-    console.log("HEYRYERYEYEYR"+gender.label)
+    
+    const HandlingGuardarRegistro = () => {
+      if(name.length == 0 || lastname.length == 0 || number.toString() ==0 || gender.label == undefined){
+        Alert.alert("Información incompleta", "Por favor especifique Nombre, Apellido, Contacto y Género del visitante")
+      }
+      else{
+        Alert.alert(
+          'Por favor, verifica que los datos estén correctos',
+          "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nGénero: "+gender.label+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
+          [
+            {
+              text: 'Si, guardar',
+              onPress: () => SendingInfo(),
+              style: styles.input,
+            },
+            {
+              text: 'Cancelar',
+              onPress: () => Alert.alert('Accion Cancelada'),
+              style: 'cancel',
+            },
+          ],
+          {
+            cancelable: false,
+            
+          },
+        )
+      }
+    }
+
 
     return (
       <KeyboardAwareScrollView>
@@ -328,26 +356,8 @@ export default function NewVisitor({navigation}) {
               <Separator />
               <Pressable
                 style={styles.button}
-                onPress={() => Alert.alert(
-                  'Por favor, verifica que los datos estén correctos',
-                  "Nombres: "+name +"\nApellidos: "+lastname +"\nContacto: "+number+"\nDirecciòn: "+address+"\nGénero: "+gender.label+"\nInvitado por: "+inviter+"\nFecha de registro: "+showDate(),
-                  [
-                    {
-                      text: 'Si, guardar',
-                      onPress: () => SendingInfo(),
-                      style: styles.input,
-                    },
-                    {
-                      text: 'Cancelar',
-                      onPress: () => Alert.alert('Accion Cancelada'),
-                      style: 'cancel',
-                    },
-                  ],
-                  {
-                    cancelable: false,
-                    
-                  },
-                )}>
+                //disabled={false}
+                onPress={HandlingGuardarRegistro}>
                 <Text style={styles.buttonText}>Guardar Registro</Text>
            
               </Pressable>

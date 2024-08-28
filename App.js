@@ -33,7 +33,7 @@ export default function App() {
           name="Login" 
           component={Login} 
           options={{ title: 'Iglesia Valle de Bendición' }} />
-      
+       
         <Stack.Screen 
           name="Home" 
           component={Home} 
