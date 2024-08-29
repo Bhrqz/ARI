@@ -29,9 +29,12 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
 
 # typescript
 *.tsbuildinfo
 
 .vercel
+
+./views/components/config.jsx
