@@ -137,11 +137,11 @@ const Consolidadocompo = (props) => {
                 <Text style={styles.textBold}> Salon Principal</Text>
                 <View style={styles.viewCounter}>
                     <Text style={styles.textNoBold}>
-                        Mujeres: {CountToShow.Salon_Principal_M}
+                        Mujeres: {CountToShow.Salon_Principal_F}
                     </Text>
                     <Text style={styles.textNoBold}>  /  </Text>
                     <Text style={styles.textNoBold}>
-                        Hombres: {CountToShow.Salon_Principal_F}
+                        Hombres: {CountToShow.Salon_Principal_M}
                     </Text>
                 </View>
             </View>
@@ -190,18 +190,6 @@ const Consolidadocompo = (props) => {
                     <Text style={styles.textNoBold}>  /  </Text>
                     <Text style={styles.textNoBold}>
                         Niños: {CountToShow.Principiantes_M}
-                    </Text>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.textBold}>Adolescentes</Text>
-                <View style={styles.viewCounter}>
-                    <Text style={styles.textNoBold}>
-                        Niñas: {CountToShow.Adolescentes_F}
-                    </Text>
-                    <Text style={styles.textNoBold}>  /  </Text>
-                    <Text style={styles.textNoBold}>
-                        Niños: {CountToShow.Adolescentes_M}
                     </Text>
                 </View>
             </View>

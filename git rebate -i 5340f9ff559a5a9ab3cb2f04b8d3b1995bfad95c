@@ -1,0 +1,264 @@
+[33mcommit f0a202dc2e39ac23c7f968344d1e9b2bc0c23241[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Aug 29 18:43:36 2024 -0500
+
+    paying the novatada
+
+[33mcommit 91bb365dac21672e10fc95febc98507105401595[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Aug 29 18:35:42 2024 -0500
+
+    Elimina archivo config.jsx que contiene información sensible
+
+[33mcommit b0f4665773361cc6bc3ff7c9371593c2d2037f12[m
+Merge: 876f80b 57547d9
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Aug 29 18:27:44 2024 -0500
+
+    Merge branch 'main' of https://github.com/Bhrqz/ARI
+
+[33mcommit 876f80bcc35eb1fa9176276e05ea727eb1f5a088[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Wed Aug 28 18:48:43 2024 -0500
+
+    no more new visitors with void info
+
+[33mcommit 57547d9f3918af6e9b49bef83b6f8fd4073ae7cc[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Wed Aug 28 18:48:43 2024 -0500
+
+    no more new visitors with void info
+
+[33mcommit 5340f9ff559a5a9ab3cb2f04b8d3b1995bfad95c[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 27 18:41:49 2024 -0500
+
+    splash screen and icon updated
+
+[33mcommit 32285932950c5d7e3c9bf9bb78ec649aa9e59a26[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 27 18:41:49 2024 -0500
+
+    splash screen and icon updated
+
+[33mcommit 55829287eafad538932c081e6d8168c3e6ec1a42[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 27 18:00:52 2024 -0500
+
+    after 1st field test
+
+[33mcommit 877391a361bf9d961393da6765c00ca47092f09a[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 27 18:00:52 2024 -0500
+
+    after 1st field test
+
+[33mcommit 5765cf72a9edad97d2e0ae08ceb3d0fc71922b6a[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 20 18:01:05 2024 -0500
+
+    second push of today, just in case
+
+[33mcommit 9545926f0419d68208dcfb41587f82bb27a148d1[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 20 18:01:05 2024 -0500
+
+    second push of today, just in case
+
+[33mcommit c4578ebe2b838bad96bb729f7bd9d4ecc5a5fd43[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 20 17:48:06 2024 -0500
+
+    checking if git still works
+
+[33mcommit d1464064a0bbfcca347565848f3b57fbc1cf214a[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 20 17:48:06 2024 -0500
+
+    checking if git still works
+
+[33mcommit 6709425e1a88ef224afa50ee1960c864460035f9[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:29:29 2024 -0500
+
+    checking if github can listen to my terminal
+
+[33mcommit 6db2c39728bad3945548e7dc7d129b40c1f775e2[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:29:29 2024 -0500
+
+    checking if github can listen to my terminal
+
+[33mcommit b28f6ff03b340c33e05d1ac59691339bc7b5d672[m
+Merge: 1681ebe c7807a4
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:20:22 2024 -0500
+
+    Merge branch 'main' of https://github.com/Bhrqz/ARI
+    "I just want to recover my repository"
+
+[33mcommit 8cc427254f3dba1a85c7944f966abff1457eee25[m
+Merge: 9350912 9cda352
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:20:22 2024 -0500
+
+    Merge branch 'main' of https://github.com/Bhrqz/ARI
+    "I just want to recover my repository"
+
+[33mcommit c7807a47ad294f3c8a30d589ccd6dff5092eb4e5[m
+Merge: 419315d 62cc595
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Mon Aug 12 19:08:51 2024 -0500
+
+    Merge pull request #3 from Bhrqz/master
+    
+    Merge pull request #2 from Bhrqz/main
+
+[33mcommit 9cda352ae373857d2946c4140d4f7637505e6205[m
+Merge: 16d5140 2974365
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Mon Aug 12 19:08:51 2024 -0500
+
+    Merge pull request #3 from Bhrqz/master
+    
+    Merge pull request #2 from Bhrqz/main
+
+[33mcommit 62cc595f96021e6686ccd9e1cd74287268e46862[m
+Merge: 7821f5d 419315d
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Mon Aug 12 19:08:21 2024 -0500
+
+    Merge pull request #2 from Bhrqz/main
+    
+    Merge pull request #1 from Bhrqz/master
+
+[33mcommit 297436580954e0163b56d5c390c746ee7e2f5444[m
+Merge: 5931f13 16d5140
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Mon Aug 12 19:08:21 2024 -0500
+
+    Merge pull request #2 from Bhrqz/main
+    
+    Merge pull request #1 from Bhrqz/master
+
+[33mcommit 1681ebe4a5c7731003aca91f9e82c580203a2c80[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:01:16 2024 -0500
+
+    the generated CSV file is good to go
+
+[33mcommit 9350912e9525d7da08dab9e28906d85c73fb335e[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Mon Aug 12 19:01:16 2024 -0500
+
+    the generated CSV file is good to go
+
+[33mcommit 419315d93d71c68ffc3e8c602cb621ea45ef4702[m
+Merge: 26260bc 7821f5d
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Tue Aug 6 20:39:25 2024 -0500
+
+    Merge pull request #1 from Bhrqz/master
+    
+    Master
+
+[33mcommit 16d5140036238483241f28428f4642efb299d070[m
+Merge: 7ea475d 5931f13
+Author: Bhrqz <60305344+Bhrqz@users.noreply.github.com>
+Date:   Tue Aug 6 20:39:25 2024 -0500
+
+    Merge pull request #1 from Bhrqz/master
+    
+    Master
+
+[33mcommit 7821f5dbbc9b214417b4cfb0b2ced327dae7211d[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: f95d96e 26260bc
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 6 20:37:34 2024 -0500
+
+    Trying to merge with main branch
+
+[33mcommit 5931f1367d7fbab7fb661b05d0a62848b0f2e012[m
+Merge: 60cabde 7ea475d
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 6 20:37:34 2024 -0500
+
+    Trying to merge with main branch
+
+[33mcommit f95d96ec79afb37bdb8d65694cb13bb9b07570d0[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 6 19:49:14 2024 -0500
+
+    after the virus // Migrating to CSV
+
+[33mcommit 60cabde51063f08cdcc5001bf664717ed01a8f19[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Aug 6 19:49:14 2024 -0500
+
+    after the virus // Migrating to CSV
+
+[33mcommit 26260bc806e314c1751836169650545c747c31fd[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Sat Jul 20 23:17:32 2024 -0500
+
+    Cosmetic changes and the Consolidado page shows the info sorted by gender now
+
+[33mcommit 7ea475df21ff3c5d62de601e63ec0ffc89e67668[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Sat Jul 20 23:17:32 2024 -0500
+
+    Cosmetic changes and the Consolidado page shows the info sorted by gender now
+
+[33mcommit b12a302708cab008aff18b787cf9f7888829d9fc[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Fri Jul 19 23:03:40 2024 -0500
+
+    The Consolidado page shows the relevant info now. The app is almost complete by now
+
+[33mcommit 9fc0a7bb4e68aee940760264e4b53bf5c0c20871[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Fri Jul 19 23:03:40 2024 -0500
+
+    The Consolidado page shows the relevant info now. The app is almost complete by now
+
+[33mcommit d6e3e0d73a21d2a9ce6524c6fc60d0de59a8a4a8[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Jul 18 20:02:21 2024 -0500
+
+    The only missing thing in the Consolidado part is the Table component
+
+[33mcommit 390413b1e65c61f8614d7ab2bbe66849b2920be8[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Jul 18 20:02:21 2024 -0500
+
+    The only missing thing in the Consolidado part is the Table component
+
+[33mcommit 29026fc0d7d4c123fe57e616296a9491ef040fe5[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Jul 16 18:23:54 2024 -0500
+
+    Creating the Consolidado page 2
+
+[33mcommit 7d16c9a3bf9c1a62c316b448361e5f7aa8c605aa[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Jul 16 18:23:54 2024 -0500
+
+    Creating the Consolidado page 2
+
+[33mcommit 968eab8667f0a2f7cd1fc506798d82fb8b941a3c[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Jul 16 18:20:03 2024 -0500
+
+    Creating the Consolidado page
+
+[33mcommit 5d7ad962a98f8120b63f9be47618dfbe28726720[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Tue Jul 16 18:20:03 2024 -0500
+
+    Creating the Consolidado page
+
+[33mcommit 90dc1c057b7cb58d8ffd11dcf67f289cfb7d246b[m
+Author: Zeukrob <josebchrist@hotmail.com>
+Date:   Thu Jul 4 00:10:53 2024 -0500
+
+    The asist
