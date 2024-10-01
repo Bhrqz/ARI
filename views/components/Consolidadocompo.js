@@ -97,6 +97,22 @@ const Consolidadocompo = (props) => {
                 womenCount++
             }
         }
+        if(element.Visitas)
+        {
+            for(let visit of element.Visitas)
+            {
+                if(dateCreation(visit.toDate())==countDate)
+                {
+                    visitorsNumber++
+                    if(element["Genero"]=="Masculino"){
+                        menCount++
+                    }
+                    else if(element["Genero"]=="Femenino"){
+                        womenCount++
+                    }
+                }
+            }
+        }
         
     }
 
